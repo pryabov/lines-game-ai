@@ -21,11 +21,19 @@
   background-color: #282c34;
   padding: 20px;
   color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .App-header h1 {
   margin: 0;
   font-size: 2rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
 }
 
 main {
@@ -54,4 +62,9 @@ main {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Ensure smooth transitions when changing themes */
+body, .App, .App-header, .App-footer, .game, .board, .cell, .next-balls-panel, .score, .game-over {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }

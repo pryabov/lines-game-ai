@@ -1,7 +1,9 @@
 import React from 'react';
 import { Provider } from 'jotai';
 import Game from './components/Game';
+import ThemeToggle from './components/ThemeToggle';
 import './App.css';
+import './styles/DarkTheme.css';
 
 function App() {
   return (
@@ -9,6 +11,9 @@ function App() {
       <div className="App">
         <header className="App-header">
           <h1>Lines Game</h1>
+          <div className="header-right">
+            <ThemeToggle />
+          </div>
         </header>
         <main>
           <Game />

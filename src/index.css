@@ -1,11 +1,26 @@
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f8f9fa;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#root {
+  height: 100%;
+  min-height: 100vh;
+}
+
+html.dark-theme,
+body.dark-theme {
+  background-color: #121212;
+  color: #e0e0e0;
 }
 
 code {
