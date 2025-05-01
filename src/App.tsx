@@ -6,8 +6,8 @@ import OfflineNotice from './components/OfflineNotice';
 import InstallPrompt from './components/InstallPrompt';
 import UpdateNotification from './components/UpdateNotification';
 import AnalyticsProvider from './components/AnalyticsProvider';
-import './App.css';
-import './styles/DarkTheme.css';
+import './App.scss';
+import './styles/DarkTheme.scss';
 
 function App() {
   return (

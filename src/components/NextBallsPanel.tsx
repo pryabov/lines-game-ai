@@ -1,6 +1,6 @@
 import React from 'react';
 import { Ball } from '../types';
-import '../styles/NextBallsPanel.css';
+import '../styles/NextBallsPanel.scss';
 
 interface NextBallsPanelProps {
   balls: Ball[];

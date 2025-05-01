@@ -27,22 +27,22 @@
   padding: 15px 20px;
   background-color: #4CAF50;
   color: white;
-}
-
-.dialog-header h3 {
-  margin: 0;
-  font-size: 18px;
+  
+  h3 {
+    margin: 0;
+    font-size: 18px;
+  }
 }
 
 .dialog-content {
   padding: 20px;
-}
-
-.dialog-content p {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #333;
+  
+  p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+  }
 }
 
 .dialog-actions {
@@ -65,19 +65,43 @@
 .cancel-button {
   background-color: #f0f0f0;
   color: #333;
-}
-
-.cancel-button:hover {
-  background-color: #e0e0e0;
+  
+  &:hover {
+    background-color: #e0e0e0;
+  }
 }
 
 .confirm-button {
   background-color: #f44336;
   color: white;
+  
+  &:hover {
+    background-color: #d32f2f;
+  }
 }
 
-.confirm-button:hover {
-  background-color: #d32f2f;
+/* Dark theme support */
+:root.dark-theme {
+  .dialog-container {
+    background-color: #222;
+  }
+  
+  .dialog-header {
+    background-color: #1e6329;
+  }
+  
+  .dialog-content p {
+    color: #e0e0e0;
+  }
+  
+  .cancel-button {
+    background-color: #333;
+    color: #e0e0e0;
+    
+    &:hover {
+      background-color: #444;
+    }
+  }
 }
 
 @keyframes fadeIn {
@@ -96,26 +120,4 @@
   to {
     transform: scale(1);
   }
-}
-
-/* Dark theme support */
-:root.dark-theme .dialog-container {
-  background-color: #222;
-}
-
-:root.dark-theme .dialog-header {
-  background-color: #1e6329;
-}
-
-:root.dark-theme .dialog-content p {
-  color: #e0e0e0;
-}
-
-:root.dark-theme .cancel-button {
-  background-color: #333;
-  color: #e0e0e0;
-}
-
-:root.dark-theme .cancel-button:hover {
-  background-color: #444;
 } 

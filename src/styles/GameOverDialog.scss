@@ -29,14 +29,18 @@
   background-color: #f44336;
   color: white;
   text-align: center;
-}
-
-.game-over-header h2 {
-  margin: 0;
-  font-size: 28px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  animation: pulse 2s infinite ease-in-out;
+  
+  h2 {
+    margin: 0;
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: pulse 2s infinite ease-in-out;
+    
+    @media (max-width: 480px) {
+      font-size: 24px;
+    }
+  }
 }
 
 .game-over-content {
@@ -64,6 +68,10 @@
   font-weight: bold;
   color: #333;
   animation: scoreIn 0.8s ease-out;
+  
+  @media (max-width: 480px) {
+    font-size: 40px;
+  }
 }
 
 .score-message {
@@ -92,17 +100,40 @@
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  
+  &:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
 }
 
-.play-again-button:hover {
-  background-color: #45a049;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.play-again-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+/* Dark theme support */
+:root.dark-theme {
+  .game-over-container {
+    background-color: #222;
+  }
+  
+  .game-over-header {
+    background-color: #d32f2f;
+  }
+  
+  .score-label {
+    color: #aaa;
+  }
+  
+  .score-value {
+    color: #e0e0e0;
+  }
+  
+  .score-message {
+    color: #bbb;
+  }
 }
 
 @keyframes fadeIn {
@@ -148,37 +179,5 @@
   }
   100% {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-  }
-}
-
-/* Dark theme support */
-:root.dark-theme .game-over-container {
-  background-color: #222;
-}
-
-:root.dark-theme .game-over-header {
-  background-color: #d32f2f;
-}
-
-:root.dark-theme .score-label {
-  color: #aaa;
-}
-
-:root.dark-theme .score-value {
-  color: #e0e0e0;
-}
-
-:root.dark-theme .score-message {
-  color: #bbb;
-}
-
-/* Mobile adjustments */
-@media (max-width: 480px) {
-  .game-over-header h2 {
-    font-size: 24px;
-  }
-  
-  .score-value {
-    font-size: 40px;
   }
 } 

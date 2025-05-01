@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../styles/GameOverDialog.css';
+import '../styles/GameOverDialog.scss';
 
 interface GameOverDialogProps {
   isOpen: boolean;

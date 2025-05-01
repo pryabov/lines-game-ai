@@ -5,8 +5,8 @@ import { useGameStatePersistence } from '../hooks/useGameStatePersistence';
 import ConfirmDialog from './ConfirmDialog';
 import GameOverDialog from './GameOverDialog';
 import analytics from '../services/analytics';
-import '../styles/Game.css';
-import '../styles/NextBallsPanel.css';
+import '../styles/Game.scss';
+import '../styles/NextBallsPanel.scss';
 
 // Internal NextBallsPanel component
 const NextBallsPanel = ({ balls }: { balls: React.ReactNode[] }) => {

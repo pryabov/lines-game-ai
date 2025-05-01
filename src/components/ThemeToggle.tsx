@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { themePersistAtom } from '../atoms/themeAtom';
 import analytics from '../services/analytics';
-import '../styles/ThemeToggle.css';
+import '../styles/ThemeToggle.scss';
 
 const ThemeToggle: React.FC = () => {
   const [theme, setTheme] = useAtom(themePersistAtom);

@@ -1,0 +1,233 @@
+@use "sass:list";
+
+:root {
+  --cell-size: clamp(32px, 5vw, 50px);
+  --ball-size: calc(var(--cell-size) * 0.75);
+  --ball-offset: calc((var(--cell-size) - var(--ball-size)) / 2);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 1px solid #aaa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #e8e8e8;
+  position: relative;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: #d0d0d0;
+    
+    .ball-inner {
+      transform: scale(1.05);
+    }
+  }
+  
+  &.selected {
+    background-color: #c8e6ff;
+    
+    .ball-inner {
+      animation: selectedBallJump 0.8s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), inset -3px -3px 5px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  &.ball {
+    position: relative;
+  }
+  
+  /* Path animation */
+  &.path {
+    background-color: #f0f8ff;
+    transition: background-color 0.3s;
+  }
+  
+  /* Styling for different steps of the path */
+  @for $i from 1 through 10 {
+    &.path-step-#{$i} { 
+      animation: pathAppear 0.3s ease-in-out forwards; 
+      animation-delay: $i * 0.05s; 
+      
+      .path-dot { 
+        animation-delay: $i * 0.1s; 
+      }
+    }
+  }
+  
+  /* Line completion animation */
+  &.line-complete {
+    .ball-inner {
+      animation: lineCompleteFlash 0.5s ease-in-out 2, lineCompleteDisappear 0.8s ease-in-out 1s forwards;
+    }
+  }
+  
+  /* Special animation for each ball in the line based on position */
+  @for $i from 1 through 9 {
+    &.line-pos-#{$i} {
+      .ball-inner { 
+        animation-delay: ($i - 1) * 0.1s, 1s + ($i - 1) * 0.1s; 
+      }
+    }
+  }
+}
+
+.ball-inner {
+  width: var(--ball-size);
+  height: var(--ball-size);
+  border-radius: 50%;
+  box-shadow: inset -3px -3px 5px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+/* Ball colors */
+$ball-colors: (
+  'red': (#ff6b6b, #d00),
+  'blue': (#6b9aff, #0044d0),
+  'green': (#6bff9a, #00d044),
+  'yellow': (#fff06b, #d0ac00),
+  'purple': (#d26bff, #7700d0),
+  'cyan': (#6bffff, #00a0d0),
+  'orange': (#ffa06b, #d06000)
+);
+
+@each $color, $gradient in $ball-colors {
+  .ball-#{$color} .ball-inner {
+    background: radial-gradient(circle at 30% 30%, list.nth($gradient, 1), list.nth($gradient, 2));
+  }
+  
+  .ball-#{$color}-inner {
+    background: radial-gradient(circle at 30% 30%, list.nth($gradient, 1), list.nth($gradient, 2));
+  }
+}
+
+.path-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #b3d9ff;
+  animation: pulse 1s infinite;
+}
+
+/* Ball animation */
+.ball-animated .ball-inner {
+  animation: moveAlongPath 0.5s ease-in-out;
+}
+
+/* Ball moving animation */
+.moving-ball {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 9999;
+  transition: left 0.25s ease-in-out, top 0.25s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  
+  .ball-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: inset -3px -3px 5px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  &.jumping {
+    z-index: 9999;
+    box-shadow: none !important;
+    
+    .ball-inner {
+      animation: jumpBall 0.3s ease-in-out;
+      box-shadow: none !important;
+    }
+  }
+}
+
+/* Animations */
+@keyframes pathAppear {
+  0% {
+    background-color: #e8e8e8;
+  }
+  100% {
+    background-color: #f0f8ff;
+  }
+}
+
+@keyframes moveAlongPath {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.7;
+  }
+}
+
+@keyframes jumpBall {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes lineCompleteFlash {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.15);
+    filter: brightness(1.5);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+@keyframes lineCompleteDisappear {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes selectedBallJump {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.1);
+  }
+} 

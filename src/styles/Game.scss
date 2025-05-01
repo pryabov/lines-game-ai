@@ -11,16 +11,26 @@
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
-}
-
-.game-info {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  margin-bottom: clamp(10px, 3vw, 20px);
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
+  
+  &-info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: clamp(10px, 3vw, 20px);
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  /* Responsive adjustments */
+  @media screen and (max-width: 480px) {
+    padding: 10px;
+    
+    &-info {
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
 }
 
 .score-container {
@@ -51,18 +61,18 @@
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.reset-button:hover {
-  background-color: #d32f2f;
-  transform: translateY(-1px);
-}
-
-.reset-button:disabled {
-  background-color: #cccccc;
-  color: #666666;
-  cursor: not-allowed;
-  transform: none;
+  
+  &:hover {
+    background-color: #d32f2f;
+    transform: translateY(-1px);
+  }
+  
+  &:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    transform: none;
+  }
 }
 
 .board-container {
@@ -71,16 +81,4 @@
   width: 100%;
   display: flex;
   justify-content: center;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 480px) {
-  .game {
-    padding: 10px;
-  }
-  
-  .game-info {
-    flex-direction: column;
-    gap: 15px;
-  }
 } 

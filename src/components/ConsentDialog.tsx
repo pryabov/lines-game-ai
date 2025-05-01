@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/ConsentDialog.css';
+import '../styles/ConsentDialog.scss';
 
 interface ConsentDialogProps {
   onAccept: () => void;

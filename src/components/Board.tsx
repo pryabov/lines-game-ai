@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import Cell from './Cell';
 import { CellType, Position } from '../types';
-import '../styles/Board.css';
+import '../styles/Board.scss';
 
 interface BoardProps {
   grid: CellType[][];
