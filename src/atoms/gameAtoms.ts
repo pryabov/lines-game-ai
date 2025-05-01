@@ -7,8 +7,8 @@ export const COLORS: BallColor[] = ['red', 'blue', 'green', 'yellow', 'purple', 
 export const BALLS_PER_TURN = 3;
 export const MIN_LINE_LENGTH = 5;
 export const ANIMATION_DURATION = 800; // Animation duration in ms
-export const STEP_DURATION = 250; // Duration of each step in the path animation
-export const JUMP_ANIMATION_DURATION = 200; // Duration of the jump animation
+export const STEP_DURATION = 400; // Duration of each step in the path animation
+export const JUMP_ANIMATION_DURATION = 350; // Duration of the jump animation
 
 // Helper function to generate an initial empty grid
 export const createEmptyGrid = (): CellType[][] => 

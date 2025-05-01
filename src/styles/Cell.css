@@ -1,6 +1,12 @@
+:root {
+  --cell-size: clamp(32px, 5vw, 50px);
+  --ball-size: calc(var(--cell-size) * 0.75);
+  --ball-offset: calc((var(--cell-size) - var(--ball-size)) / 2);
+}
+
 .cell {
-  width: 40px;
-  height: 40px;
+  width: var(--cell-size);
+  height: var(--cell-size);
   border: 1px solid #aaa;
   display: flex;
   justify-content: center;
@@ -24,8 +30,8 @@
 }
 
 .ball-inner {
-  width: 30px;
-  height: 30px;
+  width: var(--ball-size);
+  height: var(--ball-size);
   border-radius: 50%;
   box-shadow: inset -3px -3px 5px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
@@ -79,6 +85,17 @@
 }
 
 /* Styling for different steps of the path */
+.cell.path-step-1 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.05s; }
+.cell.path-step-2 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.1s; }
+.cell.path-step-3 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.15s; }
+.cell.path-step-4 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.2s; }
+.cell.path-step-5 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.25s; }
+.cell.path-step-6 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.3s; }
+.cell.path-step-7 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.35s; }
+.cell.path-step-8 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.4s; }
+.cell.path-step-9 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.45s; }
+.cell.path-step-10 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.5s; }
+
 .cell.path-step-1 .path-dot { animation-delay: 0s; }
 .cell.path-step-2 .path-dot { animation-delay: 0.1s; }
 .cell.path-step-3 .path-dot { animation-delay: 0.2s; }
@@ -89,6 +106,15 @@
 .cell.path-step-8 .path-dot { animation-delay: 0.7s; }
 .cell.path-step-9 .path-dot { animation-delay: 0.8s; }
 .cell.path-step-10 .path-dot { animation-delay: 0.9s; }
+
+@keyframes pathAppear {
+  0% {
+    background-color: #e8e8e8;
+  }
+  100% {
+    background-color: #f0f8ff;
+  }
+}
 
 /* Ball animation */
 @keyframes moveAlongPath {
@@ -125,11 +151,22 @@
 /* Ball moving animation */
 .moving-ball {
   position: absolute;
-  width: 30px;
-  height: 30px;
   border-radius: 50%;
-  z-index: 10;
-  transition: left 0.2s ease-out, top 0.2s ease-out;
+  z-index: 9999; /* Extremely high z-index to be above all elements */
+  transition: left 0.25s ease-in-out, top 0.25s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  pointer-events: none; /* Prevent interference with clicks */
+  /* Width and height are now set dynamically in JS */
+  /* Will be positioned relative to body for maximum visibility */
+}
+
+/* Ensure ball inner is visible */
+.moving-ball .ball-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: inset -3px -3px 5px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 /* Define specific colors for the ball inner divs during animation */
@@ -161,44 +198,16 @@
   background: radial-gradient(circle at 30% 30%, #ffa06b, #d06000);
 }
 
-.moving-ball .ball-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  box-shadow: inset -3px -3px 5px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
-  animation: jumpAnimation 0.2s ease-out;
-}
-
-@keyframes jumpAnimation {
+/* Separate jump animation */
+@keyframes jumpBall {
   0% {
     transform: translateY(0) scale(1);
   }
   50% {
-    transform: translateY(-15px) scale(1.1);
+    transform: translateY(-20px) scale(1.1);
   }
   100% {
     transform: translateY(0) scale(1);
-  }
-}
-
-/* Make the path cells appear with a sequential delay */
-.cell.path-step-1 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.05s; }
-.cell.path-step-2 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.1s; }
-.cell.path-step-3 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.15s; }
-.cell.path-step-4 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.2s; }
-.cell.path-step-5 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.25s; }
-.cell.path-step-6 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.3s; }
-.cell.path-step-7 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.35s; }
-.cell.path-step-8 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.4s; }
-.cell.path-step-9 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.45s; }
-.cell.path-step-10 { animation: pathAppear 0.3s ease-in-out forwards; animation-delay: 0.5s; }
-
-@keyframes pathAppear {
-  0% {
-    background-color: #e8e8e8;
-  }
-  100% {
-    background-color: #f0f8ff;
   }
 }
 
@@ -260,4 +269,15 @@
 .cell.selected .ball-inner {
   animation: selectedBallJump 0.8s ease-in-out infinite;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), inset -3px -3px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Additional classes for animation effects */
+.moving-ball.jumping {
+  z-index: 9999; /* Extremely high z-index to be above all elements */
+  box-shadow: none !important; /* Remove shadow when jumping */
+}
+
+.moving-ball.jumping .ball-inner {
+  animation: jumpBall 0.3s ease-in-out;
+  box-shadow: none !important; /* Remove shadow from inner ball when jumping */
 } 

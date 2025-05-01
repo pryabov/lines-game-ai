@@ -17,6 +17,7 @@ const Cell: React.FC<CellProps> = ({
   type, 
   onClick, 
   isSelected, 
+  position,
   isPath = false,
   pathStep = 0,
   isLineComplete = false,
@@ -32,7 +33,12 @@ const Cell: React.FC<CellProps> = ({
   `;
 
   return (
-    <div className={cellClass} onClick={onClick}>
+    <div 
+      className={cellClass} 
+      onClick={onClick}
+      data-row={position.row}
+      data-col={position.col}
+    >
       {type.ball && <div className="ball-inner"></div>}
       {isPath && !type.ball && <div className="path-dot"></div>}
     </div>

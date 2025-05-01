@@ -2,25 +2,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: clamp(10px, 3vw, 30px);
   font-family: 'Arial', sans-serif;
-  max-width: 500px;
+  max-width: 100%;
+  width: clamp(350px, 90vw, 700px);
   margin: 0 auto;
   position: relative;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
 .game-info {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 3vw, 20px);
   align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .score {
-  font-size: 24px;
+  font-size: clamp(18px, 4vw, 24px);
   font-weight: bold;
   color: #333;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .game-over {
@@ -36,16 +46,17 @@
   align-items: center;
   color: white;
   z-index: 10;
-  border-radius: 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(3px);
 }
 
 .game-over h2 {
-  font-size: 32px;
+  font-size: clamp(24px, 6vw, 32px);
   margin-bottom: 10px;
 }
 
 .game-over p {
-  font-size: 20px;
+  font-size: clamp(16px, 4vw, 20px);
   margin-bottom: 20px;
 }
 
@@ -53,22 +64,38 @@
   background-color: #4CAF50;
   border: none;
   color: white;
-  padding: 12px 24px;
+  padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 16px);
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
 }
 
 .game-over button:hover {
   background-color: #45a049;
+  transform: translateY(-2px);
 }
 
 .board-container {
   position: relative;
-  margin: 20px auto;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 480px) {
+  .game {
+    padding: 10px;
+  }
+  
+  .game-info {
+    flex-direction: column;
+    gap: 15px;
+  }
 } 

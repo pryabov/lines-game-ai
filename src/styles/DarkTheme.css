@@ -20,12 +20,13 @@ body.dark-theme,
 /* Make sure main section has dark background */
 .dark-theme main {
   background-color: #121212;
+  background-image: radial-gradient(circle at center, rgba(30,30,30,0.8) 0%, rgba(18,18,18,0.3) 100%);
 }
 
 /* Game container */
 .dark-theme .game {
   background-color: #1a1a1a;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 /* Game info section */
@@ -37,6 +38,7 @@ body.dark-theme,
 .dark-theme .board {
   background-color: #2a2a2a;
   border-color: #444;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .dark-theme .board-row {
@@ -74,7 +76,7 @@ body.dark-theme,
 .dark-theme .next-balls-panel {
   background-color: #2a2a2a;
   border-color: #444;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .dark-theme .next-balls-title {
@@ -90,7 +92,7 @@ body.dark-theme,
   color: #e0e0e0;
   background-color: #2a2a2a;
   border-color: #444;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* Game over screen */
