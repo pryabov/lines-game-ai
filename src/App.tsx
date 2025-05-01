@@ -2,6 +2,9 @@ import React from 'react';
 import { Provider } from 'jotai';
 import Game from './components/Game';
 import ThemeToggle from './components/ThemeToggle';
+import OfflineNotice from './components/OfflineNotice';
+import InstallPrompt from './components/InstallPrompt';
+import UpdateNotification from './components/UpdateNotification';
 import './App.css';
 import './styles/DarkTheme.css';
 
@@ -23,6 +26,9 @@ function App() {
             Lines Game - Match 5 or more balls of the same color in a line.
           </p>
         </footer>
+        <OfflineNotice />
+        <InstallPrompt />
+        <UpdateNotification />
       </div>
     </Provider>
   );

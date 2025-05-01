@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -76,6 +78,17 @@ module.exports = {
     }),
     ...(isProduction ? [new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash].css'
-    })] : [])
+    })] : []),
+    // Copy PWA assets to the dist folder
+    new CopyPlugin({
+      patterns: [
+        { from: 'public/manifest.json', to: '' },
+        { from: 'public/service-worker.js', to: '' },
+        { from: 'public/favicon.ico', to: '' },
+        { from: 'public/logo192.png', to: '' },
+        { from: 'public/logo512.png', to: '' },
+        { from: 'public/robots.txt', to: '' }
+      ],
+    })
   ]
 }; 

@@ -3,12 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#4CAF50" />
     <meta
       name="description"
       content="Lines Game - A color matching puzzle game"
     />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Lines Game" />
+    <meta name="application-name" content="Lines Game" />
     <link rel="apple-touch-icon" href="logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -29,6 +34,46 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      // Check if service workers are supported
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+              console.log('Service Worker registered: ', registration);
+              
+              // Check for updates on page refresh
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                console.log('Service Worker update found!');
+                
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // New content is available, show notification to user
+                    if (confirm('New version available! Reload to update?')) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              });
+            })
+            .catch(error => {
+              console.error('Service Worker registration failed:', error);
+            });
+            
+          // Handle the case when the user returns to the app after being offline
+          window.addEventListener('online', () => {
+            console.log('Application is online again');
+            document.dispatchEvent(new CustomEvent('app-online'));
+          });
+          
+          window.addEventListener('offline', () => {
+            console.log('Application is offline');
+            document.dispatchEvent(new CustomEvent('app-offline'));
+          });
+        });
+      }
+    </script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

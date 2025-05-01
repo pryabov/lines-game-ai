@@ -14,11 +14,12 @@
     "jotai": "^2.12.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "workbox-window": "^7.3.0"
   },
   "scripts": {
     "start": "yarn webpack-dev-server --mode development",
-    "build": "yarn webpack --mode production",
+    "build": "cross-env NODE_ENV=production yarn webpack --mode production",
     "build:dev": "yarn webpack --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -46,6 +47,8 @@
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
     "babel-loader": "^10.0.0",
+    "copy-webpack-plugin": "^13.0.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.3",
@@ -56,6 +59,7 @@
     "typescript": "^5.8.3",
     "webpack": "^5.99.7",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.1"
+    "webpack-dev-server": "^5.2.1",
+    "workbox-webpack-plugin": "^7.3.0"
   }
 }
