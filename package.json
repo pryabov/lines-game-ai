@@ -16,9 +16,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "webpack serve --mode development",
-    "build": "webpack --mode production",
-    "build:dev": "webpack --mode development",
+    "start": "yarn webpack-dev-server --mode development",
+    "build": "yarn webpack --mode production",
+    "build:dev": "yarn webpack --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "eslintConfig": {

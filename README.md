@@ -21,11 +21,14 @@ A classic "Lines" (also known as "Color Lines") game implemented using React and
 - Path-finding algorithm to ensure valid moves
 - Score tracking
 - Game over detection and restart option
+- Animated ball movements and line completions
 
 ## Technologies Used
 
-- React 18
+- React
 - TypeScript
+- Webpack
+- Yarn
 - CSS3
 
 ## Getting Started
@@ -33,7 +36,7 @@ A classic "Lines" (also known as "Color Lines") game implemented using React and
 ### Prerequisites
 
 - Node.js (v14.0.0 or later)
-- npm (v6.0.0 or later)
+- Yarn (v1.22.0 or later)
 
 ### Installation
 
@@ -45,12 +48,12 @@ A classic "Lines" (also known as "Color Lines") game implemented using React and
 
 2. Install dependencies:
    ```bash
-   npm install
+   yarn
    ```
 
 3. Start the development server:
    ```bash
-   npm start
+   yarn start
    ```
 
 4. Open your browser and navigate to http://localhost:3000
@@ -60,10 +63,10 @@ A classic "Lines" (also known as "Color Lines") game implemented using React and
 To create a production build:
 
 ```bash
-npm run build
+yarn build
 ```
 
-The build artifacts will be stored in the `build/` directory.
+The build artifacts will be stored in the `dist/` directory.
 
 ## Project Structure
 
@@ -96,6 +99,7 @@ lines-game/
 - Ball movements are restricted to paths without obstacles.
 - Line detection works in four directions: horizontal, vertical, and both diagonals.
 - The game state is managed using React hooks.
+- Animations are created using CSS transitions and keyframes.
 
 ## License
 
