@@ -3,6 +3,7 @@ import Board from './Board';
 import { useGameActions } from '../hooks/useGameActions';
 import { useGameStatePersistence } from '../hooks/useGameStatePersistence';
 import ConfirmDialog from './ConfirmDialog';
+import GameOverDialog from './GameOverDialog';
 import '../styles/Game.css';
 import '../styles/NextBallsPanel.css';
 
@@ -137,15 +138,13 @@ const Game: React.FC = () => {
           lineAnimationCells={lineAnimations}
         />
       </div>
-      {gameOver && (
-        <div className="game-over">
-          <h2>Game Over!</h2>
-          <p>Your score: {score}</p>
-          <button onClick={performFullReset}>
-            Play Again
-          </button>
-        </div>
-      )}
+
+      {/* Game Over Dialog */}
+      <GameOverDialog
+        isOpen={gameOver}
+        score={score}
+        onPlayAgain={performFullReset}
+      />
 
       {/* Reset Confirmation Dialog */}
       <ConfirmDialog

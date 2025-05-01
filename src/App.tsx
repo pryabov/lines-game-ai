@@ -11,8 +11,8 @@ import './styles/DarkTheme.css';
 function App() {
   return (
     <Provider>
-      <div className="App">
-        <header className="App-header">
+    <div className="App">
+      <header className="App-header">
           <h1>Lines Game</h1>
           <div className="header-right">
             <ThemeToggle />
@@ -29,7 +29,7 @@ function App() {
         <OfflineNotice />
         <InstallPrompt />
         <UpdateNotification />
-      </div>
+    </div>
     </Provider>
   );
 }

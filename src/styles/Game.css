@@ -65,53 +65,6 @@
   transform: none;
 }
 
-.game-over {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  z-index: 10;
-  border-radius: 12px;
-  backdrop-filter: blur(3px);
-}
-
-.game-over h2 {
-  font-size: clamp(24px, 6vw, 32px);
-  margin-bottom: 10px;
-}
-
-.game-over p {
-  font-size: clamp(16px, 4vw, 20px);
-  margin-bottom: 20px;
-}
-
-.game-over button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: clamp(14px, 3vw, 16px);
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.3s;
-}
-
-.game-over button:hover {
-  background-color: #45a049;
-  transform: translateY(-2px);
-}
-
 .board-container {
   position: relative;
   margin: 0 auto;

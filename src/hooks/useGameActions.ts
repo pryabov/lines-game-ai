@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai';
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useEffect } from 'react';
 import { findPath } from '../utils/pathfinding';
 import {
   gridAtom,
@@ -43,6 +43,17 @@ export const useGameActions = () => {
   const gameRef = useRef<HTMLDivElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
 
+  // Check if the game is over (not enough empty cells for next balls)
+  const checkGameOver = useCallback(() => {
+    const emptyCells = findEmptyCells(grid);
+    if (emptyCells.length < BALLS_PER_TURN) {
+      console.log('Game over: Not enough empty cells for next balls');
+      setGameOver(true);
+      return true;
+    }
+    return false;
+  }, [grid, setGameOver]);
+
   // Check for completed lines after a move or ball placement
   const checkForLines = useCallback((currentGrid = grid) => {
     const cellsToRemove = findCompletedLines(currentGrid);
@@ -75,6 +86,14 @@ export const useGameActions = () => {
     return false;
   }, [grid, setGrid, setScore, setLineAnimations]);
 
+  // Effect to check for game over after grid changes
+  useEffect(() => {
+    // Don't check during animations or if game is already over
+    if (!isAnimating && !gameOver) {
+      checkGameOver();
+    }
+  }, [grid, isAnimating, gameOver, checkGameOver]);
+
   // Place initial balls randomly on the grid
   const placeRandomBalls = useCallback(() => {
     // If it's called as part of a reset, we should create a fresh grid
@@ -84,16 +103,21 @@ export const useGameActions = () => {
       : createEmptyGrid();  // Grid has balls, create a new empty one
       
     // Place the balls on the grid (either existing empty or new empty)
-    setGrid(placeBallsRandomly(currentGrid, nextBalls));
+    const updatedGrid = placeBallsRandomly(currentGrid, nextBalls);
+    setGrid(updatedGrid);
     
     // Generate new "next balls"
     setNextBalls(getNextBalls(nextBalls));
     
     // Check for lines after placing balls
     setTimeout(() => {
-      checkForLines();
+      const hasLines = checkForLines();
+      // If no lines were formed, check if game is over
+      if (!hasLines) {
+        checkGameOver();
+      }
     }, 100);
-  }, [grid, nextBalls, setGrid, setNextBalls, checkForLines]);
+  }, [grid, nextBalls, setGrid, setNextBalls, checkForLines, checkGameOver]);
 
   // Handle cell click
   const handleCellClick = useCallback((row: number, col: number) => {
@@ -320,11 +344,8 @@ export const useGameActions = () => {
                   
                   // If no lines formed, place new balls
                   if (!hasLines) {
-                    // Add next balls to the grid
-                    const emptyCells = findEmptyCells(updatedGrid);
-                    
-                    if (emptyCells.length < nextBalls.length) {
-                      setGameOver(true);
+                    // Check if game is over before placing new balls
+                    if (checkGameOver()) {
                       return;
                     }
                     
@@ -366,7 +387,8 @@ export const useGameActions = () => {
     nextBalls, 
     setNextBalls, 
     setGameOver,
-    setMovesMade
+    setMovesMade,
+    checkGameOver
   ]);
 
   // Reset the game with confirmation check if moves have been made
