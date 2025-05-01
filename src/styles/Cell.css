@@ -246,4 +246,18 @@
 .cell.line-pos-6 .ball-inner { animation-delay: 0.5s, 1.5s; }
 .cell.line-pos-7 .ball-inner { animation-delay: 0.6s, 1.6s; }
 .cell.line-pos-8 .ball-inner { animation-delay: 0.7s, 1.7s; }
-.cell.line-pos-9 .ball-inner { animation-delay: 0.8s, 1.8s; } 
+.cell.line-pos-9 .ball-inner { animation-delay: 0.8s, 1.8s; }
+
+@keyframes selectedBallJump {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.1);
+  }
+}
+
+.cell.selected .ball-inner {
+  animation: selectedBallJump 0.8s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), inset -3px -3px 5px rgba(0, 0, 0, 0.3);
+} 
