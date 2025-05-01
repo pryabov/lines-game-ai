@@ -1,0 +1,42 @@
+import React from 'react';
+import { CellType } from '../types';
+import '../styles/Cell.css';
+
+interface CellProps {
+  type: CellType;
+  onClick: () => void;
+  isSelected: boolean;
+  position: { row: number; col: number };
+  isPath?: boolean;
+  pathStep?: number;
+  isLineComplete?: boolean;
+  linePosition?: number;
+}
+
+const Cell: React.FC<CellProps> = ({ 
+  type, 
+  onClick, 
+  isSelected, 
+  isPath = false,
+  pathStep = 0,
+  isLineComplete = false,
+  linePosition = 0
+}) => {
+  const cellClass = `cell 
+    ${isSelected ? 'selected' : ''} 
+    ${type.ball ? `ball ball-${type.ball.color}` : ''} 
+    ${isPath ? 'path' : ''}
+    ${isPath ? `path-step-${pathStep}` : ''}
+    ${isLineComplete ? 'line-complete' : ''}
+    ${isLineComplete && linePosition > 0 ? `line-pos-${linePosition}` : ''}
+  `;
+
+  return (
+    <div className={cellClass} onClick={onClick}>
+      {type.ball && <div className="ball-inner"></div>}
+      {isPath && !type.ball && <div className="path-dot"></div>}
+    </div>
+  );
+};
+
+export default Cell; 

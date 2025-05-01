@@ -1,24 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+import Game from './components/Game';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Lines Game</h1>
       </header>
+      <main>
+        <Game />
+      </main>
+      <footer className="App-footer">
+        <p>
+          Lines Game - Match 5 or more balls of the same color in a line.
+        </p>
+      </footer>
     </div>
   );
 }

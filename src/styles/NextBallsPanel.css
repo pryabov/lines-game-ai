@@ -1,0 +1,30 @@
+.next-balls-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.next-balls-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.next-balls-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.next-ball {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: transparent;
+} 
