@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import analytics from './services/analytics';
 
 // Apply the theme immediately before React renders
 // to prevent flash of incorrect theme
@@ -18,6 +19,21 @@ const applyInitialTheme = () => {
   }
 };
 
+// Initialize analytics when the app loads
+const initializeAnalytics = () => {
+  // Track the app launch
+  analytics.trackEvent({ eventName: 'app_launched' });
+  
+  // Track page load time
+  if (performance && performance.timing) {
+    const pageLoadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+    analytics.trackEvent({ 
+      eventName: 'page_load', 
+      data: { loadTimeMs: pageLoadTime }
+    });
+  }
+};
+
 // Run immediately
 applyInitialTheme();
 
@@ -30,7 +46,13 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Initialize analytics after the app has loaded
+window.addEventListener('load', initializeAnalytics);
+
+// Send web vitals data to analytics
+reportWebVitals(({ name, value }) => {
+  analytics.trackEvent({
+    eventName: 'web_vitals',
+    data: { metric: name, value }
+  });
+});

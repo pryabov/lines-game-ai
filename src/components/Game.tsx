@@ -4,6 +4,7 @@ import { useGameActions } from '../hooks/useGameActions';
 import { useGameStatePersistence } from '../hooks/useGameStatePersistence';
 import ConfirmDialog from './ConfirmDialog';
 import GameOverDialog from './GameOverDialog';
+import analytics from '../services/analytics';
 import '../styles/Game.css';
 import '../styles/NextBallsPanel.css';
 
@@ -39,10 +40,42 @@ const Game: React.FC = () => {
 
   // State for reset confirmation dialog
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const previousScore = useRef(0);
+  const wasGameOver = useRef(false);
 
   // Use the game state persistence hook
   const { loadGameState, clearGameState } = useGameStatePersistence();
   const gameInitialized = useRef(false);
+
+  // Track game start
+  useEffect(() => {
+    analytics.trackGameStart();
+  }, []);
+
+  // Track score changes
+  useEffect(() => {
+    if (score > 0 && score !== previousScore.current) {
+      analytics.trackScoreChanged(score);
+      
+      // If score increased by 5 or more, a line was completed
+      const scoreDiff = score - previousScore.current;
+      if (scoreDiff >= 5) {
+        analytics.trackLineCompleted(scoreDiff);
+      }
+      
+      previousScore.current = score;
+    }
+  }, [score]);
+
+  // Track game over
+  useEffect(() => {
+    if (gameOver && !wasGameOver.current) {
+      analytics.trackGameOver(score);
+      wasGameOver.current = true;
+    } else if (!gameOver && wasGameOver.current) {
+      wasGameOver.current = false;
+    }
+  }, [gameOver, score]);
 
   // Place initial balls when the game starts
   useEffect(() => {
@@ -102,8 +135,29 @@ const Game: React.FC = () => {
     }
   };
 
+  // Enhanced cell click that tracks ball movements
+  const handleCellClickWithTracking = (row: number, col: number) => {
+    const cellHadBall = grid[row][col].ball !== null;
+    const hadSelectedCell = selectedCell !== null;
+    
+    // Call the original handler
+    handleCellClick(row, col);
+    
+    // If a ball was selected and an empty cell was clicked, a move might have occurred
+    if (hadSelectedCell && !cellHadBall) {
+      // We'll track the move - the actual move happens in useGameActions
+      analytics.trackBallMoved();
+    }
+  };
+
   // Perform a complete game reset including clearing saved state
   const performFullReset = () => {
+    // Track reset event
+    analytics.trackEvent({ 
+      eventName: 'game_reset', 
+      data: { finalScore: score, movesMade } 
+    });
+    
     // First clear the game state from localStorage
     clearGameState();
     
@@ -112,6 +166,10 @@ const Game: React.FC = () => {
     
     // Reset initialization flag to force a fresh start
     gameInitialized.current = true;
+    
+    // Reset tracking references
+    previousScore.current = 0;
+    wasGameOver.current = false;
   };
 
   return (
@@ -132,7 +190,7 @@ const Game: React.FC = () => {
       <div ref={boardRef} className="board-container">
         <Board
           grid={grid}
-          onCellClick={handleCellClick}
+          onCellClick={handleCellClickWithTracking}
           selectedCell={selectedCell}
           pathCells={pathCells}
           lineAnimationCells={lineAnimations}

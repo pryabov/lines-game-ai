@@ -1,16 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import analytics from '../services/analytics';
 
 const OfflineNotice: React.FC = () => {
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+  const [wasOffline, setWasOffline] = useState(false);
 
   useEffect(() => {
     const handleOnline = () => {
+      if (isOffline) {
+        // Track coming back online
+        analytics.trackEvent({ eventName: 'app_online' });
+      }
       setIsOffline(false);
     };
 
     const handleOffline = () => {
+      if (!isOffline) {
+        // Track going offline
+        analytics.trackOfflineMode();
+      }
       setIsOffline(true);
     };
+
+    // Initiate tracking for initial state
+    if (isOffline && !wasOffline) {
+      analytics.trackOfflineMode();
+      setWasOffline(true);
+    }
 
     // Listen for online/offline events
     window.addEventListener('online', handleOnline);
@@ -24,7 +40,7 @@ const OfflineNotice: React.FC = () => {
       document.removeEventListener('app-online', handleOnline);
       document.removeEventListener('app-offline', handleOffline);
     };
-  }, []);
+  }, [isOffline, wasOffline]);
 
   if (!isOffline) {
     return null;

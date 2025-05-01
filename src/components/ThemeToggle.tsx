@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { themePersistAtom } from '../atoms/themeAtom';
+import analytics from '../services/analytics';
 import '../styles/ThemeToggle.css';
 
 const ThemeToggle: React.FC = () => {
@@ -15,10 +16,17 @@ const ThemeToggle: React.FC = () => {
       document.body.classList.remove('dark-theme');
       document.documentElement.classList.remove('dark-theme');
     }
+    
+    // Track theme changes, but only after the initial render
+    const isInitialRender = document.readyState !== 'complete';
+    if (!isInitialRender) {
+      analytics.trackThemeChanged(theme);
+    }
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
   };
 
   return (

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import analytics from '../services/analytics';
 
 const InstallPrompt: React.FC = () => {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -23,6 +24,9 @@ const InstallPrompt: React.FC = () => {
       setDeferredPrompt(e);
       // Show our custom install prompt
       setShowPrompt(true);
+      
+      // Track that the install prompt was shown
+      analytics.trackEvent({ eventName: 'install_prompt_shown' });
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -30,15 +34,29 @@ const InstallPrompt: React.FC = () => {
     // Check if the app is already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setShowPrompt(false);
+      // Track that the app is already installed
+      analytics.trackEvent({ eventName: 'app_already_installed' });
     }
+
+    // Track app installed events
+    const handleAppInstalled = () => {
+      analytics.trackAppInstalled();
+      setShowPrompt(false);
+    };
+    
+    window.addEventListener('appinstalled', handleAppInstalled);
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
 
   const handleInstallClick = () => {
     if (!deferredPrompt) return;
+
+    // Track that the user clicked install
+    analytics.trackEvent({ eventName: 'install_button_clicked' });
 
     // Show the browser install prompt
     deferredPrompt.prompt();
@@ -47,8 +65,10 @@ const InstallPrompt: React.FC = () => {
     deferredPrompt.userChoice.then((choiceResult: { outcome: string }) => {
       if (choiceResult.outcome === 'accepted') {
         console.log('User accepted the install prompt');
+        analytics.trackEvent({ eventName: 'install_accepted' });
       } else {
         console.log('User dismissed the install prompt');
+        analytics.trackEvent({ eventName: 'install_rejected' });
       }
       
       // Clear the deferred prompt
@@ -58,6 +78,9 @@ const InstallPrompt: React.FC = () => {
   };
 
   const handleDismiss = () => {
+    // Track that the user dismissed the prompt
+    analytics.trackEvent({ eventName: 'install_prompt_dismissed' });
+    
     setShowPrompt(false);
     // Store in local storage that the user dismissed the prompt
     localStorage.setItem('installPromptDismissed', Date.now().toString());
