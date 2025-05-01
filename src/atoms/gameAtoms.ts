@@ -33,6 +33,7 @@ export const scoreAtom = atom<number>(0);
 export const nextBallsAtom = atom<Ball[]>(generateRandomBalls(BALLS_PER_TURN, 1));
 export const selectedCellAtom = atom<Position | null>(null);
 export const gameOverAtom = atom<boolean>(false);
+export const movesMadeAtom = atom<number>(0); // Track number of moves made
 
 // Derived game state atom that combines all core atoms
 export const gameStateAtom = atom<GameState>(
@@ -41,7 +42,8 @@ export const gameStateAtom = atom<GameState>(
     score: get(scoreAtom),
     nextBalls: get(nextBallsAtom),
     selectedCell: get(selectedCellAtom),
-    gameOver: get(gameOverAtom)
+    gameOver: get(gameOverAtom),
+    movesMade: get(movesMadeAtom)
   })
 );
 

@@ -23,6 +23,12 @@
   gap: 10px;
 }
 
+.score-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .score {
   font-size: clamp(18px, 4vw, 24px);
   font-weight: bold;
@@ -31,6 +37,32 @@
   border-radius: 8px;
   background-color: #f8f8f8;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reset-button {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.reset-button:hover {
+  background-color: #d32f2f;
+  transform: translateY(-1px);
+}
+
+.reset-button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .game-over {

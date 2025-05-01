@@ -4,72 +4,83 @@ import {
   gridAtom, 
   scoreAtom, 
   nextBallsAtom, 
-  gameOverAtom 
+  selectedCellAtom, 
+  gameOverAtom, 
+  gameStateAtom, 
+  movesMadeAtom 
 } from '../atoms/gameAtoms';
+import { GameState } from '../types';
 
 const STORAGE_KEY = 'lines-game-state';
 
-export function useGameStatePersistence() {
-  const [grid, setGrid] = useAtom(gridAtom);
-  const [score, setScore] = useAtom(scoreAtom);
-  const [nextBalls, setNextBalls] = useAtom(nextBallsAtom);
-  const [gameOver, setGameOver] = useAtom(gameOverAtom);
+export const useGameStatePersistence = () => {
+  const [, setGrid] = useAtom(gridAtom);
+  const [, setScore] = useAtom(scoreAtom);
+  const [, setNextBalls] = useAtom(nextBallsAtom);
+  const [, setSelectedCell] = useAtom(selectedCellAtom);
+  const [, setGameOver] = useAtom(gameOverAtom);
+  const [gameState] = useAtom(gameStateAtom);
+  const [, setMovesMade] = useAtom(movesMadeAtom);
 
-  // Load game state from localStorage
-  const loadGameState = useCallback(() => {
+  // Save current game state to local storage
+  const saveGameState = useCallback(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
+      return true;
+    } catch (error) {
+      console.error('Failed to save game state:', error);
+      return false;
+    }
+  }, [gameState]);
+
+  // Load game state from local storage
+  const loadGameState = useCallback((): boolean => {
     try {
       const savedState = localStorage.getItem(STORAGE_KEY);
       
-      if (savedState) {
-        const { grid, score, nextBalls, gameOver, timestamp } = JSON.parse(savedState);
-        
-        // Optional: Check if the saved state is too old (e.g., more than 24 hours)
-        const MAX_AGE = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-        const now = Date.now();
-        
-        if (now - timestamp < MAX_AGE) {
-          setGrid(grid);
-          setScore(score);
-          setNextBalls(nextBalls);
-          setGameOver(gameOver);
-          console.log('Game state loaded from localStorage');
-          return true;
-        } else {
-          console.log('Saved game state is too old, starting fresh');
-          localStorage.removeItem(STORAGE_KEY);
-        }
+      if (!savedState) {
+        return false;
       }
-    } catch (error) {
-      console.error('Error loading game state:', error);
-    }
-    
-    return false;
-  }, [setGrid, setScore, setNextBalls, setGameOver]);
-
-  // Save game state to localStorage
-  const saveGameState = useCallback(() => {
-    try {
-      const state = {
-        grid,
-        score,
-        nextBalls,
-        gameOver,
-        timestamp: Date.now()
-      };
       
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      console.log('Game state saved to localStorage');
+      const parsedState = JSON.parse(savedState) as GameState;
+      
+      // Validate the parsed state
+      if (!parsedState || !parsedState.grid || !parsedState.nextBalls) {
+        return false;
+      }
+      
+      // Set all game state atoms
+      setGrid(parsedState.grid);
+      setScore(parsedState.score);
+      setNextBalls(parsedState.nextBalls);
+      setSelectedCell(parsedState.selectedCell);
+      setGameOver(parsedState.gameOver);
+      setMovesMade(parsedState.movesMade || 0);
+      
+      return true;
     } catch (error) {
-      console.error('Error saving game state:', error);
+      console.error('Failed to load game state:', error);
+      return false;
     }
-  }, [grid, score, nextBalls, gameOver]);
+  }, [setGrid, setScore, setNextBalls, setSelectedCell, setGameOver, setMovesMade]);
+
+  // Clear saved game state
+  const clearGameState = useCallback(() => {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      return true;
+    } catch (error) {
+      console.error('Failed to clear game state:', error);
+      return false;
+    }
+  }, []);
 
   // Save game state whenever it changes
   useEffect(() => {
-    if (grid.length > 0) {
+    if (gameState.grid.length > 0) {
       saveGameState();
     }
-  }, [grid, score, nextBalls, gameOver, saveGameState]);
+  }, [gameState, saveGameState]);
 
   // Listen for 'beforeunload' event to save the state before the page is unloaded
   useEffect(() => {
@@ -91,5 +102,5 @@ export function useGameStatePersistence() {
     };
   }, [saveGameState]);
 
-  return { loadGameState, saveGameState };
-} 
+  return { saveGameState, loadGameState, clearGameState };
+}; 

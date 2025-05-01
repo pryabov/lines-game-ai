@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Board from './Board';
 import { useGameActions } from '../hooks/useGameActions';
 import { useGameStatePersistence } from '../hooks/useGameStatePersistence';
+import ConfirmDialog from './ConfirmDialog';
 import '../styles/Game.css';
 import '../styles/NextBallsPanel.css';
 
@@ -27,6 +28,7 @@ const Game: React.FC = () => {
     pathCells,
     lineAnimations,
     isAnimating,
+    movesMade,
     handleCellClick,
     resetGame,
     placeRandomBalls,
@@ -34,8 +36,11 @@ const Game: React.FC = () => {
     boardRef
   } = useGameActions();
 
+  // State for reset confirmation dialog
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+
   // Use the game state persistence hook
-  const { loadGameState } = useGameStatePersistence();
+  const { loadGameState, clearGameState } = useGameStatePersistence();
   const gameInitialized = useRef(false);
 
   // Place initial balls when the game starts
@@ -87,10 +92,40 @@ const Game: React.FC = () => {
     }
   }, [grid, nextBalls, placeRandomBalls]);
 
+  // Handle reset button click
+  const handleResetClick = () => {
+    if (movesMade > 0 && !gameOver) {
+      setShowResetConfirm(true);
+    } else {
+      performFullReset();
+    }
+  };
+
+  // Perform a complete game reset including clearing saved state
+  const performFullReset = () => {
+    // First clear the game state from localStorage
+    clearGameState();
+    
+    // Then reset the game state in memory
+    resetGame();
+    
+    // Reset initialization flag to force a fresh start
+    gameInitialized.current = true;
+  };
+
   return (
     <div className="game" ref={gameRef}>
       <div className="game-info">
-        <div className="score">Score: {score}</div>
+        <div className="score-container">
+          <div className="score">Score: {score}</div>
+          <button 
+            className="reset-button" 
+            onClick={handleResetClick}
+            disabled={isAnimating}
+          >
+            Reset Game
+          </button>
+        </div>
         <NextBallsPanel balls={nextBallsDisplay} />
       </div>
       <div ref={boardRef} className="board-container">
@@ -106,11 +141,23 @@ const Game: React.FC = () => {
         <div className="game-over">
           <h2>Game Over!</h2>
           <p>Your score: {score}</p>
-          <button onClick={resetGame}>
+          <button onClick={performFullReset}>
             Play Again
           </button>
         </div>
       )}
+
+      {/* Reset Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={showResetConfirm}
+        title="Reset Game"
+        message="Are you sure you want to reset the game? Your progress will be lost."
+        onConfirm={() => {
+          setShowResetConfirm(false);
+          performFullReset();
+        }}
+        onCancel={() => setShowResetConfirm(false)}
+      />
     </div>
   );
 };

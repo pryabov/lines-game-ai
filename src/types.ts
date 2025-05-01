@@ -21,4 +21,5 @@ export interface GameState {
   nextBalls: Ball[];
   selectedCell: Position | null;
   gameOver: boolean;
+  movesMade: number;
 } 

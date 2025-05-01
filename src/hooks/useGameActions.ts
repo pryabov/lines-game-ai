@@ -10,6 +10,7 @@ import {
   pathCellsAtom,
   isAnimatingAtom,
   lineAnimationsAtom,
+  movesMadeAtom,
   STEP_DURATION,
   JUMP_ANIMATION_DURATION,
   createEmptyGrid,
@@ -36,6 +37,7 @@ export const useGameActions = () => {
   const [pathCells, setPathCells] = useAtom(pathCellsAtom);
   const [isAnimating, setIsAnimating] = useAtom(isAnimatingAtom);
   const [lineAnimations, setLineAnimations] = useAtom(lineAnimationsAtom);
+  const [movesMade, setMovesMade] = useAtom(movesMadeAtom);
 
   // References for DOM elements
   const gameRef = useRef<HTMLDivElement>(null);
@@ -75,7 +77,16 @@ export const useGameActions = () => {
 
   // Place initial balls randomly on the grid
   const placeRandomBalls = useCallback(() => {
-    setGrid(placeBallsRandomly(grid, nextBalls));
+    // If it's called as part of a reset, we should create a fresh grid
+    // to ensure we're starting with a clean board
+    const currentGrid = grid.every(row => row.every(cell => cell.ball === null)) 
+      ? grid  // Grid is already empty, use it
+      : createEmptyGrid();  // Grid has balls, create a new empty one
+      
+    // Place the balls on the grid (either existing empty or new empty)
+    setGrid(placeBallsRandomly(currentGrid, nextBalls));
+    
+    // Generate new "next balls"
     setNextBalls(getNextBalls(nextBalls));
     
     // Check for lines after placing balls
@@ -128,6 +139,9 @@ export const useGameActions = () => {
         // Show the path
         setPathCells(path);
         setIsAnimating(true);
+        
+        // Increment the moves counter
+        setMovesMade(prev => prev + 1);
         
         // Get the selected ball before any state updates
         const selectedBall = grid[selectedRow][selectedCol].ball as Ball;
@@ -351,11 +365,14 @@ export const useGameActions = () => {
     checkForLines, 
     nextBalls, 
     setNextBalls, 
-    setGameOver
+    setGameOver,
+    setMovesMade
   ]);
 
-  // Reset the game
+  // Reset the game with confirmation check if moves have been made
   const resetGame = useCallback(() => {
+    // We've moved the confirmation to the Game component with custom dialog
+    
     setPathCells([]);
     setIsAnimating(false);
     setGrid(createEmptyGrid());
@@ -364,6 +381,7 @@ export const useGameActions = () => {
     setSelectedCell(null);
     setGameOver(false);
     setLineAnimations({ positions: [], isAnimating: false });
+    setMovesMade(0); // Reset moves counter
     
     // We need to place initial balls in the next render cycle
     setTimeout(() => {
@@ -377,7 +395,8 @@ export const useGameActions = () => {
     setNextBalls, 
     setSelectedCell, 
     setGameOver, 
-    setLineAnimations, 
+    setLineAnimations,
+    setMovesMade,
     placeRandomBalls
   ]);
 
@@ -390,6 +409,7 @@ export const useGameActions = () => {
     pathCells,
     lineAnimations: lineAnimations.positions,
     isAnimating: isAnimating || lineAnimations.isAnimating,
+    movesMade,
     handleCellClick,
     resetGame,
     placeRandomBalls,
