@@ -4,6 +4,7 @@ import { useGameActions } from '../hooks/useGameActions';
 import { useGameStatePersistence } from '../hooks/useGameStatePersistence';
 import ConfirmDialog from './ConfirmDialog';
 import GameOverDialog from './GameOverDialog';
+import HelpDialog from './HelpDialog';
 import analytics from '../services/analytics';
 import '../styles/Game.scss';
 import '../styles/NextBallsPanel.scss';
@@ -40,6 +41,8 @@ const Game: React.FC = () => {
 
   // State for reset confirmation dialog
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  // State for help dialog
+  const [showHelpDialog, setShowHelpDialog] = useState(false);
   const previousScore = useRef(0);
   const wasGameOver = useRef(false);
   const [highScore, setHighScore] = useState(() => {
@@ -220,6 +223,12 @@ const Game: React.FC = () => {
         >
           Reset Game
         </button>
+        <button 
+          className="help-button" 
+          onClick={() => setShowHelpDialog(true)}
+        >
+          Help
+        </button>
       </div>
 
       {/* Game Over Dialog */}
@@ -239,6 +248,12 @@ const Game: React.FC = () => {
           performFullReset();
         }}
         onCancel={() => setShowResetConfirm(false)}
+      />
+
+      {/* Help Dialog */}
+      <HelpDialog
+        isOpen={showHelpDialog}
+        onClose={() => setShowHelpDialog(false)}
       />
     </div>
   );

@@ -29,6 +29,7 @@
     width: 100%;
     @include flex-center;
     margin-top: clamp(5px, 2vw, 10px);
+    gap: 10px;
   }
   
   /* Responsive adjustments */
@@ -122,6 +123,14 @@
     cursor: not-allowed;
     transform: none;
   }
+}
+
+.help-button {
+  @include button-primary;
+  padding: 8px 24px; // Match reset button padding
+  text-align: center;
+  font-size: clamp(12px, 2vw, 16px);
+  margin-top: 10px;
 }
 
 .board-container {

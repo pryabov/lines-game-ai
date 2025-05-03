@@ -43,6 +43,18 @@ export const useGameActions = () => {
   const gameRef = useRef<HTMLDivElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
 
+  // Calculate score based on the number of balls in a line
+  const calculateScore = useCallback((lineLength: number) => {
+    switch (lineLength) {
+      case 5: return 10;
+      case 6: return 12;
+      case 7: return 18;
+      case 8: return 28;
+      case 9: return 42;
+      default: return lineLength * 2; // Fallback for any other lengths
+    }
+  }, []);
+
   // Check if the game is over (not enough empty cells for next balls)
   const checkGameOver = useCallback(() => {
     const emptyCells = findEmptyCells(grid);
@@ -69,8 +81,13 @@ export const useGameActions = () => {
       setTimeout(() => {
         const newGrid = removeGridBalls(currentGrid, cellsToRemove);
         
+        // Calculate score based on the number of balls in each line
+        // This is a simplification - ideally we'd identify distinct lines
+        // For now we'll just award points based on total balls removed
+        const scoreToAdd = calculateScore(cellsToRemove.length);
+        
         // Update score and grid
-        setScore(prev => prev + cellsToRemove.length);
+        setScore(prev => prev + scoreToAdd);
         setGrid(newGrid);
         
         // Clear animation
@@ -84,7 +101,7 @@ export const useGameActions = () => {
     }
     
     return false;
-  }, [grid, setGrid, setScore, setLineAnimations]);
+  }, [grid, setGrid, setScore, setLineAnimations, calculateScore]);
 
   // Effect to check for game over after grid changes
   useEffect(() => {

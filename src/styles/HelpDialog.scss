@@ -1,0 +1,83 @@
+@use 'index' as *;
+
+.overlay {
+  @include overlay-dark;
+}
+
+.help-dialog {
+  @include dialog-container(500px);
+  max-height: 85vh;
+  overflow-y: auto;
+  
+  .dialog-content {
+    padding: 15px 20px;
+    
+    h3 {
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: var(--accent-color, $primary-blue);
+    }
+    
+    ul {
+      text-align: left;
+      margin: 0;
+      padding-left: 20px;
+      
+      li {
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+    }
+  }
+}
+
+.help-dialog-header {
+  @include dialog-header($primary-blue);
+  
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+}
+
+.dialog-actions {
+  padding: 15px 20px;
+  @include flex-center;
+  border-top: 1px solid var(--border-color, $border-light);
+}
+
+.primary-button {
+  @include button-primary;
+  padding: 8px 30px;
+}
+
+/* Dark theme adjustments */
+.dark-theme {
+  .help-dialog {
+    background-color: $black-dialog;
+  }
+  
+  .help-dialog-header {
+    background-color: $primary-blue-dark;
+  }
+  
+  .dialog-content {
+    color: $text-dark-theme;
+    
+    h3 {
+      color: $accent-blue-link;
+    }
+  }
+  
+  .dialog-actions {
+    border-top-color: $border-dark;
+  }
+  
+  .primary-button {
+    background-color: $primary-blue-dark;
+    
+    &:hover {
+      background-color: $primary-blue-darker;
+    }
+  }
+} 
