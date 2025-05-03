@@ -1,11 +1,13 @@
+@use 'variables' as *;
+
 .board {
   display: flex;
   flex-direction: column;
-  border: 2px solid #444;
+  border: 2px solid $border-dark;
   border-radius: 8px;
-  background-color: #f0f0f0;
+  background-color: $bg-light-secondary;
   margin: 10px auto;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 10px $shadow-dark;
   overflow: hidden;
   max-width: 100%;
   transform-origin: center;

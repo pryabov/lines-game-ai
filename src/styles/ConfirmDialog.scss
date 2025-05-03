@@ -1,10 +1,12 @@
+@use 'variables' as *;
+
 .dialog-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: $overlay-medium;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,9 +16,9 @@
 }
 
 .dialog-container {
-  background-color: white;
+  background-color: $white;
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px $shadow-dark;
   width: 90%;
   max-width: 350px;
   overflow: hidden;
@@ -25,8 +27,8 @@
 
 .dialog-header {
   padding: 15px 20px;
-  background-color: #4CAF50;
-  color: white;
+  background-color: $success-color;
+  color: $text-light;
   
   h3 {
     margin: 0;
@@ -41,7 +43,7 @@
     margin: 0;
     font-size: 16px;
     line-height: 1.5;
-    color: #333;
+    color: $text-dark;
   }
 }
 
@@ -63,43 +65,43 @@
 }
 
 .cancel-button {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: $bg-light-secondary;
+  color: $text-dark;
   
   &:hover {
-    background-color: #e0e0e0;
+    background-color: $gray-medium;
   }
 }
 
 .confirm-button {
-  background-color: #f44336;
-  color: white;
+  background-color: $danger-color;
+  color: $text-light;
   
   &:hover {
-    background-color: #d32f2f;
+    background-color: $danger-color-dark;
   }
 }
 
 /* Dark theme support */
 :root.dark-theme {
   .dialog-container {
-    background-color: #222;
+    background-color: $black-dialog;
   }
   
   .dialog-header {
-    background-color: #1e6329;
+    background-color: $primary-green-darker;
   }
   
   .dialog-content p {
-    color: #e0e0e0;
+    color: $text-dark-theme;
   }
   
   .cancel-button {
-    background-color: #333;
-    color: #e0e0e0;
+    background-color: $gray-near-black;
+    color: $text-dark-theme;
     
     &:hover {
-      background-color: #444;
+      background-color: $border-dark;
     }
   }
 }

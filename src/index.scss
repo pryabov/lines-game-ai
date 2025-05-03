@@ -1,3 +1,5 @@
+@use 'styles/variables' as *;
+
 html, body {
   margin: 0;
   padding: 0;
@@ -8,12 +10,12 @@ html, body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f8f9fa;
+  background-color: $bg-light;
   transition: background-color 0.3s ease, color 0.3s ease;
   
   &.dark-theme {
-    background-color: #121212;
-    color: #e0e0e0;
+    background-color: $bg-dark;
+    color: $text-dark-theme;
   }
 }
 

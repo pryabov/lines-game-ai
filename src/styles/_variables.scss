@@ -1,0 +1,127 @@
+// Base Colors
+$white: #fff;
+$black: #000;
+
+// Grays (Light to Dark)
+$gray-lightest: #f8f9fa;
+$gray-lighter: #f5f5f5;
+$gray-light: #f0f0f0;
+$gray-medium-light: #e8e8e8;
+$gray-medium: #e0e0e0;
+$gray-darkish: #ccc;
+$gray-darker: #bbb;
+$gray-dark: #aaa;
+$gray-very-dark: #666;
+$gray-almost-black: #555;
+$gray-darkest: #444;
+$gray-charcoal: #353535;
+$gray-near-black: #333;
+$black-off: #2d2d2d;
+$black-soft: #2a2a2a;
+$black-header: #282c34;
+$black-dialog: #222;
+$black-header-dark: #1e1e1e;
+$black-container-dark: #1a1a1a;
+$black-body-dark: #121212;
+
+// Primary/Accent Colors
+$primary-green: #4CAF50;
+$primary-green-dark: #45a049;
+$primary-green-darker: #1e6329;
+$accent-green: #66bb6a;
+
+$primary-red: #f44336;
+$primary-red-dark: #d32f2f;
+
+$primary-blue: #2196F3;
+$primary-blue-dark: #1976D2;
+$primary-blue-darker: #1565C0;
+$accent-blue-light: #c8e6ff;
+$accent-blue-lighter: #b3d9ff;
+$accent-blue-link: #61dafb;
+$accent-blue-dark: #1a3a5a;
+$accent-blue-path: #1e2a3a; // Dark theme path
+$accent-blue-path-dot: #405a77; // Dark theme path dot
+
+// Ball Colors (Base, Highlight) - Using maps for gradients
+$ball-colors: (
+  'red': (#ff6b6b, #d00),
+  'blue': (#6b9aff, #0044d0),
+  'green': (#6bff9a, #00d044),
+  'yellow': (#fff06b, #d0ac00),
+  'purple': (#d26bff, #7700d0),
+  'cyan': (#6bffff, #00a0d0),
+  'orange': (#ffa06b, #d06000)
+);
+
+// Text Colors
+$text-light: $white;
+$text-dark: $gray-near-black;
+$text-medium-dark: $gray-very-dark;
+$text-dark-theme: $gray-medium;
+$text-dark-theme-lighter: $gray-darker;
+$text-dark-theme-darker: $gray-dark;
+
+// Background Colors
+$bg-light: $gray-lightest;
+$bg-light-secondary: $gray-light;
+$bg-dark: $black-body-dark;
+$bg-dark-secondary: $black-off;
+$bg-dark-container: $black-container-dark;
+$bg-dark-cell: $gray-charcoal;
+$bg-dark-hover: $gray-darkest;
+$bg-dark-selected: $accent-blue-dark;
+
+// Border Colors
+$border-light: $gray-dark;
+$border-light-alt: $gray-darkish;
+$border-dark: $gray-darkest;
+
+// Shadow Colors
+$shadow-light: rgba($black, 0.1);
+$shadow-medium: rgba($black, 0.2);
+$shadow-dark: rgba($black, 0.3);
+$shadow-darker: rgba($black, 0.4);
+
+// Overlay Colors
+$overlay-dark: rgba($black, 0.8);
+$overlay-medium: rgba($black, 0.7);
+
+// RGBA Whites
+$white-overlay-light: rgba($white, 0.1);
+$white-overlay-medium: rgba($white, 0.2);
+$white-overlay-dark: rgba($white, 0.3); // Added for consistency if needed
+$white-overlay-text-light: rgba($white, 0.5);
+$white-overlay-text-medium: rgba($white, 0.8);
+
+// Disabled Colors
+$disabled-bg-light: $gray-medium-light;
+$disabled-text-light: $gray-very-dark;
+$disabled-bg-dark: $border-dark;
+$disabled-text-dark: $gray-very-dark; // Adjust if needed
+
+// Semantic Colors (Light Theme)
+$danger-color: $primary-red;
+$danger-color-dark: $primary-red-dark;
+$success-color: $primary-green;
+$success-color-dark: $primary-green-dark;
+$info-color: $primary-blue;
+$info-color-dark: $primary-blue-dark;
+
+// Variables for CSS Custom Properties (Themes)
+:root {
+  // Light theme defaults
+  --bg-primary: #{$bg-light};
+  --bg-secondary: #{$bg-light-secondary};
+  --text-primary: #{$text-dark};
+  --border-color: #{$border-light-alt};
+  --shadow-color: #{$shadow-medium};
+  --accent-color: #{$accent-green};
+  --danger-color: #{$danger-color};
+  --danger-color-dark: #{$danger-color-dark};
+  --disabled-color: #{$disabled-bg-light};
+  --disabled-text: #{$disabled-text-light};
+  --cell-size: clamp(32px, 9vw, 50px);
+  --ball-size: calc(var(--cell-size) * 0.75);
+  --ball-offset: calc((var(--cell-size) - var(--ball-size)) / 2);
+} 

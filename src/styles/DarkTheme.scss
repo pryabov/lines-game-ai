@@ -1,68 +1,81 @@
+@use 'variables' as *;
+
 /* Dark theme styles for the entire game */
 body.dark-theme,
 .dark-theme {
-  background-color: #121212;
-  color: #e0e0e0;
+  // Define dark theme CSS variables here
+  --bg-primary: #{$bg-dark};
+  --bg-secondary: #{$bg-dark-secondary};
+  --text-primary: #{$text-dark-theme};
+  --border-color: #{$border-dark};
+  --shadow-color: #{$shadow-dark};
+  --accent-color: #{$accent-green}; // Keep accent green consistent? Or change?
+  --danger-color: #{$danger-color}; // Keep danger red consistent
+  --danger-color-dark: #{$danger-color-dark};
+  --disabled-color: #{$disabled-bg-dark};
+  --disabled-text: #{$disabled-text-dark};
+  
+  // General body/app overrides
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   
   /* App container */
   .App {
-    background-color: #121212;
+    background-color: var(--bg-primary);
     
     /* App header and footer */
     &-header,
     &-footer {
-      background-color: #1e1e1e;
-      color: #e0e0e0;
+      background-color: $black-header-dark;
+      color: var(--text-primary);
     }
   }
   
   /* Make sure main section has dark background */
   main {
-    background-color: #121212;
-    background-image: radial-gradient(circle at center, rgba(30,30,30,0.8) 0%, rgba(18,18,18,0.3) 100%);
+    background-color: var(--bg-primary);
+    background-image: radial-gradient(circle at center, rgba($black-dialog, 0.8) 0%, rgba($black-body-dark, 0.3) 100%);
   }
   
   /* Game container */
   .game {
-    background-color: #1a1a1a;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    background-color: var(--bg-secondary);
+    box-shadow: 0 4px 15px $shadow-dark;
     
     /* Game info section */
     &-info {
-      background-color: #1a1a1a;
+      background-color: var(--bg-secondary);
+      border-color: var(--border-color);
+      box-shadow: 0 2px 6px var(--shadow-color);
     }
   }
   
   /* Board styling */
   .board {
-    background-color: #2a2a2a;
-    border-color: #444;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    background-color: $bg-dark-secondary;
+    border-color: var(--border-color);
+    box-shadow: 0 4px 15px $shadow-dark;
     
     &-row {
-      background-color: #2a2a2a;
-    }
-    
-    &-container {
-      background-color: #1a1a1a;
+      background-color: $bg-dark-secondary;
     }
   }
   
   /* Cell styling */
   .cell {
-    background-color: #353535;
-    border-color: #444;
+    background-color: $bg-dark-cell;
+    border-color: var(--border-color);
     
     &:hover {
-      background-color: #444;
+      background-color: $bg-dark-hover;
     }
     
     &.selected {
-      background-color: #1a3a5a;
+      background-color: $bg-dark-selected;
     }
     
     &.path {
-      background-color: #1e2a3a; /* Darker path background */
+      background-color: $accent-blue-path;
     }
     
     /* Path animation specifically for dark theme */
@@ -75,50 +88,49 @@ body.dark-theme,
   
   /* Path dots */
   .path-dot {
-    background-color: #405a77; /* Darker path dot color */
+    background-color: $accent-blue-path-dot;
   }
   
   /* Dark theme specific animation */
   @keyframes darkPathAppear {
     0% {
-      background-color: #353535; /* Match dark cell background */
+      background-color: $bg-dark-cell;
     }
     100% {
-      background-color: #1e2a3a; /* Match dark path background */
+      background-color: $accent-blue-path;
     }
   }
   
   /* NextBalls panel */
   .next-balls-panel {
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: $white-overlay-light;
     border-color: transparent;
     box-shadow: none;
   }
   
   .next-balls-title {
-    color: #e0e0e0;
+    color: var(--text-primary);
   }
   
-  .next-balls-container {
-    background-color: #2a2a2a;
-  }
-  
-
-
   /* Game over screen */
-  .game-over {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #e0e0e0;
-    
-    button {
-      background-color: #2a4a6a;
-      color: #e0e0e0;
-      border-color: #3a5a7a;
-      
-      &:hover {
-        background-color: #3a5a7a;
-      }
-    }
+  .game-over-container {
+    background-color: $black-dialog;
+  }
+  
+  .game-over-header {
+    background-color: $danger-color-dark;
+  }
+  
+  .score-label {
+    color: $gray-dark;
+  }
+  
+  .score-value {
+    color: $text-dark-theme;
+  }
+  
+  .score-message {
+    color: $text-dark-theme-lighter;
   }
   
   /* Moving balls */

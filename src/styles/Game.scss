@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .game {
   display: flex;
   flex-direction: column;
@@ -10,7 +12,7 @@
   position: relative;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  background-color: var(--bg-primary, #ffffff);
+  background-color: var(--bg-primary, $white);
 
   &-info {
     display: flex;
@@ -20,10 +22,10 @@
     margin-bottom: clamp(5px, 2vw, 10px);
     gap: clamp(8px, 2vw, 16px);
     max-width: 100%;
-    background-color: var(--bg-secondary, #f0f0f0);
+    background-color: var(--bg-secondary, $bg-light-secondary);
     border-radius: 8px;
-    border: 1px solid var(--border-color, #ddd);
-    box-shadow: 0 2px 6px var(--shadow-color, rgba(0, 0, 0, 0.1));
+    border: 1px solid var(--border-color, $border-light-alt);
+    box-shadow: 0 2px 6px var(--shadow-color, $shadow-light);
     padding: clamp(6px, 1.5vw, 10px);
   }
   
@@ -95,7 +97,7 @@
   &-label {
     font-weight: bold;
     font-size: clamp(12px, 2vw, 16px);
-    color: var(--text-primary, #333);
+    color: var(--text-primary, $text-dark);
     margin-bottom: 5px;
   }
   
@@ -107,20 +109,20 @@
 
 .score {
   &-value {
-    color: var(--text-primary, #333);
+    color: var(--text-primary, $text-dark);
   }
 }
 
 .high-score {
   &-value {
-    color: var(--text-primary, #333);
+    color: var(--text-primary, $text-dark);
   }
 }
 
 .reset-button {
-  background-color: var(--danger-color, #f44336);
+  background-color: var(--danger-color, $danger-color);
   border: none;
-  color: white;
+  color: $text-light;
   padding: 8px 24px;
   text-align: center;
   font-size: clamp(12px, 2vw, 16px);
@@ -128,17 +130,17 @@
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 2px 4px var(--shadow-color, rgba(0, 0, 0, 0.1));
+  box-shadow: 0 2px 4px var(--shadow-color, $shadow-light);
   margin-top: 10px;
   
   &:hover {
-    background-color: var(--danger-color-dark, #d32f2f);
+    background-color: var(--danger-color-dark, $danger-color-dark);
     transform: translateY(-1px);
   }
   
   &:disabled {
-    background-color: var(--disabled-color, #cccccc);
-    color: var(--disabled-text, #666666);
+    background-color: var(--disabled-color, $disabled-bg-light);
+    color: var(--disabled-text, $disabled-text-light);
     cursor: not-allowed;
     transform: none;
   }
@@ -155,71 +157,3 @@
   min-width: calc(9 * var(--cell-size) + 4px); /* Account for border width (2px * 2) */
   margin-bottom: 0;
 }
-
-/* Dark theme support with class-based selector */
-.dark-theme {
-  .score, .high-score {
-    background-color: transparent;
-    border-color: transparent;
-    box-shadow: none;
-    
-    &-label {
-      color: var(--text-primary, #e0e0e0);
-    }
-  }
-  
-  .score-value {
-    color: var(--text-primary, #e0e0e0);
-  }
-  
-  .high-score-value {
-    color: var(--accent-color, #66bb6a);
-  }
-  
-  .game-info {
-    background-color: var(--bg-secondary, #2d2d2d);
-    border-color: var(--border-color, #404040);
-    box-shadow: 0 2px 6px var(--shadow-color, rgba(0, 0, 0, 0.3));
-  }
-}
-
-/* Media query for system preference */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #2d2d2d;
-    --text-primary: #e0e0e0;
-    --border-color: #404040;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --accent-color: #66bb6a;
-    --danger-color: #f44336;
-    --danger-color-dark: #d32f2f;
-    --disabled-color: #404040;
-    --disabled-text: #808080;
-  }
-  
-  .score, .high-score {
-    background-color: transparent;
-    border-color: transparent;
-    box-shadow: none;
-    
-    &-label {
-      color: var(--text-primary);
-    }
-  }
-  
-  .score-value {
-    color: var(--text-primary);
-  }
-  
-  /* High score retains its accent color, but ensure it's defined for dark theme */
-  .high-score-value {
-    color: var(--accent-color);
-  }
-  
-  .game-info {
-    background-color: var(--bg-secondary);
-    border-color: var(--border-color);
-    box-shadow: 0 2px 6px var(--shadow-color);
-  }
-} 

@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .theme-toggle {
   display: flex;
   align-items: center;
@@ -7,13 +9,13 @@
 .theme-label {
   margin-right: 8px;
   font-size: 14px;
-  color: #e0e0e0;
+  color: $text-dark-theme;
   font-weight: 500;
 }
 
 .theme-toggle-btn {
   background: none;
-  border: 1px solid #ccc;
+  border: 1px solid $border-light-alt;
   border-radius: 20px;
   padding: 6px 12px;
   font-size: 18px;
@@ -22,11 +24,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: $white-overlay-light;
+  box-shadow: 0 2px 5px $shadow-medium;
   
   &:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: $white-overlay-medium;
     transform: translateY(-1px);
   }
   
@@ -38,15 +40,15 @@
 /* Dark Theme styles */
 .dark-theme {
   .theme-label {
-    color: #e0e0e0;
+    color: $text-dark-theme;
   }
   
   .theme-toggle-btn {
-    border-color: #555;
-    background-color: rgba(0, 0, 0, 0.2);
+    border-color: $gray-almost-black;
+    background-color: $shadow-dark;
     
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: $white-overlay-light;
     }
   }
 } 
