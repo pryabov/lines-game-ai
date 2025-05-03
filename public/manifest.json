@@ -1,7 +1,7 @@
 {
   "short_name": "Lines",
   "name": "Lines Game",
-  "description": "A classic color matching puzzle game where you move balls to form lines of the same color",
+  "description": "A free online color matching puzzle game where you strategically move colorful balls to form lines and score points. Challenge your brain with this addictive strategy game!",
   "icons": [
     {
       "src": "favicon.ico",
@@ -27,5 +27,5 @@
   "orientation": "portrait",
   "theme_color": "#4CAF50",
   "background_color": "#ffffff",
-  "categories": ["games", "entertainment", "puzzle"]
+  "categories": ["games", "entertainment", "puzzle", "strategy", "brain", "logic", "color", "casual"]
 }
