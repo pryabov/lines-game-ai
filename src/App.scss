@@ -60,7 +60,7 @@ main {
   justify-content: center;
   align-items: center;
   min-height: 80vh;
-  background-image: radial-gradient(circle at center, rgba($white, 0.8) 0%, rgba(240, 240, 240, 0.3) 100%);
+  background-image: radial-gradient(circle at center, rgba($white, 0.8) 0%, rgba($gray-light, 0.3) 100%);
 }
 
 @keyframes App-logo-spin {
