@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(10px, 3vw, 30px);
+  padding: clamp(8px, 2vw, 20px);
   font-family: 'Arial', sans-serif;
   max-width: 100%;
   width: clamp(350px, 90vw, 700px);
@@ -10,16 +10,28 @@
   position: relative;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  
+  background-color: var(--bg-primary, #ffffff);
+
   &-info {
     display: flex;
-    width: 100%;
     justify-content: space-between;
-    margin-bottom: clamp(10px, 3vw, 20px);
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    align-items: start;
+    width: 100%;
+    margin-bottom: clamp(5px, 2vw, 10px);
+    gap: clamp(8px, 2vw, 16px);
+    max-width: 100%;
+    background-color: var(--bg-secondary, #f0f0f0);
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #ddd);
+    box-shadow: 0 2px 6px var(--shadow-color, rgba(0, 0, 0, 0.1));
+    padding: clamp(6px, 1.5vw, 10px);
+  }
+  
+  &-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(5px, 2vw, 10px);
   }
   
   /* Responsive adjustments */
@@ -27,49 +39,106 @@
     padding: 10px;
     
     &-info {
-      flex-direction: column;
-      gap: 15px;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 4px;
     }
   }
 }
 
-.score-container {
+/* New container for game info and board */
+.game-content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  width: 100%;
+  max-width: calc(9 * var(--cell-size) + 4px);
+  margin: 0 auto;
+}
+
+.score-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.score, .high-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(4px, 1vw, 12px);
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  flex: 0 0 22%;
+  margin-top: 8px;
+  
+  @media screen and (max-width: 480px) {
+    width: auto;
+    max-width: none;
+    margin: 0;
+    flex-basis: 28%;
+    padding: 4px;
+    
+    &-label {
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+    
+    &-value {
+      font-size: 12px;
+    }
+  }
+  
+  &-label {
+    font-weight: bold;
+    font-size: clamp(12px, 2vw, 16px);
+    color: var(--text-primary, #333);
+    margin-bottom: 5px;
+  }
+  
+  &-value {
+    font-size: clamp(18px, 4vw, 24px);
+    font-weight: bold;
+  }
 }
 
 .score {
-  font-size: clamp(18px, 4vw, 24px);
-  font-weight: bold;
-  color: #333;
-  padding: 8px 16px;
-  border-radius: 8px;
-  background-color: #f8f8f8;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  &-value {
+    color: var(--text-primary, #333);
+  }
+}
+
+.high-score {
+  &-value {
+    color: var(--text-primary, #333);
+  }
 }
 
 .reset-button {
-  background-color: #f44336;
+  background-color: var(--danger-color, #f44336);
   border: none;
   color: white;
-  padding: 6px 12px;
+  padding: 8px 24px;
   text-align: center;
-  font-size: 14px;
+  font-size: clamp(12px, 2vw, 16px);
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-color, rgba(0, 0, 0, 0.1));
+  margin-top: 10px;
   
   &:hover {
-    background-color: #d32f2f;
+    background-color: var(--danger-color-dark, #d32f2f);
     transform: translateY(-1px);
   }
   
   &:disabled {
-    background-color: #cccccc;
-    color: #666666;
+    background-color: var(--disabled-color, #cccccc);
+    color: var(--disabled-text, #666666);
     cursor: not-allowed;
     transform: none;
   }
@@ -81,4 +150,76 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  /* Prevent transform scaling in Board.scss from affecting parent container layout */
+  transform-origin: center;
+  min-width: calc(9 * var(--cell-size) + 4px); /* Account for border width (2px * 2) */
+  margin-bottom: 0;
+}
+
+/* Dark theme support with class-based selector */
+.dark-theme {
+  .score, .high-score {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    
+    &-label {
+      color: var(--text-primary, #e0e0e0);
+    }
+  }
+  
+  .score-value {
+    color: var(--text-primary, #e0e0e0);
+  }
+  
+  .high-score-value {
+    color: var(--accent-color, #66bb6a);
+  }
+  
+  .game-info {
+    background-color: var(--bg-secondary, #2d2d2d);
+    border-color: var(--border-color, #404040);
+    box-shadow: 0 2px 6px var(--shadow-color, rgba(0, 0, 0, 0.3));
+  }
+}
+
+/* Media query for system preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #e0e0e0;
+    --border-color: #404040;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --accent-color: #66bb6a;
+    --danger-color: #f44336;
+    --danger-color-dark: #d32f2f;
+    --disabled-color: #404040;
+    --disabled-text: #808080;
+  }
+  
+  .score, .high-score {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    
+    &-label {
+      color: var(--text-primary);
+    }
+  }
+  
+  .score-value {
+    color: var(--text-primary);
+  }
+  
+  /* High score retains its accent color, but ensure it's defined for dark theme */
+  .high-score-value {
+    color: var(--accent-color);
+  }
+  
+  .game-info {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    box-shadow: 0 2px 6px var(--shadow-color);
+  }
 } 

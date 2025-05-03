@@ -12,7 +12,7 @@ import '../styles/NextBallsPanel.scss';
 const NextBallsPanel = ({ balls }: { balls: React.ReactNode[] }) => {
   return (
     <div className="next-balls-panel">
-      <div className="next-balls-title">Next Balls:</div>
+      <div className="next-balls-title">Next Balls</div>
       <div className="next-balls-container">
         {balls.map((ball) => ball)}
       </div>
@@ -42,6 +42,10 @@ const Game: React.FC = () => {
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const previousScore = useRef(0);
   const wasGameOver = useRef(false);
+  const [highScore, setHighScore] = useState(() => {
+    const saved = localStorage.getItem('highScore');
+    return saved ? parseInt(saved, 10) : 0;
+  });
 
   // Use the game state persistence hook
   const { loadGameState, clearGameState } = useGameStatePersistence();
@@ -97,6 +101,14 @@ const Game: React.FC = () => {
       }
     }
   }, [loadGameState, placeRandomBalls]);
+
+  // Update high score when needed
+  useEffect(() => {
+    if (score > highScore) {
+      setHighScore(score);
+      localStorage.setItem('highScore', score.toString());
+    }
+  }, [score, highScore]);
 
   // Render the next balls
   const nextBallsDisplay = nextBalls.map((ball) => (
@@ -175,27 +187,39 @@ const Game: React.FC = () => {
 
   return (
     <div className="game" ref={gameRef}>
-      <div className="game-info">
-        <div className="score-container">
-          <div className="score">Score: {score}</div>
-          <button 
-            className="reset-button" 
-            onClick={handleResetClick}
-            disabled={isAnimating}
-          >
-            Reset Game
-          </button>
+      {/* Wrap game info and board in a new container */}
+      <div className="game-content"> 
+        <div className="game-info">
+          <div className="score">
+            <div className="score-label">Score</div>
+            <div className="score-value">{score}</div>
+          </div>
+          <NextBallsPanel balls={nextBallsDisplay} />
+          <div className="high-score">
+            <div className="high-score-label">Max</div>
+            <div className="high-score-value">{highScore}</div>
+          </div>
         </div>
-        <NextBallsPanel balls={nextBallsDisplay} />
-      </div>
-      <div ref={boardRef} className="board-container">
-        <Board
-          grid={grid}
-          onCellClick={handleCellClickWithTracking}
-          selectedCell={selectedCell}
-          pathCells={pathCells}
-          lineAnimationCells={lineAnimations}
-        />
+        
+        <div ref={boardRef} className="board-container">
+          <Board
+            grid={grid}
+            onCellClick={handleCellClickWithTracking}
+            selectedCell={selectedCell}
+            pathCells={pathCells}
+            lineAnimationCells={lineAnimations}
+          />
+        </div>
+      </div> {/* Close game-content div */}
+
+      <div className="game-bottom">
+        <button 
+          className="reset-button" 
+          onClick={handleResetClick}
+          disabled={isAnimating}
+        >
+          Reset Game
+        </button>
       </div>
 
       {/* Game Over Dialog */}

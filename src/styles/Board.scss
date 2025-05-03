@@ -4,10 +4,11 @@
   border: 2px solid #444;
   border-radius: 8px;
   background-color: #f0f0f0;
-  margin: 20px auto;
+  margin: 10px auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   max-width: 100%;
+  transform-origin: center;
   
   &-row {
     display: flex;
@@ -15,19 +16,18 @@
   
   /* Add responsive styles */
   @media screen and (max-width: 480px) {
-    margin: 10px auto;
+    margin: 5px auto;
     border-width: 1px;
+    transform: none;
   }
   
-  /* For larger screens, make the board bigger */
+  /* For larger screens, make the board bigger but maintain the layout flow */
   @media screen and (min-width: 768px) {
-    transform: scale(1.1);
-    margin: 30px auto;
+    margin: 15px auto;
   }
   
   /* For extra large screens */
   @media screen and (min-width: 1200px) {
-    transform: scale(1.2);
-    margin: 40px auto;
+    margin: 20px auto;
   }
 } 

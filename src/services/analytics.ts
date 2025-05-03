@@ -1,6 +1,6 @@
 /**
  * Analytics service to track game events
- * This provides a wrapper around Google Analytics and Cloudflare Analytics with custom event tracking
+ * This provides a wrapper around Google Analytics with optional Cloudflare Analytics support
  */
 
 interface GameEvent {
@@ -76,11 +76,6 @@ export const hasAnsweredConsent = (): boolean => {
   return localStorage.getItem(ANALYTICS_CONSENT_KEY) !== null;
 };
 
-// Check if Cloudflare analytics is available
-const isCloudflareAvailable = (): boolean => {
-  return typeof window !== 'undefined' && 'cfe' in window;
-};
-
 // Check if Google Analytics is available
 const isGoogleAnalyticsAvailable = (): boolean => {
   return typeof window !== 'undefined' && typeof (window as any).gtag === 'function';
@@ -100,7 +95,10 @@ export const trackEvent = (event: GameEvent): void => {
       return;
     }
     
-    console.log(`Analytics: ${event.eventName}`, event.data);
+    // Only log analytics events in production if debug mode is enabled
+    if (process.env.NODE_ENV === 'production' && localStorage.getItem('debug_analytics') === 'true') {
+      console.log(`Analytics: ${event.eventName}`, event.data);
+    }
 
     // Google Analytics tracking
     if (isGoogleAnalyticsAvailable()) {
@@ -116,19 +114,6 @@ export const trackEvent = (event: GameEvent): void => {
         });
       } catch (gaError) {
         console.error('Failed to send event to Google Analytics:', gaError);
-      }
-    }
-
-    // Cloudflare tracking (if available)
-    if (isCloudflareAvailable()) {
-      try {
-        // @ts-ignore - Cloudflare's API is not typed
-        window.cfe?.beacon?.('event', {
-          name: event.eventName,
-          ...(event.data || {})
-        });
-      } catch (cfError) {
-        console.error('Failed to send event to Cloudflare:', cfError);
       }
     }
   } catch (error) {

@@ -62,20 +62,37 @@ body.dark-theme,
     }
     
     &.path {
-      background-color: #2a4a6a;
+      background-color: #1e2a3a; /* Darker path background */
+    }
+    
+    /* Path animation specifically for dark theme */
+    &.path-step-1, &.path-step-2, &.path-step-3,
+    &.path-step-4, &.path-step-5, &.path-step-6,
+    &.path-step-7, &.path-step-8, &.path-step-9, &.path-step-10 {
+      animation-name: darkPathAppear; /* Use dark-specific animation */
     }
   }
   
   /* Path dots */
   .path-dot {
-    background-color: #6b9fd7;
+    background-color: #405a77; /* Darker path dot color */
+  }
+  
+  /* Dark theme specific animation */
+  @keyframes darkPathAppear {
+    0% {
+      background-color: #353535; /* Match dark cell background */
+    }
+    100% {
+      background-color: #1e2a3a; /* Match dark path background */
+    }
   }
   
   /* NextBalls panel */
   .next-balls-panel {
-    background-color: #2a2a2a;
-    border-color: #444;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    background-color: rgba(255, 255, 255, 0.03);
+    border-color: transparent;
+    box-shadow: none;
   }
   
   .next-balls-title {
@@ -86,14 +103,8 @@ body.dark-theme,
     background-color: #2a2a2a;
   }
   
-  /* Score display */
-  .score {
-    color: #e0e0e0;
-    background-color: #2a2a2a;
-    border-color: #444;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  }
-  
+
+
   /* Game over screen */
   .game-over {
     background-color: rgba(0, 0, 0, 0.8);
