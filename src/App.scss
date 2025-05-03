@@ -1,9 +1,8 @@
-@use 'styles/variables' as *;
+@use 'styles/index' as *;
 
 .App {
   text-align: center;
-  display: flex;
-  flex-direction: column;
+  @include flex(column);
   min-height: 100vh;
   background-color: $bg-light;
   
@@ -17,16 +16,15 @@
   }
   
   &-header {
+    width: 100%;
     background-color: $black-header;
     padding: clamp(10px, 3vw, 20px);
     color: $text-light;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex(row, space-between, center);
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 10px $shadow-dark;
+    @include box-shadow('heavy');
     
     h1 {
       margin: 0;
@@ -36,11 +34,12 @@
   }
   
   &-footer {
+    width: 100%;
     background-color: $black-header;
     padding: clamp(5px, 2vw, 10px);
     color: $text-light;
     font-size: clamp(0.8rem, 2vw, 0.9rem);
-    box-shadow: 0 -2px 10px $shadow-light;
+    @include box-shadow('light');
   }
   
   &-link {
@@ -49,16 +48,13 @@
 }
 
 .header-right {
-  display: flex;
-  align-items: center;
+  @include flex(row, center, center);
 }
 
 main {
   flex: 1;
   padding: clamp(10px, 3vw, 30px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex-center;
   min-height: 80vh;
   background-image: radial-gradient(circle at center, rgba($white, 0.8) 0%, rgba($gray-light, 0.3) 100%);
 }
@@ -74,11 +70,13 @@ main {
 
 /* Ensure smooth transitions when changing themes */
 body, .App, .App-header, .App-footer, .game, .board, .cell, .next-balls-panel, .score, .game-over {
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  @include transition(background-color, 0.3s);
+  @include transition(color, 0.3s);
+  @include transition(border-color, 0.3s);
 }
 
 /* Responsive adjustments */
-@media screen and (max-width: 480px) {
+@include mobile {
   .App-header {
     padding: 10px;
   }

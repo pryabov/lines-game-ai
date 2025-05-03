@@ -1,41 +1,28 @@
-@use 'variables' as *;
+@use 'index' as *;
 
 .consent-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: $overlay-dark;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include overlay-dark;
   z-index: 1001; /* Higher than other components */
-  animation: fadeIn 0.3s ease-out;
+  @include animate(fadeIn, 0.3s);
   
   &.closing {
-    animation: fadeOut 0.3s ease-in forwards;
+    @include animate(fadeOut, 0.3s, ease-in);
   }
 }
 
 .consent-container {
   background-color: $white;
-  border-radius: 10px;
-  box-shadow: 0 6px 24px $shadow-dark;
-  width: 90%;
-  max-width: 480px;
-  overflow: hidden;
-  animation: slideIn 0.4s ease-out;
+  @include dialog-container(480px);
+  @include animate(slideIn, 0.4s);
   
   &.closing {
-    animation: slideOut 0.3s ease-in forwards;
+    @include animate(slideOut, 0.3s, ease-in);
   }
 }
 
 .consent-header {
   padding: 16px 20px;
-  background-color: $primary-blue;
-  color: $text-light;
+  @include dialog-header($primary-blue);
   
   h3 {
     margin: 0;
@@ -59,21 +46,16 @@
 }
 
 .consent-actions {
-  display: flex;
+  @include flex(row, flex-end);
   padding: 15px 20px;
-  justify-content: flex-end;
   gap: 12px;
   border-top: 1px solid $gray-medium;
 }
 
 .consent-button {
-  padding: 10px 16px;
-  border-radius: 4px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  font-size: 14px;
-  transition: all 0.2s;
+  @include button-base;
+  padding: 10px 16px; // Override base padding
+  font-weight: 500;  // Use medium weight instead of bold
 }
 
 .decline-button {
@@ -94,70 +76,4 @@
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-@keyframes slideIn {
-  from { 
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to { 
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slideOut {
-  from { 
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to { 
-    transform: translateY(20px);
-    opacity: 0;
-  }
-}
-
-/* Dark theme support */
-:root.dark-theme {
-  .consent-container {
-    background-color: $gray-near-black;
-  }
-
-  .consent-header {
-    background-color: $primary-blue-darker;
-  }
-
-  .consent-content {
-    color: $gray-darkish;
-  }
-
-  .consent-actions {
-    border-top-color: $border-dark;
-  }
-
-  .decline-button {
-    background-color: $border-dark;
-    color: $text-dark-theme-lighter;
-    
-    &:hover {
-      background-color: $gray-almost-black;
-    }
-  }
-
-  .accept-button {
-    background-color: $primary-blue-dark;
-    
-    &:hover {
-      background-color: $primary-blue-darker;
-    }
-  }
-} 
+/* Dark theme support moved to DarkTheme.scss */ 

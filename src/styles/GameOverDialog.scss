@@ -1,36 +1,20 @@
-@use 'variables' as *;
+@use 'index' as *;
 
 .game-over-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: $overlay-dark;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  backdrop-filter: blur(5px);
-  animation: fadeIn 0.4s ease-out;
+  @include overlay-dark;
+  @include animate(fadeIn, 0.4s);
 }
 
 .game-over-container {
   background-color: $white;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px $shadow-darker;
-  width: 90%;
-  max-width: 400px;
-  overflow: hidden;
-  animation: dropIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  @include dialog-container(400px);
+  @include animate(dropIn, 0.5s, cubic-bezier(0.175, 0.885, 0.32, 1.275));
   transform-origin: center top;
 }
 
 .game-over-header {
   padding: 20px;
-  background-color: $danger-color;
-  color: $text-light;
-  text-align: center;
+  @include dialog-header($danger-color);
   
   h2 {
     margin: 0;
@@ -38,9 +22,9 @@
     text-transform: uppercase;
     letter-spacing: 2px;
     text-shadow: 0 1px 3px $shadow-dark;
-    animation: pulse 2s infinite ease-in-out;
+    @include animate(pulse, 2s, ease-in-out, infinite);
     
-    @media (max-width: 480px) {
+    @include mobile {
       font-size: 24px;
     }
   }
@@ -48,15 +32,11 @@
 
 .game-over-content {
   padding: 30px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex(column);
 }
 
 .final-score {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex(column);
   margin-bottom: 20px;
 }
 
@@ -70,9 +50,9 @@
   font-size: 48px;
   font-weight: bold;
   color: $text-dark;
-  animation: scoreIn 0.8s ease-out;
+  @include animate(scoreIn, 0.8s);
   
-  @media (max-width: 480px) {
+  @include mobile {
     font-size: 40px;
   }
 }
@@ -88,87 +68,32 @@
 
 .game-over-actions {
   padding: 0 20px 25px;
-  display: flex;
-  justify-content: center;
+  @include flex-center;
 }
 
 .play-again-button {
+  // Special button with larger padding and font
   background-color: $success-color;
   color: $text-light;
   border: none;
   padding: 12px 24px;
   font-size: 18px;
   font-weight: bold;
-  border-radius: 6px;
+  @include border-radius('small');
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 3px 6px $shadow-medium;
+  @include transition;
+  @include box-shadow('normal');
   
   &:hover {
     background-color: $success-color-dark;
     transform: translateY(-2px);
-    box-shadow: 0 5px 10px $shadow-medium;
+    @include box-shadow('normal');
   }
   
   &:active {
     transform: translateY(0);
-    box-shadow: 0 2px 4px $shadow-medium;
+    @include box-shadow('light');
   }
 }
 
-/* Dark theme support - mostly handled by DarkTheme.scss or CSS vars */
-// :root.dark-theme definitions are now in _variables.scss
-// Specific overrides from DarkTheme.scss will handle most cases
-// Add any specific overrides here if needed, but prefer CSS vars or DarkTheme.scss
-// Example override if needed:
-// :root.dark-theme {
-//   .game-over-container {
-//     background-color: $black-dialog; // already in DarkTheme.scss
-//   }
-// }
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes dropIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-50px) scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes scoreIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    text-shadow: 0 0 5px $white-overlay-text-light;
-  }
-  50% {
-    text-shadow: 0 0 20px $white-overlay-text-medium;
-  }
-  100% {
-    text-shadow: 0 0 5px $white-overlay-text-light;
-  }
-} 
+/* Dark theme support moved to DarkTheme.scss */ 

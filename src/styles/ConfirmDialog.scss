@@ -1,34 +1,19 @@
-@use 'variables' as *;
+@use 'index' as *;
 
 .dialog-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: $overlay-medium;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  backdrop-filter: blur(3px);
-  animation: fadeIn 0.2s ease-out;
+  @include overlay-medium;
+  @include animate(fadeIn, 0.2s);
 }
 
 .dialog-container {
   background-color: $white;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px $shadow-dark;
-  width: 90%;
-  max-width: 350px;
-  overflow: hidden;
-  animation: scaleIn 0.2s ease-out;
+  @include dialog-container(350px);
+  @include animate(scaleIn, 0.2s);
 }
 
 .dialog-header {
   padding: 15px 20px;
-  background-color: $success-color;
-  color: $text-light;
+  @include dialog-header($success-color);
   
   h3 {
     margin: 0;
@@ -48,78 +33,21 @@
 }
 
 .dialog-actions {
-  display: flex;
+  @include flex(row, flex-end);
   padding: 10px 20px 20px;
-  justify-content: flex-end;
   gap: 10px;
 }
 
 .dialog-button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  font-size: 14px;
-  transition: all 0.2s;
+  @include button-base;
 }
 
 .cancel-button {
-  background-color: $bg-light-secondary;
-  color: $text-dark;
-  
-  &:hover {
-    background-color: $gray-medium;
-  }
+  @include button-secondary;
 }
 
 .confirm-button {
-  background-color: $danger-color;
-  color: $text-light;
-  
-  &:hover {
-    background-color: $danger-color-dark;
-  }
+  @include button-danger;
 }
 
-/* Dark theme support */
-:root.dark-theme {
-  .dialog-container {
-    background-color: $black-dialog;
-  }
-  
-  .dialog-header {
-    background-color: $primary-green-darker;
-  }
-  
-  .dialog-content p {
-    color: $text-dark-theme;
-  }
-  
-  .cancel-button {
-    background-color: $gray-near-black;
-    color: $text-dark-theme;
-    
-    &:hover {
-      background-color: $border-dark;
-    }
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0.9);
-  }
-  to {
-    transform: scale(1);
-  }
-} 
+/* Dark theme support moved to DarkTheme.scss */ 

@@ -1,0 +1,172 @@
+@use 'variables' as *;
+
+// Layout mixins
+@mixin flex($direction: row, $justify: center, $align: center) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Visual mixins
+@mixin box-shadow($type: 'normal') {
+  @if $type == 'normal' {
+    box-shadow: 0 2px 6px var(--shadow-color, $shadow-medium);
+  } @else if $type == 'light' {
+    box-shadow: 0 2px 4px var(--shadow-color, $shadow-light);
+  } @else if $type == 'heavy' {
+    box-shadow: 0 4px 15px $shadow-dark;
+  } @else if $type == 'floating' {
+    box-shadow: 0 8px 30px $shadow-darker;
+  } @else if $type == 'inset' {
+    box-shadow: inset -3px -3px 5px rgba($black, 0.3), 0 2px 4px $shadow-dark;
+  } @else if $type == 'none' {
+    box-shadow: none;
+  }
+}
+
+@mixin border-radius($size: 'normal') {
+  @if $size == 'normal' {
+    border-radius: 8px;
+  } @else if $size == 'small' {
+    border-radius: 4px;
+  } @else if $size == 'large' {
+    border-radius: 12px;
+  } @else if $size == 'circle' {
+    border-radius: 50%;
+  }
+}
+
+@mixin transition($property: all, $duration: 0.2s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+// Button mixins
+@mixin button-base {
+  padding: 8px 16px;
+  @include border-radius('small');
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  @include transition;
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: var(--accent-color, $primary-blue);
+  color: $text-light;
+  
+  &:hover {
+    background-color: darken($primary-blue, 5%);
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@mixin button-danger {
+  @include button-base;
+  background-color: var(--danger-color, $danger-color);
+  color: $text-light;
+  
+  &:hover {
+    background-color: var(--danger-color-dark, $danger-color-dark);
+    transform: translateY(-1px);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: $gray-light;
+  color: $text-dark;
+  
+  &:hover {
+    background-color: $gray-medium;
+  }
+}
+
+// Overlay mixins
+@mixin overlay-base {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+@mixin overlay-dark {
+  @include overlay-base;
+  background-color: $overlay-dark;
+  backdrop-filter: blur(5px);
+}
+
+@mixin overlay-medium {
+  @include overlay-base;
+  background-color: $overlay-medium;
+  backdrop-filter: blur(3px);
+}
+
+// Dialog mixins
+@mixin dialog-container($maxWidth: 400px) {
+  width: 90%;
+  max-width: $maxWidth;
+  overflow: hidden;
+  @include border-radius('large');
+  @include box-shadow('floating');
+}
+
+@mixin dialog-header($bg-color: $primary-blue) {
+  padding: 15px 20px;
+  background-color: $bg-color;
+  color: $text-light;
+  text-align: center;
+}
+
+// Animation mixins
+@mixin animate($name, $duration: 0.3s, $timing: ease-out, $fill: forwards) {
+  animation: $name $duration $timing $fill;
+}
+
+// Responsive mixins
+@mixin mobile {
+  @media screen and (max-width: 480px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (min-width: 481px) and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: 769px) {
+    @content;
+  }
+}
+
+// Ball styling mixin
+@mixin ball-style {
+  @include border-radius('circle');
+  @include box-shadow('inset');
+  @include transition(transform);
+}
+
+// Animation delay mixin
+@mixin animation-delay($delays...) {
+  animation-delay: $delays;
+} 

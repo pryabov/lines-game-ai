@@ -1,43 +1,38 @@
-@use 'variables' as *;
+@use 'index' as *;
 
 .game {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex(column, center, center);
   padding: clamp(8px, 2vw, 20px);
   font-family: 'Arial', sans-serif;
   max-width: 100%;
   width: clamp(350px, 90vw, 700px);
   margin: 0 auto;
   position: relative;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px $shadow-light;
+  @include border-radius('large');
+  @include box-shadow('light');
   background-color: var(--bg-primary, $white);
 
   &-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
+    @include flex(row, space-between, start);
     width: 100%;
     margin-bottom: clamp(5px, 2vw, 10px);
     gap: clamp(8px, 2vw, 16px);
     max-width: 100%;
     background-color: var(--bg-secondary, $bg-light-secondary);
-    border-radius: 8px;
+    @include border-radius;
     border: 1px solid var(--border-color, $border-light-alt);
-    box-shadow: 0 2px 6px var(--shadow-color, $shadow-light);
+    @include box-shadow('normal');
     padding: clamp(6px, 1.5vw, 10px);
   }
   
   &-bottom {
     width: 100%;
-    display: flex;
-    justify-content: center;
+    @include flex-center;
     margin-top: clamp(5px, 2vw, 10px);
   }
   
   /* Responsive adjustments */
-  @media screen and (max-width: 480px) {
+  @include mobile {
     padding: 10px;
     
     &-info {
@@ -51,33 +46,28 @@
 
 /* New container for game info and board */
 .game-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex(column, center, center);
   width: 100%;
   max-width: calc(9 * var(--cell-size) + 4px);
   margin: 0 auto;
 }
 
 .score-container {
-  display: flex;
-  align-items: center;
+  @include flex(row, center, center);
   gap: 20px;
 }
 
 .score, .high-score {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex(column, center, center);
   padding: clamp(4px, 1vw, 12px);
   background-color: transparent;
   border: none;
   border-radius: 0;
-  box-shadow: none;
+  @include box-shadow('none');
   flex: 0 0 22%;
   margin-top: 8px;
   
-  @media screen and (max-width: 480px) {
+  @include mobile {
     width: auto;
     max-width: none;
     margin: 0;
@@ -120,23 +110,11 @@
 }
 
 .reset-button {
-  background-color: var(--danger-color, $danger-color);
-  border: none;
-  color: $text-light;
-  padding: 8px 24px;
+  @include button-danger;
+  padding: 8px 24px; // Override base padding
   text-align: center;
   font-size: clamp(12px, 2vw, 16px);
-  font-weight: bold;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 2px 4px var(--shadow-color, $shadow-light);
   margin-top: 10px;
-  
-  &:hover {
-    background-color: var(--danger-color-dark, $danger-color-dark);
-    transform: translateY(-1px);
-  }
   
   &:disabled {
     background-color: var(--disabled-color, $disabled-bg-light);
@@ -150,8 +128,7 @@
   position: relative;
   margin: 0 auto;
   width: 100%;
-  display: flex;
-  justify-content: center;
+  @include flex-center;
   /* Prevent transform scaling in Board.scss from affecting parent container layout */
   transform-origin: center;
   min-width: calc(9 * var(--cell-size) + 4px); /* Account for border width (2px * 2) */

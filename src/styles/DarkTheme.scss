@@ -1,4 +1,4 @@
-@use 'variables' as *;
+@use 'index' as *;
 
 /* Dark theme styles for the entire game */
 body.dark-theme,
@@ -40,13 +40,13 @@ body.dark-theme,
   /* Game container */
   .game {
     background-color: var(--bg-secondary);
-    box-shadow: 0 4px 15px $shadow-dark;
+    @include box-shadow('heavy');
     
     /* Game info section */
     &-info {
       background-color: var(--bg-secondary);
       border-color: var(--border-color);
-      box-shadow: 0 2px 6px var(--shadow-color);
+      @include box-shadow;
     }
   }
   
@@ -54,7 +54,7 @@ body.dark-theme,
   .board {
     background-color: $bg-dark-secondary;
     border-color: var(--border-color);
-    box-shadow: 0 4px 15px $shadow-dark;
+    @include box-shadow('heavy');
     
     &-row {
       background-color: $bg-dark-secondary;
@@ -105,7 +105,7 @@ body.dark-theme,
   .next-balls-panel {
     background-color: $white-overlay-light;
     border-color: transparent;
-    box-shadow: none;
+    @include box-shadow('none');
   }
   
   .next-balls-title {
@@ -136,5 +136,61 @@ body.dark-theme,
   /* Moving balls */
   .moving-ball {
     filter: brightness(0.95);
+  }
+  
+  /* ConsentDialog styling */
+  .consent-container {
+    background-color: $gray-near-black;
+  }
+
+  .consent-header {
+    background-color: $primary-blue-darker;
+  }
+
+  .consent-content {
+    color: $gray-darkish;
+  }
+
+  .consent-actions {
+    border-top-color: $border-dark;
+  }
+
+  .decline-button {
+    background-color: $border-dark;
+    color: $text-dark-theme-lighter;
+    
+    &:hover {
+      background-color: $gray-almost-black;
+    }
+  }
+
+  .accept-button {
+    background-color: $primary-blue-dark;
+    
+    &:hover {
+      background-color: $primary-blue-darker;
+    }
+  }
+  
+  /* ConfirmDialog styling */
+  .dialog-container {
+    background-color: $black-dialog;
+  }
+  
+  .dialog-header {
+    background-color: $primary-green-darker;
+  }
+  
+  .dialog-content p {
+    color: $text-dark-theme;
+  }
+  
+  .cancel-button {
+    background-color: $gray-near-black;
+    color: $text-dark-theme;
+    
+    &:hover {
+      background-color: $border-dark;
+    }
   }
 } 
