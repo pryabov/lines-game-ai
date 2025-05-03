@@ -37,12 +37,16 @@ const ConsentDialog: React.FC<ConsentDialogProps> = ({ onAccept, onDecline }) =>
         </div>
         <div className="consent-content">
           <p>
-            We use analytics to improve your game experience and track how our game is used.
-            This helps us make better decisions about game features and improvements.
+            We use Google Analytics to improve your game experience and understand how our game is used.
+            This helps us make better decisions about features and improvements.
           </p>
           <p>
             We collect anonymous data about game usage, such as scores, theme preferences,
-            and game events. We do not collect any personal information.
+            and in-game events. All data is anonymized and we do not collect any personally identifiable information.
+          </p>
+          <p>
+            You can decline analytics collection, and your choice will be remembered.
+            The game will work perfectly either way.
           </p>
         </div>
         <div className="consent-actions">

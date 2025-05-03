@@ -140,14 +140,15 @@ const Game: React.FC = () => {
     const cellHadBall = grid[row][col].ball !== null;
     const hadSelectedCell = selectedCell !== null;
     
+    // If we have a selected cell and clicked on an empty cell, track the potential move
+    if (hadSelectedCell && !cellHadBall && selectedCell) {
+      const fromCoord = `${selectedCell.row},${selectedCell.col}`;
+      const toCoord = `${row},${col}`;
+      analytics.trackBallMoved(fromCoord, toCoord);
+    }
+    
     // Call the original handler
     handleCellClick(row, col);
-    
-    // If a ball was selected and an empty cell was clicked, a move might have occurred
-    if (hadSelectedCell && !cellHadBall) {
-      // We'll track the move - the actual move happens in useGameActions
-      analytics.trackBallMoved();
-    }
   };
 
   // Perform a complete game reset including clearing saved state

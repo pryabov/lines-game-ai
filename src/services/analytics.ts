@@ -1,6 +1,6 @@
 /**
  * Analytics service to track game events
- * This provides a wrapper around Cloudflare Analytics with custom event tracking
+ * This provides a wrapper around Google Analytics and Cloudflare Analytics with custom event tracking
  */
 
 interface GameEvent {
@@ -10,6 +10,44 @@ interface GameEvent {
 
 // Local storage keys
 const ANALYTICS_CONSENT_KEY = 'analytics_consent';
+const GA_MEASUREMENT_ID = 'G-4W51MVRRH5'; // Replace with your actual Google Analytics measurement ID
+
+// Function to load GA script dynamically after consent
+const loadGoogleAnalytics = (): void => {
+  if (typeof window === 'undefined' || document.getElementById('ga-script')) {
+    return;
+  }
+
+  // Create script tags and append to head
+  const gaScript = document.createElement('script');
+  gaScript.id = 'ga-script';
+  gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+  gaScript.async = true;
+  gaScript.crossOrigin = 'anonymous';  // Add crossOrigin attribute
+  
+  const inlineScript = document.createElement('script');
+  inlineScript.innerHTML = `
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${GA_MEASUREMENT_ID}', { 
+      anonymize_ip: true,
+      send_page_view: true,
+      transport_url: 'https://www.googletagmanager.com'  // Ensure HTTPS transport
+    });
+  `;
+  
+  // Add error handling for script loading
+  gaScript.onerror = (error) => {
+    console.error('Failed to load Google Analytics:', error);
+    // Remove the failed script
+    gaScript.remove();
+    inlineScript.remove();
+  };
+
+  document.head.appendChild(gaScript);
+  document.head.appendChild(inlineScript);
+};
 
 // Check if user has consented to analytics
 export const hasUserConsent = (): boolean => {
@@ -20,6 +58,17 @@ export const hasUserConsent = (): boolean => {
 // Save user's consent choice
 export const saveUserConsent = (accepted: boolean): void => {
   localStorage.setItem(ANALYTICS_CONSENT_KEY, accepted ? 'accepted' : 'declined');
+  
+  // If user accepted, load Google Analytics
+  if (accepted) {
+    loadGoogleAnalytics();
+  } else {
+    // If user declined, disable tracking and clear any existing cookies
+    if (typeof window !== 'undefined') {
+      // Disable GA tracking - the 'ga-disable-{GA_ID}' is a standard GA feature
+      (window as any)['ga-disable-' + GA_MEASUREMENT_ID] = true;
+    }
+  }
 };
 
 // Check if analytics consent has been answered
@@ -30,6 +79,11 @@ export const hasAnsweredConsent = (): boolean => {
 // Check if Cloudflare analytics is available
 const isCloudflareAvailable = (): boolean => {
   return typeof window !== 'undefined' && 'cfe' in window;
+};
+
+// Check if Google Analytics is available
+const isGoogleAnalyticsAvailable = (): boolean => {
+  return typeof window !== 'undefined' && typeof (window as any).gtag === 'function';
 };
 
 // Track a game event
@@ -48,13 +102,34 @@ export const trackEvent = (event: GameEvent): void => {
     
     console.log(`Analytics: ${event.eventName}`, event.data);
 
-    // Try to use Cloudflare's event tracking if available
+    // Google Analytics tracking
+    if (isGoogleAnalyticsAvailable()) {
+      try {
+        // Convert to camelCase for GA event names (replace underscores with camelCase)
+        const gtagEventName = event.eventName.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+        
+        (window as any).gtag('event', gtagEventName, {
+          ...event.data,
+          event_category: 'game',
+          non_interaction: event.eventName.startsWith('view_'),
+          send_to: GA_MEASUREMENT_ID
+        });
+      } catch (gaError) {
+        console.error('Failed to send event to Google Analytics:', gaError);
+      }
+    }
+
+    // Cloudflare tracking (if available)
     if (isCloudflareAvailable()) {
-      // @ts-ignore - Cloudflare's API is not typed
-      window.cfe?.beacon?.('event', {
-        name: event.eventName,
-        ...(event.data || {})
-      });
+      try {
+        // @ts-ignore - Cloudflare's API is not typed
+        window.cfe?.beacon?.('event', {
+          name: event.eventName,
+          ...(event.data || {})
+        });
+      } catch (cfError) {
+        console.error('Failed to send event to Cloudflare:', cfError);
+      }
     }
   } catch (error) {
     console.error('Failed to track event:', error);
@@ -99,14 +174,24 @@ export const trackLineCompleted = (lineLength: number): void => {
   });
 };
 
-export const trackBallMoved = (): void => {
-  trackEvent({ eventName: 'ball_moved' });
+export const trackBallMoved = (from: string, to: string): void => {
+  trackEvent({ 
+    eventName: 'ball_moved',
+    data: { from, to }
+  });
 };
 
 export const trackThemeChanged = (theme: string): void => {
   trackEvent({ 
     eventName: 'theme_changed', 
     data: { theme } 
+  });
+};
+
+export const trackDifficultyChanged = (difficulty: string): void => {
+  trackEvent({
+    eventName: 'difficulty_changed',
+    data: { difficulty }
   });
 };
 
@@ -118,6 +203,13 @@ export const trackOfflineMode = (): void => {
   trackEvent({ eventName: 'offline_mode' });
 };
 
+export const trackPageView = (page: string): void => {
+  trackEvent({
+    eventName: 'page_view',
+    data: { page }
+  });
+};
+
 export default {
   trackEvent,
   trackGameStart,
@@ -126,8 +218,10 @@ export default {
   trackLineCompleted,
   trackBallMoved,
   trackThemeChanged,
+  trackDifficultyChanged,
   trackAppInstalled,
   trackOfflineMode,
+  trackPageView,
   hasUserConsent,
   hasAnsweredConsent,
   saveUserConsent,

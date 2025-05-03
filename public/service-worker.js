@@ -16,6 +16,34 @@ const INITIAL_CACHE_URLS = [
   '/static/css/main.css'
 ];
 
+// URLs that should never be cached
+const NEVER_CACHE_URLS = [
+  '/gtag',
+  '/analytics',
+  '/collect',
+  '/beacon'
+];
+
+// Check if a request should be cached
+const shouldCache = (request) => {
+  // Only cache GET requests
+  if (request.method !== 'GET') {
+    return false;
+  }
+
+  // Don't cache analytics, beacons, etc.
+  if (NEVER_CACHE_URLS.some(url => request.url.includes(url))) {
+    return false;
+  }
+
+  // Don't cache non-same-origin requests
+  if (!request.url.startsWith(self.location.origin)) {
+    return false;
+  }
+
+  return true;
+};
+
 // Install event - cache initial resources
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -47,8 +75,8 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event - serve from cache if available, fetch from network otherwise
 self.addEventListener('fetch', (event) => {
-  // Skip cross-origin requests like Google Analytics
-  if (!event.request.url.startsWith(self.location.origin)) {
+  // Handle only GET requests that should be cached
+  if (!shouldCache(event.request)) {
     return;
   }
 
@@ -61,7 +89,7 @@ self.addEventListener('fetch', (event) => {
 
         return fetch(event.request)
           .then((response) => {
-            // Don't cache responses from analytics, non-CORS, etc.
+            // Don't cache if response is not ok or not basic type
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
@@ -69,9 +97,14 @@ self.addEventListener('fetch', (event) => {
             // Clone the response as it's a stream and can only be consumed once
             const responseToCache = response.clone();
 
+            // Cache the response
             caches.open(CACHE_NAME)
               .then((cache) => {
-                cache.put(event.request, responseToCache);
+                try {
+                  cache.put(event.request, responseToCache);
+                } catch (error) {
+                  console.error('Failed to cache response:', error);
+                }
               });
 
             return response;
