@@ -32,8 +32,7 @@ const loadGoogleAnalytics = (): void => {
     gtag('js', new Date());
     gtag('config', '${GA_MEASUREMENT_ID}', { 
       anonymize_ip: true,
-      send_page_view: true,
-      transport_url: 'https://www.googletagmanager.com'  // Ensure HTTPS transport
+      send_page_view: true
     });
   `;
   

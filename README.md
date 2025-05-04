@@ -31,6 +31,14 @@ A classic "Lines" (also known as "Color Lines") game implemented using React and
 - Yarn
 - CSS3
 
+## Live Demo
+
+You can play the released version of the game at [https://lines98.fun](https://lines98.fun)
+
+## Development
+
+This project has been built with the assistance of [Cursor AI](https://cursor.sh/), an AI-powered code editor.
+
 ## Getting Started
 
 ### Prerequisites
@@ -106,4 +114,4 @@ lines-game/
 
 ## License
 
-MIT
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
