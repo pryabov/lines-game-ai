@@ -22,6 +22,11 @@ A classic "Lines" (also known as "Color Lines") game implemented using React and
 - Score tracking
 - Game over detection and restart option
 - Animated ball movements and line completions
+- **Multi-language support** (English, Russian, Spanish, German, Polish, Chinese, Japanese)
+- **Theme switching** (Light and Dark mode)
+- **Browser tab detection** to pause game activity when the tab is not active
+- **Offline play support** via Progressive Web App (PWA) capabilities
+- **Automatic game state saving** to continue from where you left off
 
 ## Technologies Used
 
@@ -29,7 +34,9 @@ A classic "Lines" (also known as "Color Lines") game implemented using React and
 - TypeScript
 - Webpack
 - Yarn
-- CSS3
+- CSS3/SCSS
+- Jotai (for state management)
+- Web Vitals (for performance monitoring)
 
 ## Live Demo
 
@@ -81,7 +88,7 @@ The build artifacts will be stored in the `dist/` directory.
 
 ## Project Structure
 
-```
+```text
 lines-game/
 ├── public/             # Static files
 ├── src/                # Source code
@@ -89,14 +96,22 @@ lines-game/
 │   │   ├── Board.tsx   # Game board component
 │   │   ├── Cell.tsx    # Cell component
 │   │   ├── Game.tsx    # Main game logic
+│   │   ├── LanguageSelector.tsx # Language selection component
+│   │   ├── ThemeToggle.tsx     # Theme switching component
 │   │   └── NextBallsPanel.tsx  # Component showing upcoming balls
-│   ├── styles/         # CSS styles
-│   │   ├── Board.css
-│   │   ├── Cell.css
-│   │   ├── Game.css
-│   │   └── NextBallsPanel.css
+│   ├── styles/         # SCSS styles
+│   ├── translations/   # Language translations
+│   │   ├── en.ts       # English translations
+│   │   ├── ru.ts       # Russian translations
+│   │   ├── es.ts       # Spanish translations
+│   │   ├── de.ts       # German translations
+│   │   ├── pl.ts       # Polish translations
+│   │   ├── zh.ts       # Chinese translations
+│   │   └── ja.ts       # Japanese translations
 │   ├── utils/          # Utility functions
 │   │   └── pathfinding.ts  # Path-finding algorithm
+│   ├── hooks/          # Custom React hooks
+│   ├── atoms/          # Jotai atoms for state management
 │   ├── types.ts        # TypeScript type definitions
 │   ├── App.tsx         # Main App component
 │   ├── index.tsx       # Entry point
@@ -109,8 +124,10 @@ lines-game/
 - The game uses a breadth-first search algorithm for path-finding.
 - Ball movements are restricted to paths without obstacles.
 - Line detection works in four directions: horizontal, vertical, and both diagonals.
-- The game state is managed using React hooks.
+- The game state is managed using React hooks and Jotai for global state.
 - Animations are created using CSS transitions and keyframes.
+- Language detection automatically sets the game to the user's browser language if supported.
+- Theme preference is saved and restored between sessions.
 
 ## License
 
