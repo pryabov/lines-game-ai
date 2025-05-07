@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
 import { Language, languageNames, languageCountryCodes } from '../translations';
-import 'flag-icon-css/css/flag-icons.min.css';
 import '../styles/LanguageSelector.scss';
 
 const LanguageSelector: React.FC = () => {
@@ -50,7 +49,11 @@ const LanguageSelector: React.FC = () => {
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
-        <span className={`flag-icon flag-icon-${languageCountryCodes[language]}`}></span>
+        <img 
+          src={require(`../assets/flags/${languageCountryCodes[language]}.svg`)} 
+          alt={`${languageNames[language]} flag`}
+          className="flag-image"
+        />
         <span className="language-name">{languageNames[language]}</span>
       </button>
       {isOpen && (
@@ -64,7 +67,11 @@ const LanguageSelector: React.FC = () => {
               onClick={() => handleLanguageSelect(langCode)}
               aria-selected={langCode === language}
             >
-              <span className={`flag-icon flag-icon-${languageCountryCodes[langCode]}`}></span>
+              <img 
+                src={require(`../assets/flags/${languageCountryCodes[langCode]}.svg`)} 
+                alt={`${languageNames[langCode]} flag`}
+                className="flag-image"
+              />
               <span className="language-name">{languageNames[langCode]}</span>
             </button>
           ))}
