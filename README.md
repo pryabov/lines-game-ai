@@ -28,6 +28,8 @@ A classic "Lines" (also known as "Color Lines") game implemented using React and
 - **Offline play support** via Progressive Web App (PWA) capabilities
 - **Automatic game state saving** to continue from where you left off
 
+See our [Future Plans](docs/FUTURE_PLANS.md) document for upcoming features and improvements.
+
 ## Technologies Used
 
 - React
