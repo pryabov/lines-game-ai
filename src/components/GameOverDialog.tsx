@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useLanguage } from '../hooks/useLanguage';
 import '../styles/GameOverDialog.scss';
 
 interface GameOverDialogProps {
@@ -12,6 +13,8 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
   score,
   onPlayAgain
 }) => {
+  const { t } = useLanguage();
+
   // Add exit animation
   useEffect(() => {
     // Focus on play again button for accessibility
@@ -25,25 +28,27 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
 
   if (!isOpen) return null;
 
+  // Get score message based on score
+  const getScoreMessage = (score: number) => {
+    if (score < 50) return t.gameOver.lowScore;
+    if (score < 100) return t.gameOver.mediumScore;
+    if (score < 200) return t.gameOver.highScore;
+    return t.gameOver.excellentScore;
+  };
+
   return (
     <div className="game-over-overlay">
       <div className="game-over-container">
         <div className="game-over-header">
-          <h2>Game Over</h2>
+          <h2>{t.gameOver.title}</h2>
         </div>
         <div className="game-over-content">
           <div className="final-score">
-            <span className="score-label">Your Score</span>
+            <span className="score-label">{t.gameOver.yourScore}</span>
             <span className="score-value">{score}</span>
           </div>
           <div className="score-message">
-            {score < 50 
-              ? 'Good effort! Try again to improve your score.' 
-              : score < 100 
-                ? 'Nice job! You\'re getting better!' 
-                : score < 200 
-                  ? 'Great score! You\'re really good at this!' 
-                  : 'Amazing! You\'re a Lines game master!'}
+            {getScoreMessage(score)}
           </div>
         </div>
         <div className="game-over-actions">
@@ -52,7 +57,7 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
             className="play-again-button" 
             onClick={onPlayAgain}
           >
-            Play Again
+            {t.gameOver.playAgain}
           </button>
         </div>
       </div>

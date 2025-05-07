@@ -7,6 +7,8 @@ interface ConfirmDialogProps {
   message: string;
   onConfirm: () => void;
   onCancel: () => void;
+  confirmText?: string;
+  cancelText?: string;
 }
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
@@ -14,7 +16,9 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   title,
   message,
   onConfirm,
-  onCancel
+  onCancel,
+  confirmText = 'Confirm',
+  cancelText = 'Cancel'
 }) => {
   if (!isOpen) return null;
 
@@ -32,13 +36,13 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
             className="dialog-button cancel-button" 
             onClick={onCancel}
           >
-            Cancel
+            {cancelText}
           </button>
           <button 
             className="dialog-button confirm-button" 
             onClick={onConfirm}
           >
-            Reset Game
+            {confirmText}
           </button>
         </div>
       </div>
