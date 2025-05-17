@@ -55,6 +55,8 @@ export const de = {
     ]
   },
   footer: {
-    description: 'Linien-Spiel - Bringe 5 oder mehr Kugeln derselben Farbe in einer Linie zusammen.'
+    description: 'Lines Spiel - Ordne 5 oder mehr Kugeln derselben Farbe in einer Linie an',
+    email: 'support@lines98.fun',
+    contactUs: 'Kontaktiere uns'
   }
 }; 

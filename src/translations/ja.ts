@@ -55,6 +55,8 @@ export const ja = {
     ]
   },
   footer: {
-    description: 'ラインゲーム - 同じ色のボールを5つ以上一列に並べましょう。'
+    description: 'ラインゲーム - 同じ色のボールを5つ以上一列に並べましょう。',
+    email: 'support@lines98.fun',
+    contactUs: 'お問い合わせ'
   }
 }; 

@@ -55,6 +55,8 @@ export const ru = {
     ]
   },
   footer: {
-    description: 'Игра Линии - Соберите 5 или более шаров одного цвета в линию.'
+    description: 'Игра "Линии" - Выстроите 5 или более шаров одного цвета в линию',
+    email: 'support@lines98.fun',
+    contactUs: 'Связаться с нами'
   }
 }; 

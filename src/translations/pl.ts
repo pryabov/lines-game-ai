@@ -55,6 +55,8 @@ export const pl = {
     ]
   },
   footer: {
-    description: 'Gra w Linie - Ułóż 5 lub więcej kul tego samego koloru w jednej linii.'
+    description: 'Gra w Linie - Ułóż 5 lub więcej kul tego samego koloru w jednej linii',
+    email: 'support@lines98.fun',
+    contactUs: 'Kontakt'
   }
 }; 

@@ -55,6 +55,8 @@ export const zh = {
     ]
   },
   footer: {
-    description: '连线游戏 - 将5个或更多同色球排成一线。'
+    description: '连线游戏 - 将5个或更多相同颜色的球排成一线。',
+    email: 'support@lines98.fun',
+    contactUs: '联系我们'
   }
 }; 

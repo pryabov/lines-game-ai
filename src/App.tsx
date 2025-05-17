@@ -31,6 +31,10 @@ const AppContent: React.FC = () => {
       <footer className="App-footer">
         <p>
           {t.footer.description}
+          {' | '}
+          <a href={`mailto:${t.footer.email}`} className="email-link">
+            {t.footer.contactUs}
+          </a>
         </p>
       </footer>
       <OfflineNotice />

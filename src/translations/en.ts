@@ -55,6 +55,8 @@ export const en = {
     ]
   },
   footer: {
-    description: 'Lines Game - Match 5 or more balls of the same color in a line.'
+    description: 'Lines Game - Match 5 or more balls of the same color in a line',
+    email: 'support@lines98.fun',
+    contactUs: 'Contact Us'
   }
 }; 

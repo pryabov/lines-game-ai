@@ -55,6 +55,8 @@ export const es = {
     ]
   },
   footer: {
-    description: 'Juego de Líneas - Haz coincidir 5 o más bolas del mismo color en una línea.'
+    description: 'Juego de Líneas - Junta 5 o más bolas del mismo color en una línea',
+    email: 'support@lines98.fun',
+    contactUs: 'Contáctenos'
   }
 }; 
