@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { Ball, BallColor, CellType, Position, GameState } from '../types';
+import { Ball, BallColor, CellType, Position, GameState, BallMovementAnimation } from '../types';
 
 // Constants
 export const GRID_SIZE = 9;
@@ -56,4 +56,7 @@ export const lineAnimationsAtom = atom<{
 }>({
   positions: [],
   isAnimating: false
-}); 
+});
+
+// Settings atoms
+export const ballMovementAnimationAtom = atom<BallMovementAnimation>('step-by-step'); 

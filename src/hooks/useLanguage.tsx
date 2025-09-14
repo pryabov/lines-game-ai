@@ -1,26 +1,45 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Language, Translation, translations, getInitialLanguage, LANGUAGE_STORAGE_KEY } from '../translations';
+import { Language, Translation, translations } from '../translations';
+import { storageService } from '../services/storageService';
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: Translation;
+  translations: Translation;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>(getInitialLanguage());
-  const [t, setT] = useState<Translation>(translations[language]);
+  const [language, setLanguage] = useState<Language>('en'); // Start with default
+  const [currentTranslations, setCurrentTranslations] = useState<Translation>(translations['en']);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Initialize language on mount
+  useEffect(() => {
+    const initialLanguage = storageService.getInitialLanguage();
+    setLanguage(initialLanguage);
+    setCurrentTranslations(translations[initialLanguage]);
+    document.documentElement.lang = initialLanguage;
+    setIsInitialized(true);
+  }, []);
+
+  const updateLanguage = (lang: Language) => {
+    setLanguage(lang);
+    if (isInitialized) {
+      storageService.setSetting('language', lang);
+    }
+  };
 
   useEffect(() => {
-    setT(translations[language]);
-    localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
-    document.documentElement.lang = language;
-  }, [language]);
+    if (isInitialized) {
+      setCurrentTranslations(translations[language]);
+      document.documentElement.lang = language;
+    }
+  }, [language, isInitialized]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: updateLanguage, translations: currentTranslations }}>
       {children}
     </LanguageContext.Provider>
   );

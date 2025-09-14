@@ -13,7 +13,7 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
   score,
   onPlayAgain
 }) => {
-  const { t } = useLanguage();
+  const { translations } = useLanguage();
 
   // Add exit animation
   useEffect(() => {
@@ -30,21 +30,21 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
 
   // Get score message based on score
   const getScoreMessage = (score: number) => {
-    if (score < 50) return t.gameOver.lowScore;
-    if (score < 100) return t.gameOver.mediumScore;
-    if (score < 200) return t.gameOver.highScore;
-    return t.gameOver.excellentScore;
+    if (score < 50) return translations.gameOver.lowScore;
+    if (score < 100) return translations.gameOver.mediumScore;
+    if (score < 200) return translations.gameOver.highScore;
+    return translations.gameOver.excellentScore;
   };
 
   return (
     <div className="game-over-overlay">
       <div className="game-over-container">
         <div className="game-over-header">
-          <h2>{t.gameOver.title}</h2>
+          <h2>{translations.gameOver.title}</h2>
         </div>
         <div className="game-over-content">
           <div className="final-score">
-            <span className="score-label">{t.gameOver.yourScore}</span>
+            <span className="score-label">{translations.gameOver.yourScore}</span>
             <span className="score-value">{score}</span>
           </div>
           <div className="score-message">
@@ -57,7 +57,7 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
             className="play-again-button" 
             onClick={onPlayAgain}
           >
-            {t.gameOver.playAgain}
+            {translations.gameOver.playAgain}
           </button>
         </div>
       </div>

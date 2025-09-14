@@ -13,14 +13,20 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].[contenthash].js',
     clean: true,
-    publicPath: './'
+    publicPath: isProduction ? './' : '/'
   },
   devtool: isProduction ? 'source-map' : 'inline-source-map',
   devServer: {
-    static: './dist',
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
     hot: true,
     port: 3000,
-    historyApiFallback: true
+    historyApiFallback: true,
+    watchFiles: ['src/**/*'],
+    liveReload: true,
+    compress: true,
+    open: true
   },
   module: {
     rules: [
@@ -78,6 +84,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx', '.scss', '.css']
+  },
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000,
+    ignored: /node_modules/
   },
   plugins: [
     new HtmlWebpackPlugin({
