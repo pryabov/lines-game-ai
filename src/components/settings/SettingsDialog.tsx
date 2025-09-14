@@ -25,18 +25,13 @@ const SettingsDialog: React.FC<SettingsDialogProps> = ({ isOpen, onClose }) => {
         </div>
         <div className="dialog-content">
           <div className="settings-section">
-            <h3>{t.settingsDialog.appearance}</h3>
-            <div className="setting-item">
-              <span className="setting-label">{t.settingsDialog.theme}</span>
-              <ThemeToggle />
-            </div>
-          </div>
-          
-          <div className="settings-section">
-            <h3>{t.settingsDialog.language}</h3>
             <div className="setting-item">
               <span className="setting-label">{t.settingsDialog.selectLanguage}</span>
               <LanguageSelector />
+            </div>
+            <div className="setting-item">
+              <span className="setting-label">{t.settingsDialog.theme}</span>
+              <ThemeToggle />
             </div>
           </div>
         </div>

@@ -56,9 +56,7 @@ export const en = {
   },
   settingsDialog: {
     title: 'Settings',
-    appearance: 'Appearance',
     theme: 'Theme',
-    language: 'Language',
     selectLanguage: 'Select Language',
     close: 'Close'
   },

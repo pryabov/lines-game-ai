@@ -56,9 +56,7 @@ export const ru = {
   },
   settingsDialog: {
     title: 'Настройки',
-    appearance: 'Внешний вид',
     theme: 'Тема',
-    language: 'Язык',
     selectLanguage: 'Выбрать язык',
     close: 'Закрыть'
   },

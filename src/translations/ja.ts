@@ -56,9 +56,7 @@ export const ja = {
   },
   settingsDialog: {
     title: '設定',
-    appearance: '外観',
     theme: 'テーマ',
-    language: '言語',
     selectLanguage: '言語を選択',
     close: '閉じる'
   },

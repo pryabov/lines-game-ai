@@ -207,4 +207,65 @@ body.dark-theme,
       color: $text-dark-theme;
     }
   }
+  
+  /* Language selector styling - general dark theme */
+  .language-button {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: $gray-almost-black;
+    color: $text-dark-theme;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+  
+  .language-dropdown {
+    background-color: $black-dialog;
+    border: 1px solid $border-dark;
+  }
+  
+  .language-option {
+    color: $text-dark-theme;
+    
+    &:hover {
+      background-color: $gray-darkest;
+    }
+    
+    &.active {
+      background-color: $gray-almost-black;
+    }
+  }
+  
+  /* Settings dialog specific overrides for dark theme */
+  .settings-dialog {
+    .language-selector {
+      .language-button {
+        background-color: rgba(255, 255, 255, 0.08);
+        border-color: $border-dark;
+        color: $text-dark-theme;
+        
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.15);
+          border-color: $gray-almost-black;
+        }
+      }
+      
+      .language-dropdown {
+        background-color: $black-dialog;
+        border: 1px solid $border-dark;
+      }
+      
+      .language-option {
+        color: $text-dark-theme;
+        
+        &:hover {
+          background-color: $gray-darkest;
+        }
+        
+        &.active {
+          background-color: $gray-almost-black;
+        }
+      }
+    }
+  }
 } 

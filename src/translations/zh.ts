@@ -56,9 +56,7 @@ export const zh = {
   },
   settingsDialog: {
     title: '设置',
-    appearance: '外观',
     theme: '主题',
-    language: '语言',
     selectLanguage: '选择语言',
     close: '关闭'
   },

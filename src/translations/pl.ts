@@ -56,9 +56,7 @@ export const pl = {
   },
   settingsDialog: {
     title: 'Ustawienia',
-    appearance: 'Wygląd',
     theme: 'Motyw',
-    language: 'Język',
     selectLanguage: 'Wybierz język',
     close: 'Zamknij'
   },
