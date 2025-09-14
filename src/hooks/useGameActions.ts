@@ -11,6 +11,7 @@ import {
   isAnimatingAtom,
   lineAnimationsAtom,
   movesMadeAtom,
+  ballMovementAnimationAtom,
   STEP_DURATION,
   JUMP_ANIMATION_DURATION,
   createEmptyGrid,
@@ -38,10 +39,151 @@ export const useGameActions = () => {
   const [isAnimating, setIsAnimating] = useAtom(isAnimatingAtom);
   const [lineAnimations, setLineAnimations] = useAtom(lineAnimationsAtom);
   const [movesMade, setMovesMade] = useAtom(movesMadeAtom);
+  const [ballMovementAnimation] = useAtom(ballMovementAnimationAtom);
 
   // References for DOM elements
   const gameRef = useRef<HTMLDivElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
+
+  // Animation helper functions
+  const createMovingBall = useCallback((selectedBall: Ball, boardRect: DOMRect) => {
+    const cellWidth = boardRect.width / 9;
+    const cellHeight = boardRect.height / 9;
+    const actualBallSize = Math.min(cellWidth, cellHeight) * 0.75;
+
+    const movingBall = document.createElement('div');
+    movingBall.className = 'moving-ball';
+    
+    const ballInner = document.createElement('div');
+    ballInner.className = `ball-inner ball-${selectedBall.color}-inner`;
+    movingBall.appendChild(ballInner);
+    
+    // Set up the moving ball styling
+    movingBall.style.position = 'absolute';
+    movingBall.style.width = `${actualBallSize}px`;
+    movingBall.style.height = `${actualBallSize}px`;
+    movingBall.style.display = 'flex';
+    movingBall.style.justifyContent = 'center';
+    movingBall.style.alignItems = 'center';
+    movingBall.style.opacity = '1';
+    movingBall.style.visibility = 'visible';
+    
+    // Initial box shadow for the ball
+    movingBall.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
+    
+    // Set up the inner ball styling
+    ballInner.style.width = '100%';
+    ballInner.style.height = '100%';
+    ballInner.style.borderRadius = '50%';
+    ballInner.style.display = 'block';
+    
+    // Initial inner ball shadow
+    ballInner.style.boxShadow = 'inset -3px -3px 5px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)';
+
+    return { movingBall, actualBallSize };
+  }, []);
+
+  const positionBallAtCell = useCallback((movingBall: HTMLElement, row: number, col: number, actualBallSize: number, boardRect: DOMRect) => {
+    const bodyRect = document.body.getBoundingClientRect();
+    
+    const targetCell = boardRef.current?.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+    
+    if (targetCell) {
+      const targetRect = targetCell.getBoundingClientRect();
+      const destX = targetRect.left - bodyRect.left + (targetRect.width - actualBallSize) / 2;
+      const destY = targetRect.top - bodyRect.top + (targetRect.height - actualBallSize) / 2;
+      
+      movingBall.style.left = `${destX}px`;
+      movingBall.style.top = `${destY}px`;
+    } else {
+      // Fallback calculation
+      const cellWidth = boardRect.width / 9;
+      const cellHeight = boardRect.height / 9;
+      const boardOffsetX = boardRect.left - bodyRect.left;
+      const boardOffsetY = boardRect.top - bodyRect.top;
+      const destX = col * cellWidth + (cellWidth - actualBallSize) / 2;
+      const destY = row * cellHeight + (cellHeight - actualBallSize) / 2;
+      
+      movingBall.style.left = `${boardOffsetX + destX}px`;
+      movingBall.style.top = `${boardOffsetY + destY}px`;
+    }
+  }, []);
+
+  // Animation implementations for different types
+  const animateStepByStep = useCallback((movingBall: HTMLElement, path: Position[], actualBallSize: number, boardRect: DOMRect, onComplete: () => void) => {
+    let currentStep = 0;
+    const steps = path.length;
+    
+    // Set up proper transitions for step-by-step movement
+    movingBall.style.transition = 'left 0.25s ease-in-out, top 0.25s ease-in-out';
+    
+    const moveToNextPosition = () => {
+      if (currentStep < steps) {
+        const { row: pathRow, col: pathCol } = path[currentStep];
+        
+        // Add jumping animation
+        movingBall.classList.add('jumping');
+        
+        // Remove box shadows during jump
+        movingBall.style.boxShadow = 'none';
+        const ballInner = movingBall.querySelector('.ball-inner') as HTMLElement;
+        if (ballInner) {
+          ballInner.style.boxShadow = 'none';
+        }
+        
+        // Move to position
+        positionBallAtCell(movingBall, pathRow, pathCol, actualBallSize, boardRect);
+        
+        // Force reflow to ensure position is applied
+        void movingBall.offsetWidth;
+        
+        setTimeout(() => {
+          // Remove jumping class
+          movingBall.classList.remove('jumping');
+          
+          // Restore box shadows
+          movingBall.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
+          if (ballInner) {
+            ballInner.style.boxShadow = 'inset -3px -3px 5px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)';
+          }
+          
+          currentStep++;
+          if (currentStep < steps) {
+            setTimeout(moveToNextPosition, 80);
+          } else {
+            onComplete();
+          }
+        }, JUMP_ANIMATION_DURATION);
+      }
+    };
+    
+    setTimeout(moveToNextPosition, 100);
+  }, [positionBallAtCell]);
+
+  const animateShowPathThenMove = useCallback((movingBall: HTMLElement, path: Position[], actualBallSize: number, boardRect: DOMRect, onComplete: () => void) => {
+    // Show path first (path cells are already set)
+    setTimeout(() => {
+      // Move directly to final position
+      const finalPos = path[path.length - 1];
+      movingBall.style.transition = 'left 0.5s ease-in-out, top 0.5s ease-in-out';
+      positionBallAtCell(movingBall, finalPos.row, finalPos.col, actualBallSize, boardRect);
+      
+      setTimeout(() => {
+        onComplete();
+      }, 500);
+    }, 1000); // Show path for 1 second
+  }, [positionBallAtCell]);
+
+  const animateInstantMove = useCallback((movingBall: HTMLElement, path: Position[], actualBallSize: number, boardRect: DOMRect, onComplete: () => void) => {
+    // Move instantly to final position
+    const finalPos = path[path.length - 1];
+    movingBall.style.transition = 'none';
+    positionBallAtCell(movingBall, finalPos.row, finalPos.col, actualBallSize, boardRect);
+    
+    setTimeout(() => {
+      onComplete();
+    }, 50); // Very short delay just for visual feedback
+  }, [positionBallAtCell]);
 
   // Calculate score based on the number of balls in a line
   const calculateScore = useCallback((lineLength: number) => {
@@ -177,8 +319,10 @@ export const useGameActions = () => {
       
       // If there's a valid path
       if (path.length > 0) {
-        // Show the path
-        setPathCells(path);
+        // Show the path (for show-path-then-move and step-by-step, but not for instant-move)
+        if (ballMovementAnimation !== 'instant-move') {
+          setPathCells(path);
+        }
         setIsAnimating(true);
         
         // Increment the moves counter
@@ -189,21 +333,8 @@ export const useGameActions = () => {
         
         // Create a moving ball element for animation
         if (gameRef.current && boardRef.current) {
-          // Get board's actual dimensions and position
           const boardRect = boardRef.current.getBoundingClientRect();
-          
-          // Calculate actual cell dimensions
-          const cellWidth = boardRect.width / 9;
-          const cellHeight = boardRect.height / 9;
-          
-          // Create moving ball element
-          const movingBall = document.createElement('div');
-          movingBall.className = 'moving-ball';
-          
-          // Create ball inner element
-          const ballInner = document.createElement('div');
-          ballInner.className = `ball-inner ball-${selectedBall.color}-inner`;
-          movingBall.appendChild(ballInner);
+          const { movingBall, actualBallSize } = createMovingBall(selectedBall, boardRect);
           
           // Create a deep copy of the grid
           const newGrid = copyGrid(grid);
@@ -213,181 +344,62 @@ export const useGameActions = () => {
           setGrid(newGrid);
           setSelectedCell(null);
           
-          // Ensure the ball has proper dimensions - use actual sizes rather than CSS variables
-          // since the CSS variables might not be correctly evaluated in this context
-          const actualBallSize = Math.min(cellWidth, cellHeight) * 0.75; // 75% of cell size
-          
-          // Initialize the ball properties with explicit dimensions
-          movingBall.style.position = 'absolute';
-          movingBall.style.width = `${actualBallSize}px`;
-          movingBall.style.height = `${actualBallSize}px`;
-          movingBall.style.display = 'flex'; // Ensure proper display mode
-          movingBall.style.justifyContent = 'center';
-          movingBall.style.alignItems = 'center';
-          movingBall.style.opacity = '1';
-          
-          // Also set explicit dimensions on the inner ball
-          ballInner.style.width = '100%';
-          ballInner.style.height = '100%';
-          ballInner.style.borderRadius = '50%';
-          ballInner.style.display = 'block';
-          
-          // Calculate starting position using the actual ball size
-          const startX = selectedCol * cellWidth + (cellWidth - actualBallSize) / 2;
-          const startY = selectedRow * cellHeight + (cellHeight - actualBallSize) / 2;
-          
-          // Set initial position (this is just a placeholder, it will be immediately overridden)
-          movingBall.style.left = `${startX}px`;
-          movingBall.style.top = `${startY}px`;
-          
-          // Make sure the ball is created at the exact source position
+          // Position ball at starting position
+          movingBall.style.transition = 'none';
+          positionBallAtCell(movingBall, selectedRow, selectedCol, actualBallSize, boardRect);
           document.body.appendChild(movingBall);
           
-          // Calculate the correct position relative to viewport
-          const bodyRect = document.body.getBoundingClientRect();
-          const boardOffsetX = boardRect.left - bodyRect.left;
-          const boardOffsetY = boardRect.top - bodyRect.top;
-          
-          // Important: Set correct position IMMEDIATELY to avoid seeing the ball flying from elsewhere
-          // Disable transitions temporarily
-          movingBall.style.transition = 'none';
-          
-          // Get the exact source position using the special data attribute we added to cells
-          const sourceCell = boardRef.current?.querySelector(`.cell[data-row="${selectedRow}"][data-col="${selectedCol}"]`);
-          
-          if (sourceCell) {
-            const sourceCellRect = sourceCell.getBoundingClientRect();
-            // Position the ball at the center of the source cell
-            const initialX = sourceCellRect.left - bodyRect.left + (sourceCellRect.width - actualBallSize) / 2;
-            const initialY = sourceCellRect.top - bodyRect.top + (sourceCellRect.height - actualBallSize) / 2;
-            
-            // Apply the position without transitions
-            movingBall.style.left = `${initialX}px`;
-            movingBall.style.top = `${initialY}px`;
-          } else {
-            // Fallback to calculated position if cell element not found
-            movingBall.style.left = `${boardOffsetX + startX}px`;
-            movingBall.style.top = `${boardOffsetY + startY}px`;
-          }
-          
-          // Force reflow to ensure the position is applied immediately
+          // Force reflow
           void movingBall.offsetWidth;
           
-          // Re-enable transitions for future movements
-          setTimeout(() => {
-            movingBall.style.transition = 'left 0.25s ease-in-out, top 0.25s ease-in-out';
-          }, 0);
-          
-          // Animate along path
-          let currentStep = 0;
-          const steps = path.length;
-          
-          // Function to move to next position and animate
-          const moveToNextPosition = () => {
-            if (currentStep < steps) {
-              // Get current position in the path
-              const { row: pathRow, col: pathCol } = path[currentStep];
-              
-              // Get the target cell from the DOM for accurate positioning
-              const targetCell = boardRef.current?.querySelector(`.cell[data-row="${pathRow}"][data-col="${pathCol}"]`);
-              
-              if (targetCell) {
-                // Use the actual cell position from the DOM
-                const targetRect = targetCell.getBoundingClientRect();
-                // Calculate position to center the ball in the cell
-                const destX = targetRect.left - bodyRect.left + (targetRect.width - actualBallSize) / 2;
-                const destY = targetRect.top - bodyRect.top + (targetRect.height - actualBallSize) / 2;
-                
-                // Add jumping animation
-                movingBall.classList.add('jumping');
-                
-                // Explicitly remove box shadow
-                movingBall.style.boxShadow = 'none';
-                ballInner.style.boxShadow = 'none';
-                
-                // Update ball position
-                movingBall.style.left = `${destX}px`;
-                movingBall.style.top = `${destY}px`;
-              } else {
-                // Fallback to calculated position if cell element not found
-                const destX = pathCol * cellWidth + (cellWidth - actualBallSize) / 2;
-                const destY = pathRow * cellHeight + (cellHeight - actualBallSize) / 2;
-                
-                // Add jumping animation
-                movingBall.classList.add('jumping');
-                
-                // Explicitly remove box shadow
-                movingBall.style.boxShadow = 'none';
-                ballInner.style.boxShadow = 'none';
-                
-                // Update ball position
-                movingBall.style.left = `${boardOffsetX + destX}px`;
-                movingBall.style.top = `${boardOffsetY + destY}px`;
+          // Animation completion handler
+          const onAnimationComplete = () => {
+            // Remove the moving ball
+            document.body.removeChild(movingBall);
+            
+            // Place the ball at the final position
+            const finalPos = path[path.length - 1];
+            const updatedGrid = placeBall(newGrid, selectedBall, finalPos);
+            setGrid(updatedGrid);
+            
+            // Clear the path and animation state
+            setPathCells([]);
+            setIsAnimating(false);
+            
+            // Check for lines after moving the ball
+            const hasLines = checkForLines(updatedGrid);
+            
+            // If no lines formed, place new balls
+            if (!hasLines) {
+              // Check if game is over before placing new balls
+              if (checkGameOver()) {
+                return;
               }
-
-              // Force the browser to recognize the ball by triggering reflow
-              void movingBall.offsetWidth;
               
-              // Wait for jump animation to complete before moving to next step
-              setTimeout(() => {
-                // Remove jumping class
-                movingBall.classList.remove('jumping');
-                
-                // Restore box shadow
-                movingBall.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
-                ballInner.style.boxShadow = 'inset -3px -3px 5px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)';
-                
-                // Move to next step
-                currentStep++;
-                
-                if (currentStep < steps) {
-                  // Add a short delay between jumps
-                  setTimeout(moveToNextPosition, 80);
-                } else {
-                  // Animation complete - remove the moving ball
-                  document.body.removeChild(movingBall);
-                  
-                  // Place the ball at the final position
-                  const finalPos = path[path.length - 1];
-                  const updatedGrid = placeBall(newGrid, selectedBall, finalPos);
-                  setGrid(updatedGrid);
-                  
-                  // Clear the path and animation state
-                  setPathCells([]);
-                  setIsAnimating(false);
-                  
-                  // Check for lines after moving the ball
-                  const hasLines = checkForLines(updatedGrid);
-                  
-                  // If no lines formed, place new balls
-                  if (!hasLines) {
-                    // Check if game is over before placing new balls
-                    if (checkGameOver()) {
-                      return;
-                    }
-                    
-                    const newerGrid = placeBallsRandomly(updatedGrid, nextBalls);
-                    const newNextBalls = getNextBalls(nextBalls);
-                    
-                    // Update state with new grid and next balls
-                    setGrid(newerGrid);
-                    setNextBalls(newNextBalls);
-                    
-                    // Check for lines after placing new balls
-                    checkForLines(newerGrid);
-                  }
-                }
-              }, JUMP_ANIMATION_DURATION);
+              const newerGrid = placeBallsRandomly(updatedGrid, nextBalls);
+              const newNextBalls = getNextBalls(nextBalls);
+              
+              // Update state with new grid and next balls
+              setGrid(newerGrid);
+              setNextBalls(newNextBalls);
+              
+              // Check for lines after placing new balls
+              checkForLines(newerGrid);
             }
           };
           
-          // Add a small delay to ensure state updates are complete
-          setTimeout(() => {
-            // Double check ball is visible
-            movingBall.style.visibility = 'visible';
-            // Start animation after ensuring the ball is correctly positioned
-            moveToNextPosition();
-          }, 100); // Increased delay to ensure proper positioning
+          // Choose animation based on setting
+          switch (ballMovementAnimation) {
+            case 'step-by-step':
+              animateStepByStep(movingBall, path, actualBallSize, boardRect, onAnimationComplete);
+              break;
+            case 'show-path-then-move':
+              animateShowPathThenMove(movingBall, path, actualBallSize, boardRect, onAnimationComplete);
+              break;
+            case 'instant-move':
+              animateInstantMove(movingBall, path, actualBallSize, boardRect, onAnimationComplete);
+              break;
+          }
         }
       }
     }
@@ -405,7 +417,13 @@ export const useGameActions = () => {
     setNextBalls, 
     setGameOver,
     setMovesMade,
-    checkGameOver
+    checkGameOver,
+    ballMovementAnimation,
+    createMovingBall,
+    positionBallAtCell,
+    animateStepByStep,
+    animateShowPathThenMove,
+    animateInstantMove
   ]);
 
   // Reset the game with confirmation check if moves have been made
