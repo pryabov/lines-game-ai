@@ -52,7 +52,7 @@ This project has been built with the assistance of [Cursor AI](https://cursor.sh
 
 ### Prerequisites
 
-- Node.js (v14.0.0 or later)
+- Node.js (v24 or later)
 - Yarn (v1.22.0 or later)
 
 ### Installation
