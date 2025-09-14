@@ -54,6 +54,14 @@ export const de = {
       'Behalte die nächsten 3 Kugeln im Auge, die erscheinen werden.'
     ]
   },
+  settingsDialog: {
+    title: 'Einstellungen',
+    appearance: 'Erscheinungsbild',
+    theme: 'Thema',
+    language: 'Sprache',
+    selectLanguage: 'Sprache auswählen',
+    close: 'Schließen'
+  },
   footer: {
     description: 'Lines Spiel - Ordne 5 oder mehr Kugeln derselben Farbe in einer Linie an',
     email: 'support@lines98.fun',

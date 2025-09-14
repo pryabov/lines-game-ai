@@ -62,6 +62,35 @@
   @include flex(row, center, center);
 }
 
+.settings-button {
+  background: none;
+  border: 1px solid $border-light-alt;
+  @include border-radius('circle');
+  padding: 8px;
+  margin-left: 12px;
+  cursor: pointer;
+  @include transition;
+  @include flex-center;
+  background-color: $white-overlay-light;
+  @include box-shadow('normal');
+  
+  &:hover {
+    background-color: $white-overlay-medium;
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+  
+  .settings-icon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    color: $text-dark;
+  }
+}
+
 main {
   flex: 1;
   padding: clamp(10px, 3vw, 30px);

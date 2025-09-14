@@ -54,6 +54,14 @@ export const ja = {
       '次に現れる3つのボールに注意を払いましょう。'
     ]
   },
+  settingsDialog: {
+    title: '設定',
+    appearance: '外観',
+    theme: 'テーマ',
+    language: '言語',
+    selectLanguage: '言語を選択',
+    close: '閉じる'
+  },
   footer: {
     description: 'ラインゲーム - 同じ色のボールを5つ以上一列に並べましょう。',
     email: 'support@lines98.fun',

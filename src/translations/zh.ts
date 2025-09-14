@@ -54,6 +54,14 @@ export const zh = {
       '关注即将出现的3个球。'
     ]
   },
+  settingsDialog: {
+    title: '设置',
+    appearance: '外观',
+    theme: '主题',
+    language: '语言',
+    selectLanguage: '选择语言',
+    close: '关闭'
+  },
   footer: {
     description: '连线游戏 - 将5个或更多相同颜色的球排成一线。',
     email: 'support@lines98.fun',

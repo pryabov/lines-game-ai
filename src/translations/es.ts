@@ -54,6 +54,14 @@ export const es = {
       'Presta atención a las próximas 3 bolas que aparecerán.'
     ]
   },
+  settingsDialog: {
+    title: 'Configuración',
+    appearance: 'Apariencia',
+    theme: 'Tema',
+    language: 'Idioma',
+    selectLanguage: 'Seleccionar idioma',
+    close: 'Cerrar'
+  },
   footer: {
     description: 'Juego de Líneas - Junta 5 o más bolas del mismo color en una línea',
     email: 'support@lines98.fun',

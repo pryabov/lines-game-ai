@@ -54,6 +54,14 @@ export const en = {
       'Keep track of the next 3 balls that will appear.'
     ]
   },
+  settingsDialog: {
+    title: 'Settings',
+    appearance: 'Appearance',
+    theme: 'Theme',
+    language: 'Language',
+    selectLanguage: 'Select Language',
+    close: 'Close'
+  },
   footer: {
     description: 'Lines Game - Match 5 or more balls of the same color in a line',
     email: 'support@lines98.fun',

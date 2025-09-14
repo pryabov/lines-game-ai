@@ -54,6 +54,14 @@ export const ru = {
       'Следите за следующими 3 шарами, которые появятся.'
     ]
   },
+  settingsDialog: {
+    title: 'Настройки',
+    appearance: 'Внешний вид',
+    theme: 'Тема',
+    language: 'Язык',
+    selectLanguage: 'Выбрать язык',
+    close: 'Закрыть'
+  },
   footer: {
     description: 'Игра "Линии" - Выстроите 5 или более шаров одного цвета в линию',
     email: 'support@lines98.fun',

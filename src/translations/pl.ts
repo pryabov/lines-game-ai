@@ -54,6 +54,14 @@ export const pl = {
       'Zwracaj uwagę na następne 3 kule, które się pojawią.'
     ]
   },
+  settingsDialog: {
+    title: 'Ustawienia',
+    appearance: 'Wygląd',
+    theme: 'Motyw',
+    language: 'Język',
+    selectLanguage: 'Wybierz język',
+    close: 'Zamknij'
+  },
   footer: {
     description: 'Gra w Linie - Ułóż 5 lub więcej kul tego samego koloru w jednej linii',
     email: 'support@lines98.fun',

@@ -193,4 +193,18 @@ body.dark-theme,
       background-color: $border-dark;
     }
   }
+  
+  /* Settings button styling */
+  .settings-button {
+    border-color: $gray-almost-black;
+    background-color: $shadow-dark;
+    
+    &:hover {
+      background-color: $white-overlay-light;
+    }
+    
+    .settings-icon {
+      color: $text-dark-theme;
+    }
+  }
 } 
