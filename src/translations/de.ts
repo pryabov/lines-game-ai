@@ -64,6 +64,14 @@ export const de = {
     ballAnimationInstant: 'Sofortige Bewegung',
     close: 'Schließen'
   },
+  consentDialog: {
+    title: 'Analytics-Einverständnis',
+    description1: 'Wir verwenden Google Analytics, um Ihr Spielerlebnis zu verbessern und zu verstehen, wie unser Spiel genutzt wird. Dies hilft uns, bessere Entscheidungen über Features und Verbesserungen zu treffen.',
+    description2: 'Wir sammeln anonyme Daten über die Spielnutzung, wie Punkte, Theme-Einstellungen und Spiel-Events. Alle Daten sind anonymisiert und wir sammeln keine persönlich identifizierbaren Informationen.',
+    description3: 'Sie können die Analytics-Erfassung ablehnen, und Ihre Wahl wird gespeichert. Das Spiel funktioniert in jedem Fall perfekt.',
+    accept: 'Akzeptieren',
+    decline: 'Ablehnen'
+  },
   footer: {
     description: 'Lines Spiel - Ordne 5 oder mehr Kugeln derselben Farbe in einer Linie an',
     email: 'support@lines98.fun',

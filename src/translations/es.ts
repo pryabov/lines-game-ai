@@ -64,6 +64,14 @@ export const es = {
     ballAnimationInstant: 'Movimiento instantáneo',
     close: 'Cerrar'
   },
+  consentDialog: {
+    title: 'Consentimiento de Analytics',
+    description1: 'Utilizamos Google Analytics para mejorar tu experiencia de juego y entender cómo se usa nuestro juego. Esto nos ayuda a tomar mejores decisiones sobre características y mejoras.',
+    description2: 'Recopilamos datos anónimos sobre el uso del juego, como puntuaciones, preferencias de tema y eventos del juego. Todos los datos son anónimos y no recopilamos información personalmente identificable.',
+    description3: 'Puedes rechazar la recopilación de analytics, y tu elección será recordada. El juego funcionará perfectamente de cualquier manera.',
+    accept: 'Aceptar',
+    decline: 'Rechazar'
+  },
   footer: {
     description: 'Juego de Líneas - Junta 5 o más bolas del mismo color en una línea',
     email: 'support@lines98.fun',

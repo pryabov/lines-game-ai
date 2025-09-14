@@ -64,6 +64,14 @@ export const ja = {
     ballAnimationInstant: '瞬間移動',
     close: '閉じる'
   },
+  consentDialog: {
+    title: 'アナリティクスの同意',
+    description1: 'ゲーム体験を改善し、ゲームの使用方法を理解するためにGoogle Analyticsを使用しています。これにより、機能や改善についてより良い決定を下すことができます。',
+    description2: 'スコア、テーマ設定、ゲーム内イベントなど、ゲーム使用に関する匿名データを収集します。すべてのデータは匿名化され、個人を特定できる情報は収集しません。',
+    description3: 'アナリティクスの収集を拒否することもでき、その選択は記憶されます。ゲームはどちらでも完璧に動作します。',
+    accept: '同意する',
+    decline: '拒否する'
+  },
   footer: {
     description: 'ラインゲーム - 同じ色のボールを5つ以上一列に並べましょう。',
     email: 'support@lines98.fun',

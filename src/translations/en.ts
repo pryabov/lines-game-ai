@@ -64,6 +64,14 @@ export const en = {
     ballAnimationInstant: 'Instant move',
     close: 'Close'
   },
+  consentDialog: {
+    title: 'Analytics Consent',
+    description1: 'We use Google Analytics to improve your game experience and understand how our game is used. This helps us make better decisions about features and improvements.',
+    description2: 'We collect anonymous data about game usage, such as scores, theme preferences, and in-game events. All data is anonymized and we do not collect any personally identifiable information.',
+    description3: 'You can decline analytics collection, and your choice will be remembered. The game will work perfectly either way.',
+    accept: 'Accept',
+    decline: 'Decline'
+  },
   footer: {
     description: 'Lines Game - Match 5 or more balls of the same color in a line',
     email: 'support@lines98.fun',

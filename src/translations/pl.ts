@@ -64,6 +64,14 @@ export const pl = {
     ballAnimationInstant: 'Natychmiastowy ruch',
     close: 'Zamknij'
   },
+  consentDialog: {
+    title: 'Zgoda na analitykę',
+    description1: 'Używamy Google Analytics, aby poprawić Twoje doświadczenie w grze i zrozumieć, jak nasza gra jest używana. Pomaga nam to podejmować lepsze decyzje dotyczące funkcji i ulepszeń.',
+    description2: 'Zbieramy anonimowe dane o użytkowaniu gry, takie jak wyniki, preferencje motywu i wydarzenia w grze. Wszystkie dane są zanonimizowane i nie zbieramy żadnych informacji umożliwiających identyfikację osobistą.',
+    description3: 'Możesz odrzucić zbieranie danych analitycznych, a Twój wybór zostanie zapamiętany. Gra będzie działać idealnie tak czy inaczej.',
+    accept: 'Akceptuj',
+    decline: 'Odrzuć'
+  },
   footer: {
     description: 'Gra w Linie - Ułóż 5 lub więcej kul tego samego koloru w jednej linii',
     email: 'support@lines98.fun',

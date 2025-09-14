@@ -64,6 +64,14 @@ export const zh = {
     ballAnimationInstant: '瞬间移动',
     close: '关闭'
   },
+  consentDialog: {
+    title: '分析同意',
+    description1: '我们使用 Google Analytics 来改善您的游戏体验并了解我们的游戏如何被使用。这帮助我们在功能和改进方面做出更好的决定。',
+    description2: '我们收集有关游戏使用的匿名数据，如分数、主题偏好和游戏内事件。所有数据都是匿名的，我们不收集任何个人身份信息。',
+    description3: '您可以拒绝分析数据收集，您的选择将被记住。无论哪种方式，游戏都将完美运行。',
+    accept: '接受',
+    decline: '拒绝'
+  },
   footer: {
     description: '连线游戏 - 将5个或更多相同颜色的球排成一线。',
     email: 'support@lines98.fun',

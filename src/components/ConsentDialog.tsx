@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLanguage } from '../hooks/useLanguage';
 import '../styles/ConsentDialog.scss';
 
 interface ConsentDialogProps {
@@ -7,6 +8,7 @@ interface ConsentDialogProps {
 }
 
 const ConsentDialog: React.FC<ConsentDialogProps> = ({ onAccept, onDecline }) => {
+  const { translations } = useLanguage();
   const [isVisible, setIsVisible] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
 
@@ -33,20 +35,17 @@ const ConsentDialog: React.FC<ConsentDialogProps> = ({ onAccept, onDecline }) =>
     <div className={`consent-overlay ${isClosing ? 'closing' : ''}`}>
       <div className={`consent-container ${isClosing ? 'closing' : ''}`}>
         <div className="consent-header">
-          <h3>Analytics Consent</h3>
+          <h3>{translations.consentDialog.title}</h3>
         </div>
         <div className="consent-content">
           <p>
-            We use Google Analytics to improve your game experience and understand how our game is used.
-            This helps us make better decisions about features and improvements.
+            {translations.consentDialog.description1}
           </p>
           <p>
-            We collect anonymous data about game usage, such as scores, theme preferences,
-            and in-game events. All data is anonymized and we do not collect any personally identifiable information.
+            {translations.consentDialog.description2}
           </p>
           <p>
-            You can decline analytics collection, and your choice will be remembered.
-            The game will work perfectly either way.
+            {translations.consentDialog.description3}
           </p>
         </div>
         <div className="consent-actions">
@@ -54,13 +53,13 @@ const ConsentDialog: React.FC<ConsentDialogProps> = ({ onAccept, onDecline }) =>
             className="consent-button decline-button" 
             onClick={() => handleClose(false)}
           >
-            Decline
+            {translations.consentDialog.decline}
           </button>
           <button 
             className="consent-button accept-button" 
             onClick={() => handleClose(true)}
           >
-            Accept
+            {translations.consentDialog.accept}
           </button>
         </div>
       </div>
