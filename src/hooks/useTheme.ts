@@ -1,34 +1,29 @@
 import { useAtom } from 'jotai';
-import { useEffect } from 'react';
-import { themeAtom } from '../atoms/themeAtom';
+import { useEffect, useRef } from 'react';
+import { themeAtom, applyThemeToDOM } from '../atoms/themeAtom';
 import { storageService } from '../services/storageService';
 import { Theme } from '../atoms/themeAtom';
 
-// Apply theme to DOM
-const applyThemeToDOM = (theme: Theme) => {
-  if (theme === 'dark') {
-    document.body.classList.add('dark-theme');
-    document.documentElement.classList.add('dark-theme');
-  } else {
-    document.body.classList.remove('dark-theme');
-    document.documentElement.classList.remove('dark-theme');
-  }
-};
-
 export const useTheme = () => {
   const [theme, setTheme] = useAtom(themeAtom);
+  const isInitializedRef = useRef(false);
 
   // Initialize theme on mount
   useEffect(() => {
-    const initialTheme = storageService.getInitialTheme();
-    setTheme(initialTheme);
-    applyThemeToDOM(initialTheme);
+    if (!isInitializedRef.current) {
+      const initialTheme = storageService.getInitialTheme();
+      setTheme(initialTheme);
+      applyThemeToDOM(initialTheme);
+      isInitializedRef.current = true;
+    }
   }, [setTheme]);
 
-  // Save theme when it changes
+  // Save theme when it changes (but not on initial load)
   useEffect(() => {
-    storageService.setSetting('theme', theme);
-    applyThemeToDOM(theme);
+    if (isInitializedRef.current) {
+      storageService.setSetting('theme', theme);
+      applyThemeToDOM(theme);
+    }
   }, [theme]);
 
   const toggleTheme = () => {

@@ -11,18 +11,32 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>(storageService.getInitialLanguage());
-  const [currentTranslations, setCurrentTranslations] = useState<Translation>(translations[language]);
+  const [language, setLanguage] = useState<Language>('en'); // Start with default
+  const [currentTranslations, setCurrentTranslations] = useState<Translation>(translations['en']);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Initialize language on mount
+  useEffect(() => {
+    const initialLanguage = storageService.getInitialLanguage();
+    setLanguage(initialLanguage);
+    setCurrentTranslations(translations[initialLanguage]);
+    document.documentElement.lang = initialLanguage;
+    setIsInitialized(true);
+  }, []);
 
   const updateLanguage = (lang: Language) => {
     setLanguage(lang);
-    storageService.setSetting('language', lang);
+    if (isInitialized) {
+      storageService.setSetting('language', lang);
+    }
   };
 
   useEffect(() => {
-    setCurrentTranslations(translations[language]);
-    document.documentElement.lang = language;
-  }, [language]);
+    if (isInitialized) {
+      setCurrentTranslations(translations[language]);
+      document.documentElement.lang = language;
+    }
+  }, [language, isInitialized]);
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage: updateLanguage, translations: currentTranslations }}>
