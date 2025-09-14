@@ -163,15 +163,38 @@ export const useGameActions = () => {
   const animateShowPathThenMove = useCallback((movingBall: HTMLElement, path: Position[], actualBallSize: number, boardRect: DOMRect, onComplete: () => void) => {
     // Show path first (path cells are already set)
     setTimeout(() => {
-      // Move directly to final position
-      const finalPos = path[path.length - 1];
-      movingBall.style.transition = 'left 0.5s ease-in-out, top 0.5s ease-in-out';
-      positionBallAtCell(movingBall, finalPos.row, finalPos.col, actualBallSize, boardRect);
+      let currentStep = 0;
+      const steps = path.length;
+      const stepDuration = 120; // Fixed duration per step for consistent speed
       
-      setTimeout(() => {
-        onComplete();
-      }, 500);
-    }, 1000); // Show path for 1 second
+      // Set up smooth transition for each step
+      movingBall.style.transition = `left ${stepDuration}ms linear, top ${stepDuration}ms linear`;
+      
+      const moveToNextPosition = () => {
+        if (currentStep < steps) {
+          const { row: pathRow, col: pathCol } = path[currentStep];
+          
+          // Move smoothly to next position in path
+          positionBallAtCell(movingBall, pathRow, pathCol, actualBallSize, boardRect);
+          
+          currentStep++;
+          
+          if (currentStep < steps) {
+            // Continue to next position
+            setTimeout(moveToNextPosition, stepDuration);
+          } else {
+            // Animation complete - wait for final transition to finish
+            setTimeout(() => {
+              onComplete();
+            }, stepDuration + 50); // Wait for final transition plus buffer
+          }
+        }
+      };
+      
+      // Start the path movement
+      moveToNextPosition();
+      
+    }, 500); // Show path for 0.5 seconds
   }, [positionBallAtCell]);
 
   const animateInstantMove = useCallback((movingBall: HTMLElement, path: Position[], actualBallSize: number, boardRect: DOMRect, onComplete: () => void) => {
