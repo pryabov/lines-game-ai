@@ -165,7 +165,7 @@ export const useGameActions = () => {
     setTimeout(() => {
       let currentStep = 0;
       const steps = path.length;
-      const stepDuration = 120; // Fixed duration per step for consistent speed
+      const stepDuration = 60; // Faster movement - reduced from 120ms to 60ms per step
       
       // Set up smooth transition for each step
       movingBall.style.transition = `left ${stepDuration}ms linear, top ${stepDuration}ms linear`;
