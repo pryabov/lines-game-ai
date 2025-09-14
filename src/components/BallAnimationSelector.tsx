@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import { useAtom } from 'jotai';
-import { ballMovementAnimationAtom } from '../atoms/gameAtoms';
 import { useLanguage } from '../hooks/useLanguage';
+import { useBallMovementAnimation } from '../hooks/useBallMovementAnimation';
 import { BallMovementAnimation } from '../types';
 import '../styles/BallAnimationSelector.scss';
 
 const BallAnimationSelector: React.FC = () => {
-  const [selectedAnimation, setSelectedAnimation] = useAtom(ballMovementAnimationAtom);
+  const { ballMovementAnimation, setBallAnimation } = useBallMovementAnimation();
   const [isOpen, setIsOpen] = useState(false);
-  const { t } = useLanguage();
+  const { translations } = useLanguage();
 
   const animationOptions: { value: BallMovementAnimation; label: string }[] = [
-    { value: 'step-by-step', label: t.settingsDialog.ballAnimationStepByStep },
-    { value: 'show-path-then-move', label: t.settingsDialog.ballAnimationShowPath },
-    { value: 'instant-move', label: t.settingsDialog.ballAnimationInstant },
+    { value: 'step-by-step', label: translations.settingsDialog.ballAnimationStepByStep },
+    { value: 'show-path-then-move', label: translations.settingsDialog.ballAnimationShowPath },
+    { value: 'instant-move', label: translations.settingsDialog.ballAnimationInstant },
   ];
 
-  const selectedOption = animationOptions.find(option => option.value === selectedAnimation);
+  const selectedOption = animationOptions.find(option => option.value === ballMovementAnimation);
 
   const handleSelect = (animation: BallMovementAnimation) => {
-    setSelectedAnimation(animation);
+    setBallAnimation(animation);
     setIsOpen(false);
   };
 
@@ -39,7 +38,7 @@ const BallAnimationSelector: React.FC = () => {
           {animationOptions.map((option) => (
             <button
               key={option.value}
-              className={`animation-option ${option.value === selectedAnimation ? 'active' : ''}`}
+              className={`animation-option ${option.value === ballMovementAnimation ? 'active' : ''}`}
               onClick={() => handleSelect(option.value)}
             >
               <span className="option-name">{option.label}</span>

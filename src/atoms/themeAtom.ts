@@ -1,19 +1,7 @@
 import { atom } from 'jotai';
+import { storageService } from '../services/storageService';
 
 export type Theme = 'light' | 'dark';
-
-// Get initial theme from localStorage or default to 'light'
-const getInitialTheme = (): Theme => {
-  // Check for saved theme in localStorage
-  const savedTheme = localStorage.getItem('theme') as Theme;
-  
-  // Check for system preference if no saved theme
-  if (!savedTheme) {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  
-  return savedTheme === 'dark' ? 'dark' : 'light';
-};
 
 // Function to apply theme to DOM
 const applyThemeToDOM = (theme: Theme) => {
@@ -27,16 +15,14 @@ const applyThemeToDOM = (theme: Theme) => {
 };
 
 // Create theme atom
-export const themeAtom = atom<Theme>(getInitialTheme());
+export const themeAtom = atom<Theme>(storageService.getInitialTheme());
 
-// Write theme atom to persist theme selection
+// Write theme atom to persist theme selection using storage service
 export const themePersistAtom = atom(
   (get) => get(themeAtom),
   (get, set, newTheme: Theme) => {
     set(themeAtom, newTheme);
-    localStorage.setItem('theme', newTheme);
-    
-    // Apply theme to document
+    storageService.setSetting('theme', newTheme);
     applyThemeToDOM(newTheme);
   }
 ); 

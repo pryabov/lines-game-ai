@@ -23,7 +23,7 @@ const NextBallsPanel = ({ balls, title }: { balls: React.ReactNode[], title: str
 };
 
 const Game: React.FC = () => {
-  const { t } = useLanguage();
+  const { translations } = useLanguage();
   
   const {
     grid,
@@ -197,15 +197,15 @@ const Game: React.FC = () => {
       <div className="game-content"> 
         <div className="game-info">
           <div className="score">
-            <div className="score-label">{t.game.score}</div>
+            <div className="score-label">{translations.game.score}</div>
             <div className="score-value">{score}</div>
           </div>
           <NextBallsPanel 
             balls={nextBallsDisplay} 
-            title={t.game.nextBalls}
+            title={translations.game.nextBalls}
           />
           <div className="high-score">
-            <div className="high-score-label">{t.game.max}</div>
+            <div className="high-score-label">{translations.game.max}</div>
             <div className="high-score-value">{highScore}</div>
           </div>
         </div>
@@ -227,13 +227,13 @@ const Game: React.FC = () => {
           onClick={handleResetClick}
           disabled={isAnimating}
         >
-          {t.game.resetGame}
+          {translations.game.resetGame}
         </button>
         <button 
           className="help-button" 
           onClick={() => setShowHelpDialog(true)}
         >
-          {t.game.help}
+          {translations.game.help}
         </button>
       </div>
 
@@ -247,15 +247,15 @@ const Game: React.FC = () => {
       {/* Reset Confirmation Dialog */}
       <ConfirmDialog
         isOpen={showResetConfirm}
-        title={t.resetConfirm.title}
-        message={t.resetConfirm.message}
+        title={translations.resetConfirm.title}
+        message={translations.resetConfirm.message}
         onConfirm={() => {
           setShowResetConfirm(false);
           performFullReset();
         }}
         onCancel={() => setShowResetConfirm(false)}
-        confirmText={t.resetConfirm.confirm}
-        cancelText={t.resetConfirm.cancel}
+        confirmText={translations.resetConfirm.confirm}
+        cancelText={translations.resetConfirm.cancel}
       />
 
       {/* Help Dialog */}

@@ -4,7 +4,7 @@ import { Language, languageNames, languageCountryCodes } from '../translations';
 import '../styles/LanguageSelector.scss';
 
 const LanguageSelector: React.FC = () => {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage, translations } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

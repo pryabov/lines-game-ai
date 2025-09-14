@@ -8,7 +8,7 @@ interface HelpDialogProps {
 }
 
 const HelpDialog: React.FC<HelpDialogProps> = ({ isOpen, onClose }) => {
-  const { t } = useLanguage();
+  const { translations } = useLanguage();
   
   if (!isOpen) return null;
 
@@ -16,33 +16,33 @@ const HelpDialog: React.FC<HelpDialogProps> = ({ isOpen, onClose }) => {
     <div className="overlay">
       <div className="dialog-container help-dialog">
         <div className="dialog-header help-dialog-header">
-          <h2>{t.helpDialog.title}</h2>
+          <h2>{translations.helpDialog.title}</h2>
         </div>
         <div className="dialog-content">
-          <h3>{t.helpDialog.rules}</h3>
+          <h3>{translations.helpDialog.rules}</h3>
           <ul>
-            {t.helpDialog.rulesItems.map((item, index) => (
+            {translations.helpDialog.rulesItems.map((item, index) => (
               <li key={`rule-${index}`}>{item}</li>
             ))}
           </ul>
           
-          <h3>{t.helpDialog.scoring}</h3>
+          <h3>{translations.helpDialog.scoring}</h3>
           <ul>
-            {t.helpDialog.scoringItems.map((item, index) => (
+            {translations.helpDialog.scoringItems.map((item, index) => (
               <li key={`scoring-${index}`}>{item}</li>
             ))}
           </ul>
           
-          <h3>{t.helpDialog.tips}</h3>
+          <h3>{translations.helpDialog.tips}</h3>
           <ul>
-            {t.helpDialog.tipsItems.map((item, index) => (
+            {translations.helpDialog.tipsItems.map((item, index) => (
               <li key={`tip-${index}`}>{item}</li>
             ))}
           </ul>
         </div>
         <div className="dialog-actions">
           <button className="primary-button" onClick={onClose}>
-            {t.helpDialog.gotIt}
+            {translations.helpDialog.gotIt}
           </button>
         </div>
       </div>

@@ -1,26 +1,31 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Language, Translation, translations, getInitialLanguage, LANGUAGE_STORAGE_KEY } from '../translations';
+import { Language, Translation, translations } from '../translations';
+import { storageService } from '../services/storageService';
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: Translation;
+  translations: Translation;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>(getInitialLanguage());
-  const [t, setT] = useState<Translation>(translations[language]);
+  const [language, setLanguage] = useState<Language>(storageService.getInitialLanguage());
+  const [currentTranslations, setCurrentTranslations] = useState<Translation>(translations[language]);
+
+  const updateLanguage = (lang: Language) => {
+    setLanguage(lang);
+    storageService.setSetting('language', lang);
+  };
 
   useEffect(() => {
-    setT(translations[language]);
-    localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+    setCurrentTranslations(translations[language]);
     document.documentElement.lang = language;
   }, [language]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: updateLanguage, translations: currentTranslations }}>
       {children}
     </LanguageContext.Provider>
   );
