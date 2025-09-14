@@ -1,0 +1,4 @@
+# Project Rules
+- Use React + TypeScript.
+- Follow ESLint + Prettier configs in the repo.
+- use yarn for package manager.

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useLanguage } from '../hooks/useLanguage';
-import ThemeToggle from './ThemeToggle';
-import LanguageSelector from './LanguageSelector';
-import '../styles/SettingsDialog.scss';
+import { useLanguage } from '../../hooks/useLanguage';
+import ThemeToggle from '../ThemeToggle';
+import LanguageSelector from '../LanguageSelector';
+import './styles/SettingsDialog.scss';
 
 interface SettingsDialogProps {
   isOpen: boolean;
