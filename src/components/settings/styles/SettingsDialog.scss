@@ -6,6 +6,7 @@
 
 .settings-dialog {
   @include dialog-container(450px);
+  min-height: 400px;
   max-height: 85vh;
   overflow-y: auto;
   
