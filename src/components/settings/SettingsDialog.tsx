@@ -2,6 +2,7 @@ import React from 'react';
 import { useLanguage } from '../../hooks/useLanguage';
 import ThemeToggle from '../ThemeToggle';
 import LanguageSelector from '../LanguageSelector';
+import BallAnimationSelector from '../BallAnimationSelector';
 import './styles/SettingsDialog.scss';
 
 interface SettingsDialogProps {
@@ -32,6 +33,10 @@ const SettingsDialog: React.FC<SettingsDialogProps> = ({ isOpen, onClose }) => {
             <div className="setting-item">
               <span className="setting-label">{t.settingsDialog.theme}</span>
               <ThemeToggle />
+            </div>
+            <div className="setting-item">
+              <span className="setting-label">{t.settingsDialog.ballAnimation}</span>
+              <BallAnimationSelector />
             </div>
           </div>
         </div>

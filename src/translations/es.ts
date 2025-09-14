@@ -58,6 +58,10 @@ export const es = {
     title: 'Configuración',
     theme: 'Tema',
     selectLanguage: 'Seleccionar idioma',
+    ballAnimation: 'Movimiento de bola',
+    ballAnimationStepByStep: 'Paso a paso',
+    ballAnimationShowPath: 'Mostrar ruta y mover',
+    ballAnimationInstant: 'Movimiento instantáneo',
     close: 'Cerrar'
   },
   footer: {

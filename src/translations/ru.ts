@@ -58,6 +58,10 @@ export const ru = {
     title: 'Настройки',
     theme: 'Тема',
     selectLanguage: 'Выбрать язык',
+    ballAnimation: 'Движение шара',
+    ballAnimationStepByStep: 'По шагам',
+    ballAnimationShowPath: 'Показать путь и переместить',
+    ballAnimationInstant: 'Мгновенное перемещение',
     close: 'Закрыть'
   },
   footer: {

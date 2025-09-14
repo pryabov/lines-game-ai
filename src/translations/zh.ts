@@ -58,6 +58,10 @@ export const zh = {
     title: '设置',
     theme: '主题',
     selectLanguage: '选择语言',
+    ballAnimation: '球的移动',
+    ballAnimationStepByStep: '逐步移动',
+    ballAnimationShowPath: '显示路径后移动',
+    ballAnimationInstant: '瞬间移动',
     close: '关闭'
   },
   footer: {

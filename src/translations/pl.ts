@@ -58,6 +58,10 @@ export const pl = {
     title: 'Ustawienia',
     theme: 'Motyw',
     selectLanguage: 'Wybierz język',
+    ballAnimation: 'Ruch piłki',
+    ballAnimationStepByStep: 'Krok po kroku',
+    ballAnimationShowPath: 'Pokaż ścieżkę i przesuń',
+    ballAnimationInstant: 'Natychmiastowy ruch',
     close: 'Zamknij'
   },
   footer: {

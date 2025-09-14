@@ -58,6 +58,10 @@ export const ja = {
     title: '設定',
     theme: 'テーマ',
     selectLanguage: '言語を選択',
+    ballAnimation: 'ボールの動き',
+    ballAnimationStepByStep: 'ステップごと',
+    ballAnimationShowPath: 'パスを表示して移動',
+    ballAnimationInstant: '瞬間移動',
     close: '閉じる'
   },
   footer: {
