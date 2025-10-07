@@ -23,6 +23,7 @@
     "start": "yarn webpack-dev-server --mode development",
     "build": "cross-env NODE_ENV=production yarn webpack --mode production",
     "build:dev": "yarn webpack --mode development",
+    "build:zip": "node scripts/build-zip.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "eslintConfig": {
@@ -48,6 +49,7 @@
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
+    "archiver": "^7.0.1",
     "babel-loader": "^10.0.0",
     "copy-webpack-plugin": "^13.0.0",
     "cross-env": "^7.0.3",

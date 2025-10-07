@@ -13,7 +13,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].[contenthash].js',
     clean: true,
-    publicPath: isProduction ? './' : '/'
+    publicPath: '/'
   },
   devtool: isProduction ? 'source-map' : 'inline-source-map',
   devServer: {
@@ -55,14 +55,26 @@ module.exports = {
         test: /\.css$/,
         use: [
           isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-          'css-loader'
+          {
+            loader: 'css-loader',
+            options: {
+              url: true,
+              import: true
+            }
+          }
         ]
       },
       {
         test: /\.scss$/,
         use: [
           isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              url: true,
+              import: true
+            }
+          },
           'sass-loader'
         ]
       },
@@ -106,7 +118,10 @@ module.exports = {
         { from: 'public/favicon.ico', to: '' },
         { from: 'public/logo192.png', to: '' },
         { from: 'public/logo512.png', to: '' },
-        { from: 'public/robots.txt', to: '' }
+        { from: 'public/robots.txt', to: '' },
+        { from: 'public/sitemap.xml', to: '' },
+        { from: 'public/_headers', to: '' },
+        { from: 'public/_redirects', to: '' }
       ],
     })
   ]

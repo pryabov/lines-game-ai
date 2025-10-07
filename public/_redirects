@@ -1,0 +1,22 @@
+# Cloudflare Pages - SPA fallback
+# All requests should go to index.html except for static files
+# This ensures client-side routing works correctly
+
+# Explicit rules for static files that should NOT redirect
+/robots.txt               /robots.txt              200
+/sitemap.xml              /sitemap.xml             200
+/manifest.json            /manifest.json           200
+/service-worker.js        /service-worker.js       200
+/favicon.ico              /favicon.ico             200
+/logo192.png              /logo192.png             200
+/logo512.png              /logo512.png             200
+
+# Static assets
+/js/*                     /js/:splat               200
+/css/*                    /css/:splat              200
+/images/*                 /images/:splat           200
+/fonts/*                  /fonts/:splat            200
+/static/*                 /static/:splat           200
+
+# SPA fallback - redirect all other requests to index.html
+/*                        /index.html              200

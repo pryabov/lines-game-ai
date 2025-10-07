@@ -441,12 +441,7 @@ export const useGameActions = () => {
     setGameOver,
     setMovesMade,
     checkGameOver,
-    ballMovementAnimation,
-    createMovingBall,
-    positionBallAtCell,
-    animateStepByStep,
-    animateShowPathThenMove,
-    animateInstantMove
+    ballMovementAnimation
   ]);
 
   // Reset the game with confirmation check if moves have been made
