@@ -31,11 +31,14 @@
 /robots.txt
   Cache-Control: public, max-age=86400
   Content-Type: text/plain
+  X-Robots-Tag: all
 
 # Sitemap
 /sitemap.xml
-  Cache-Control: public, max-age=86400
-  Content-Type: application/xml
+  Cache-Control: public, max-age=3600
+  Content-Type: text/xml; charset=utf-8
+  X-Robots-Tag: all
+  Access-Control-Allow-Origin: *
 
 # Security headers for all pages
 /*
