@@ -14,7 +14,7 @@
 .dialog-header {
   padding: 15px 20px;
   @include dialog-header($success-color);
-  
+
   h3 {
     margin: 0;
     font-size: 18px;
@@ -23,7 +23,7 @@
 
 .dialog-content {
   padding: 20px;
-  
+
   p {
     margin: 0;
     font-size: 16px;
@@ -50,4 +50,4 @@
   @include button-danger;
 }
 
-/* Dark theme support moved to DarkTheme.scss */ 
+/* Dark theme support moved to DarkTheme.scss */

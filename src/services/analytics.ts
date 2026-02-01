@@ -23,8 +23,8 @@ const loadGoogleAnalytics = (): void => {
   gaScript.id = 'ga-script';
   gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
   gaScript.async = true;
-  gaScript.crossOrigin = 'anonymous';  // Add crossOrigin attribute
-  
+  gaScript.crossOrigin = 'anonymous'; // Add crossOrigin attribute
+
   const inlineScript = document.createElement('script');
   inlineScript.innerHTML = `
     window.dataLayer = window.dataLayer || [];
@@ -35,7 +35,7 @@ const loadGoogleAnalytics = (): void => {
       send_page_view: true
     });
   `;
-  
+
   // Add error handling for script loading
   gaScript.onerror = (error) => {
     console.error('Failed to load Google Analytics:', error);
@@ -57,7 +57,7 @@ export const hasUserConsent = (): boolean => {
 // Save user's consent choice
 export const saveUserConsent = (accepted: boolean): void => {
   localStorage.setItem(ANALYTICS_CONSENT_KEY, accepted ? 'accepted' : 'declined');
-  
+
   // If user accepted, load Google Analytics
   if (accepted) {
     loadGoogleAnalytics();
@@ -93,9 +93,12 @@ export const trackEvent = (event: GameEvent): void => {
     if (!hasUserConsent() && event.eventName !== 'analytics_consent_choice') {
       return;
     }
-    
+
     // Only log analytics events in production if debug mode is enabled
-    if (process.env.NODE_ENV === 'production' && localStorage.getItem('debug_analytics') === 'true') {
+    if (
+      process.env.NODE_ENV === 'production' &&
+      localStorage.getItem('debug_analytics') === 'true'
+    ) {
       console.log(`Analytics: ${event.eventName}`, event.data);
     }
 
@@ -103,13 +106,15 @@ export const trackEvent = (event: GameEvent): void => {
     if (isGoogleAnalyticsAvailable()) {
       try {
         // Convert to camelCase for GA event names (replace underscores with camelCase)
-        const gtagEventName = event.eventName.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
-        
+        const gtagEventName = event.eventName.replace(/_([a-z])/g, (_, letter) =>
+          letter.toUpperCase()
+        );
+
         (window as any).gtag('event', gtagEventName, {
           ...event.data,
           event_category: 'game',
           non_interaction: event.eventName.startsWith('view_'),
-          send_to: GA_MEASUREMENT_ID
+          send_to: GA_MEASUREMENT_ID,
         });
       } catch (gaError) {
         console.error('Failed to send event to Google Analytics:', gaError);
@@ -124,11 +129,11 @@ export const trackEvent = (event: GameEvent): void => {
 export const trackConsentChoice = (accepted: boolean): void => {
   // Save the user's choice
   saveUserConsent(accepted);
-  
+
   // Track the choice (this is one event we'll track regardless of consent)
   trackEvent({
     eventName: 'analytics_consent_choice',
-    data: { accepted }
+    data: { accepted },
   });
 };
 
@@ -138,44 +143,44 @@ export const trackGameStart = (): void => {
 };
 
 export const trackGameOver = (score: number): void => {
-  trackEvent({ 
-    eventName: 'game_over', 
-    data: { score } 
+  trackEvent({
+    eventName: 'game_over',
+    data: { score },
   });
 };
 
 export const trackScoreChanged = (score: number): void => {
-  trackEvent({ 
-    eventName: 'score_changed', 
-    data: { score } 
+  trackEvent({
+    eventName: 'score_changed',
+    data: { score },
   });
 };
 
 export const trackLineCompleted = (lineLength: number): void => {
-  trackEvent({ 
-    eventName: 'line_completed', 
-    data: { lineLength } 
+  trackEvent({
+    eventName: 'line_completed',
+    data: { lineLength },
   });
 };
 
 export const trackBallMoved = (from: string, to: string): void => {
-  trackEvent({ 
+  trackEvent({
     eventName: 'ball_moved',
-    data: { from, to }
+    data: { from, to },
   });
 };
 
 export const trackThemeChanged = (theme: string): void => {
-  trackEvent({ 
-    eventName: 'theme_changed', 
-    data: { theme } 
+  trackEvent({
+    eventName: 'theme_changed',
+    data: { theme },
   });
 };
 
 export const trackDifficultyChanged = (difficulty: string): void => {
   trackEvent({
     eventName: 'difficulty_changed',
-    data: { difficulty }
+    data: { difficulty },
   });
 };
 
@@ -190,7 +195,7 @@ export const trackOfflineMode = (): void => {
 export const trackPageView = (page: string): void => {
   trackEvent({
     eventName: 'page_view',
-    data: { page }
+    data: { page },
   });
 };
 
@@ -209,5 +214,5 @@ export default {
   hasUserConsent,
   hasAnsweredConsent,
   saveUserConsent,
-  trackConsentChoice
-}; 
+  trackConsentChoice,
+};

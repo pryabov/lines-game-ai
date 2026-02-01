@@ -14,4 +14,4 @@ export const applyThemeToDOM = (theme: Theme) => {
 };
 
 // Create theme atom with default value (will be initialized by hook)
-export const themeAtom = atom<Theme>('light'); 
+export const themeAtom = atom<Theme>('light');

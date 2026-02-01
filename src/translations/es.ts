@@ -2,20 +2,20 @@ export const es = {
   header: {
     title: 'Juego de Líneas',
     language: 'Idioma',
-    theme: 'Tema'
+    theme: 'Tema',
   },
   game: {
     score: 'Puntuación',
     max: 'Máx',
     nextBalls: 'Próximas bolas',
     resetGame: 'Reiniciar juego',
-    help: 'Ayuda'
+    help: 'Ayuda',
   },
   resetConfirm: {
     title: 'Reiniciar juego',
     message: '¿Estás seguro de que quieres reiniciar el juego? Tu progreso se perderá.',
     confirm: 'Reiniciar',
-    cancel: 'Cancelar'
+    cancel: 'Cancelar',
   },
   gameOver: {
     title: 'Juego terminado',
@@ -24,7 +24,7 @@ export const es = {
     lowScore: '¡Buen intento! Prueba de nuevo para mejorar tu puntuación.',
     mediumScore: '¡Buen trabajo! ¡Estás mejorando!',
     highScore: '¡Gran puntuación! ¡Realmente eres bueno en esto!',
-    excellentScore: '¡Increíble! ¡Eres un maestro del juego de Líneas!'
+    excellentScore: '¡Increíble! ¡Eres un maestro del juego de Líneas!',
   },
   helpDialog: {
     title: 'Cómo jugar',
@@ -39,20 +39,20 @@ export const es = {
       'Las bolas solo pueden moverse si hay un camino libre (sin otras bolas en el camino).',
       'Forma líneas de 5 o más bolas del mismo color (horizontal, vertical o diagonalmente).',
       'Cuando se forman líneas, las bolas desaparecen y ganas puntos.',
-      'El juego termina cuando el tablero está lleno de bolas y no hay más movimientos posibles.'
+      'El juego termina cuando el tablero está lleno de bolas y no hay más movimientos posibles.',
     ],
     scoringItems: [
       '5 bolas en línea: 10 puntos',
       '6 bolas en línea: 12 puntos',
       '7 bolas en línea: 18 puntos',
       '8 bolas en línea: 28 puntos',
-      '9 bolas en línea: 42 puntos'
+      '9 bolas en línea: 42 puntos',
     ],
     tipsItems: [
       'Planifica tus movimientos cuidadosamente para evitar llenar el tablero demasiado rápido.',
       'Intenta formar múltiples líneas a la vez para obtener puntuaciones más altas.',
-      'Presta atención a las próximas 3 bolas que aparecerán.'
-    ]
+      'Presta atención a las próximas 3 bolas que aparecerán.',
+    ],
   },
   settingsDialog: {
     title: 'Configuración',
@@ -62,19 +62,22 @@ export const es = {
     ballAnimationStepByStep: 'Paso a paso',
     ballAnimationShowPath: 'Mostrar ruta y mover',
     ballAnimationInstant: 'Movimiento instantáneo',
-    close: 'Cerrar'
+    close: 'Cerrar',
   },
   consentDialog: {
     title: 'Consentimiento de Analytics',
-    description1: 'Utilizamos Google Analytics para mejorar tu experiencia de juego y entender cómo se usa nuestro juego. Esto nos ayuda a tomar mejores decisiones sobre características y mejoras.',
-    description2: 'Recopilamos datos anónimos sobre el uso del juego, como puntuaciones, preferencias de tema y eventos del juego. Todos los datos son anónimos y no recopilamos información personalmente identificable.',
-    description3: 'Puedes rechazar la recopilación de analytics, y tu elección será recordada. El juego funcionará perfectamente de cualquier manera.',
+    description1:
+      'Utilizamos Google Analytics para mejorar tu experiencia de juego y entender cómo se usa nuestro juego. Esto nos ayuda a tomar mejores decisiones sobre características y mejoras.',
+    description2:
+      'Recopilamos datos anónimos sobre el uso del juego, como puntuaciones, preferencias de tema y eventos del juego. Todos los datos son anónimos y no recopilamos información personalmente identificable.',
+    description3:
+      'Puedes rechazar la recopilación de analytics, y tu elección será recordada. El juego funcionará perfectamente de cualquier manera.',
     accept: 'Aceptar',
-    decline: 'Rechazar'
+    decline: 'Rechazar',
   },
   footer: {
     description: 'Juego de Líneas - Junta 5 o más bolas del mismo color en una línea',
     email: 'support@lines98.fun',
-    contactUs: 'Contáctenos'
-  }
-}; 
+    contactUs: 'Contáctenos',
+  },
+};

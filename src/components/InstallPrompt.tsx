@@ -8,7 +8,9 @@ const InstallPrompt: React.FC = () => {
   useEffect(() => {
     // Function to detect if we're on a mobile device
     const isMobileDevice = () => {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
     };
 
     // Don't show install prompt on desktop browsers
@@ -24,7 +26,7 @@ const InstallPrompt: React.FC = () => {
       setDeferredPrompt(e);
       // Show our custom install prompt
       setShowPrompt(true);
-      
+
       // Track that the install prompt was shown
       analytics.trackEvent({ eventName: 'install_prompt_shown' });
     };
@@ -43,7 +45,7 @@ const InstallPrompt: React.FC = () => {
       analytics.trackAppInstalled();
       setShowPrompt(false);
     };
-    
+
     window.addEventListener('appinstalled', handleAppInstalled);
 
     return () => {
@@ -70,7 +72,7 @@ const InstallPrompt: React.FC = () => {
         console.log('User dismissed the install prompt');
         analytics.trackEvent({ eventName: 'install_rejected' });
       }
-      
+
       // Clear the deferred prompt
       setDeferredPrompt(null);
       setShowPrompt(false);
@@ -80,7 +82,7 @@ const InstallPrompt: React.FC = () => {
   const handleDismiss = () => {
     // Track that the user dismissed the prompt
     analytics.trackEvent({ eventName: 'install_prompt_dismissed' });
-    
+
     setShowPrompt(false);
     // Store in local storage that the user dismissed the prompt
     localStorage.setItem('installPromptDismissed', Date.now().toString());
@@ -107,7 +109,7 @@ const InstallPrompt: React.FC = () => {
         width: '320px',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
       }}
     >
       <div style={{ marginBottom: '10px', textAlign: 'center' }}>
@@ -123,7 +125,7 @@ const InstallPrompt: React.FC = () => {
             padding: '8px 16px',
             borderRadius: '4px',
             fontWeight: 'bold',
-            cursor: 'pointer'
+            cursor: 'pointer',
           }}
         >
           Install
@@ -136,7 +138,7 @@ const InstallPrompt: React.FC = () => {
             border: '1px solid white',
             padding: '8px 16px',
             borderRadius: '4px',
-            cursor: 'pointer'
+            cursor: 'pointer',
           }}
         >
           Not Now
@@ -146,4 +148,4 @@ const InstallPrompt: React.FC = () => {
   );
 };
 
-export default InstallPrompt; 
+export default InstallPrompt;

@@ -4,7 +4,7 @@ import { Language, languageNames, languageCountryCodes } from '../translations';
 import '../styles/LanguageSelector.scss';
 
 const LanguageSelector: React.FC = () => {
-  const { language, setLanguage, translations } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -43,14 +43,14 @@ const LanguageSelector: React.FC = () => {
 
   return (
     <div className="language-selector" ref={dropdownRef}>
-      <button 
+      <button
         className={`language-button ${isAsianScript ? 'asian-script' : ''}`}
         onClick={toggleDropdown}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
       >
-        <img 
-          src={require(`../assets/flags/${languageCountryCodes[language]}.svg`)} 
+        <img
+          src={require(`../assets/flags/${languageCountryCodes[language]}.svg`)}
           alt={`${languageNames[language]} flag`}
           className="flag-image"
         />
@@ -67,8 +67,8 @@ const LanguageSelector: React.FC = () => {
               onClick={() => handleLanguageSelect(langCode)}
               aria-selected={langCode === language}
             >
-              <img 
-                src={require(`../assets/flags/${languageCountryCodes[langCode]}.svg`)} 
+              <img
+                src={require(`../assets/flags/${languageCountryCodes[langCode]}.svg`)}
                 alt={`${languageNames[langCode]} flag`}
                 className="flag-image"
               />
@@ -81,4 +81,4 @@ const LanguageSelector: React.FC = () => {
   );
 };
 
-export default LanguageSelector; 
+export default LanguageSelector;

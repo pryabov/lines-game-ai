@@ -12,7 +12,7 @@ const applyInitialTheme = () => {
   const savedTheme = localStorage.getItem('theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const isDarkTheme = savedTheme === 'dark' || (!savedTheme && prefersDark);
-  
+
   if (isDarkTheme) {
     document.documentElement.classList.add('dark-theme');
     document.body.classList.add('dark-theme');
@@ -23,13 +23,13 @@ const applyInitialTheme = () => {
 const initializeAnalytics = () => {
   // Track the app launch
   analytics.trackEvent({ eventName: 'app_launched' });
-  
+
   // Track page load time
   if (performance && performance.timing) {
     const pageLoadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-    analytics.trackEvent({ 
-      eventName: 'page_load', 
-      data: { loadTimeMs: pageLoadTime }
+    analytics.trackEvent({
+      eventName: 'page_load',
+      data: { loadTimeMs: pageLoadTime },
     });
   }
 };
@@ -37,9 +37,7 @@ const initializeAnalytics = () => {
 // Run immediately
 applyInitialTheme();
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <App />
@@ -53,6 +51,6 @@ window.addEventListener('load', initializeAnalytics);
 reportWebVitals(({ name, value }) => {
   analytics.trackEvent({
     eventName: 'web_vitals',
-    data: { metric: name, value }
+    data: { metric: name, value },
   });
 });

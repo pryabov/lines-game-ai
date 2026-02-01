@@ -34,10 +34,14 @@ export const SCORE_TABLE: Record<number, number> = {
 export const DEFAULT_SCORE_MULTIPLIER = 2;
 
 // Helper function to generate an initial empty grid
-export const createEmptyGrid = (): CellType[][] => 
+export const createEmptyGrid = (): CellType[][] =>
   Array(GRID_SIZE)
     .fill(null)
-    .map(() => Array(GRID_SIZE).fill(null).map(() => ({ ball: null })));
+    .map(() =>
+      Array(GRID_SIZE)
+        .fill(null)
+        .map(() => ({ ball: null }))
+    );
 
 // Helper function to generate random balls
 export const generateRandomBalls = (count: number, nextIdStart: number = 1): Ball[] => {
@@ -46,7 +50,7 @@ export const generateRandomBalls = (count: number, nextIdStart: number = 1): Bal
     .fill(null)
     .map(() => ({
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
-      id: nextId++
+      id: nextId++,
     }));
 };
 
@@ -59,16 +63,14 @@ export const gameOverAtom = atom<boolean>(false);
 export const movesMadeAtom = atom<number>(0); // Track number of moves made
 
 // Derived game state atom that combines all core atoms
-export const gameStateAtom = atom<GameState>(
-  (get) => ({
-    grid: get(gridAtom),
-    score: get(scoreAtom),
-    nextBalls: get(nextBallsAtom),
-    selectedCell: get(selectedCellAtom),
-    gameOver: get(gameOverAtom),
-    movesMade: get(movesMadeAtom)
-  })
-);
+export const gameStateAtom = atom<GameState>((get) => ({
+  grid: get(gridAtom),
+  score: get(scoreAtom),
+  nextBalls: get(nextBallsAtom),
+  selectedCell: get(selectedCellAtom),
+  gameOver: get(gameOverAtom),
+  movesMade: get(movesMadeAtom),
+}));
 
 // Animation state atoms
 export const pathCellsAtom = atom<Position[]>([]);
@@ -78,8 +80,8 @@ export const lineAnimationsAtom = atom<{
   isAnimating: boolean;
 }>({
   positions: [],
-  isAnimating: false
+  isAnimating: false,
 });
 
 // Settings atoms
-export const ballMovementAnimationAtom = atom<BallMovementAnimation>('step-by-step'); 
+export const ballMovementAnimationAtom = atom<BallMovementAnimation>('step-by-step');

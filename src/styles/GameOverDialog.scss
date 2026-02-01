@@ -15,7 +15,7 @@
 .game-over-header {
   padding: 20px;
   @include dialog-header($danger-color);
-  
+
   h2 {
     margin: 0;
     font-size: 28px;
@@ -23,7 +23,7 @@
     letter-spacing: 2px;
     text-shadow: 0 1px 3px $shadow-dark;
     @include animate(pulse, 2s, ease-in-out, infinite);
-    
+
     @include mobile {
       font-size: 24px;
     }
@@ -51,7 +51,7 @@
   font-weight: bold;
   color: $text-dark;
   @include animate(scoreIn, 0.8s);
-  
+
   @include mobile {
     font-size: 40px;
   }
@@ -83,17 +83,17 @@
   cursor: pointer;
   @include transition;
   @include box-shadow('normal');
-  
+
   &:hover {
     background-color: $success-color-dark;
     transform: translateY(-2px);
     @include box-shadow('normal');
   }
-  
+
   &:active {
     transform: translateY(0);
     @include box-shadow('light');
   }
 }
 
-/* Dark theme support moved to DarkTheme.scss */ 
+/* Dark theme support moved to DarkTheme.scss */

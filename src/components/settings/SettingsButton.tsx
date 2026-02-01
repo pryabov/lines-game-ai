@@ -9,11 +9,7 @@ const SettingsButton: React.FC = () => {
 
   return (
     <>
-      <button 
-        className="settings-button" 
-        onClick={openSettings}
-        aria-label="Open settings"
-      >
+      <button className="settings-button" onClick={openSettings} aria-label="Open settings">
         <i className="fas fa-cog settings-icon"></i>
       </button>
       <SettingsDialog isOpen={isSettingsOpen} onClose={closeSettings} />

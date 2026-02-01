@@ -2,29 +2,29 @@ export const en = {
   header: {
     title: 'Lines Game',
     language: 'Language',
-    theme: 'Theme'
+    theme: 'Theme',
   },
   game: {
     score: 'Score',
     max: 'Max',
     nextBalls: 'Next Balls',
     resetGame: 'Reset Game',
-    help: 'Help'
+    help: 'Help',
   },
   resetConfirm: {
     title: 'Reset Game',
     message: 'Are you sure you want to reset the game? Your progress will be lost.',
     confirm: 'Reset',
-    cancel: 'Cancel'
+    cancel: 'Cancel',
   },
   gameOver: {
     title: 'Game Over',
     yourScore: 'Your Score',
     playAgain: 'Play Again',
     lowScore: 'Good effort! Try again to improve your score.',
-    mediumScore: 'Nice job! You\'re getting better!',
-    highScore: 'Great score! You\'re really good at this!',
-    excellentScore: 'Amazing! You\'re a Lines game master!'
+    mediumScore: "Nice job! You're getting better!",
+    highScore: "Great score! You're really good at this!",
+    excellentScore: "Amazing! You're a Lines game master!",
   },
   helpDialog: {
     title: 'How to Play',
@@ -39,20 +39,20 @@ export const en = {
       'Balls can only move if there is a clear path (no other balls in the way).',
       'Form lines of 5 or more balls of the same color (horizontally, vertically, or diagonally).',
       'When lines are formed, the balls disappear and you earn points.',
-      'The game ends when the board is filled with balls and no more moves are possible.'
+      'The game ends when the board is filled with balls and no more moves are possible.',
     ],
     scoringItems: [
       '5 balls in a line: 10 points',
       '6 balls in a line: 12 points',
       '7 balls in a line: 18 points',
       '8 balls in a line: 28 points',
-      '9 balls in a line: 42 points'
+      '9 balls in a line: 42 points',
     ],
     tipsItems: [
       'Plan your moves carefully to avoid filling the board too quickly.',
       'Try to set up multiple lines at once for higher scores.',
-      'Keep track of the next 3 balls that will appear.'
-    ]
+      'Keep track of the next 3 balls that will appear.',
+    ],
   },
   settingsDialog: {
     title: 'Settings',
@@ -62,19 +62,22 @@ export const en = {
     ballAnimationStepByStep: 'Step by step',
     ballAnimationShowPath: 'Show path then move',
     ballAnimationInstant: 'Instant move',
-    close: 'Close'
+    close: 'Close',
   },
   consentDialog: {
     title: 'Analytics Consent',
-    description1: 'We use Google Analytics to improve your game experience and understand how our game is used. This helps us make better decisions about features and improvements.',
-    description2: 'We collect anonymous data about game usage, such as scores, theme preferences, and in-game events. All data is anonymized and we do not collect any personally identifiable information.',
-    description3: 'You can decline analytics collection, and your choice will be remembered. The game will work perfectly either way.',
+    description1:
+      'We use Google Analytics to improve your game experience and understand how our game is used. This helps us make better decisions about features and improvements.',
+    description2:
+      'We collect anonymous data about game usage, such as scores, theme preferences, and in-game events. All data is anonymized and we do not collect any personally identifiable information.',
+    description3:
+      'You can decline analytics collection, and your choice will be remembered. The game will work perfectly either way.',
     accept: 'Accept',
-    decline: 'Decline'
+    decline: 'Decline',
   },
   footer: {
     description: 'Lines Game - Match 5 or more balls of the same color in a line',
     email: 'support@lines98.fun',
-    contactUs: 'Contact Us'
-  }
-}; 
+    contactUs: 'Contact Us',
+  },
+};

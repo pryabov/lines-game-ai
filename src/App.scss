@@ -1,21 +1,21 @@
 @use 'styles/index' as *;
-@use "sass:color";
+@use 'sass:color';
 
 .App {
   text-align: center;
   @include flex(column);
   min-height: 100vh;
   background-color: $bg-light;
-  
+
   &-logo {
     height: 40vmin;
     pointer-events: none;
-    
+
     @media (prefers-reduced-motion: no-preference) {
       animation: App-logo-spin infinite 20s linear;
     }
   }
-  
+
   &-header {
     width: 100%;
     background-color: $black-header;
@@ -26,14 +26,14 @@
     top: 0;
     z-index: 100;
     @include box-shadow('heavy');
-    
+
     h1 {
       margin: 0;
       font-size: clamp(1.5rem, 5vw, 2rem);
       text-shadow: 0 1px 3px $shadow-dark;
     }
   }
-  
+
   &-footer {
     width: 100%;
     background-color: $black-header;
@@ -41,18 +41,18 @@
     color: $text-light;
     font-size: clamp(0.8rem, 2vw, 0.9rem);
     @include box-shadow('light');
-    
+
     .email-link {
       color: $accent-blue-link;
       text-decoration: none;
-      
+
       &:hover {
         text-decoration: underline;
         color: color.adjust($accent-blue-link, $lightness: 15%);
       }
     }
   }
-  
+
   &-link {
     color: $accent-blue-link;
   }
@@ -73,16 +73,16 @@
   @include flex-center;
   background-color: $white-overlay-light;
   @include box-shadow('normal');
-  
+
   &:hover {
     background-color: $white-overlay-medium;
     transform: translateY(-1px);
   }
-  
+
   &:active {
     transform: translateY(1px);
   }
-  
+
   .settings-icon {
     font-size: 18px;
     color: $text-light; // Use light text for visibility on dark header
@@ -94,7 +94,11 @@ main {
   padding: clamp(10px, 3vw, 30px);
   @include flex-center;
   min-height: 80vh;
-  background-image: radial-gradient(circle at center, rgba($white, 0.8) 0%, rgba($gray-light, 0.3) 100%);
+  background-image: radial-gradient(
+    circle at center,
+    rgba($white, 0.8) 0%,
+    rgba($gray-light, 0.3) 100%
+  );
 }
 
 @keyframes App-logo-spin {
@@ -107,7 +111,16 @@ main {
 }
 
 /* Ensure smooth transitions when changing themes */
-body, .App, .App-header, .App-footer, .game, .board, .cell, .next-balls-panel, .score, .game-over {
+body,
+.App,
+.App-header,
+.App-footer,
+.game,
+.board,
+.cell,
+.next-balls-panel,
+.score,
+.game-over {
   @include transition(background-color, 0.3s);
   @include transition(color, 0.3s);
   @include transition(border-color, 0.3s);
@@ -118,8 +131,8 @@ body, .App, .App-header, .App-footer, .game, .board, .cell, .next-balls-panel, .
   .App-header {
     padding: 10px;
   }
-  
+
   .main {
     padding: 10px;
   }
-} 
+}

@@ -24,18 +24,18 @@
     @include box-shadow('normal');
     padding: clamp(6px, 1.5vw, 10px);
   }
-  
+
   &-bottom {
     width: 100%;
     @include flex-center;
     margin-top: clamp(5px, 2vw, 10px);
     gap: 10px;
   }
-  
+
   /* Responsive adjustments */
   @include mobile {
     padding: 10px;
-    
+
     &-info {
       flex-direction: row;
       justify-content: space-between;
@@ -58,7 +58,8 @@
   gap: 20px;
 }
 
-.score, .high-score {
+.score,
+.high-score {
   @include flex(column, center, center);
   padding: clamp(4px, 1vw, 12px);
   background-color: transparent;
@@ -67,31 +68,31 @@
   @include box-shadow('none');
   flex: 0 0 22%;
   margin-top: 8px;
-  
+
   @include mobile {
     width: auto;
     max-width: none;
     margin: 0;
     flex-basis: 28%;
     padding: 4px;
-    
+
     &-label {
       font-size: 12px;
       margin-bottom: 2px;
     }
-    
+
     &-value {
       font-size: 12px;
     }
   }
-  
+
   &-label {
     font-weight: bold;
     font-size: clamp(12px, 2vw, 16px);
     color: var(--text-primary, $text-dark);
     margin-bottom: 5px;
   }
-  
+
   &-value {
     font-size: clamp(18px, 4vw, 24px);
     font-weight: bold;
@@ -116,7 +117,7 @@
   text-align: center;
   font-size: clamp(12px, 2vw, 16px);
   margin-top: 10px;
-  
+
   &:disabled {
     background-color: var(--disabled-color, $disabled-bg-light);
     color: var(--disabled-text, $disabled-text-light);

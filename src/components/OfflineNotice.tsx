@@ -47,7 +47,7 @@ const OfflineNotice: React.FC = () => {
   }
 
   return (
-    <div 
+    <div
       style={{
         position: 'fixed',
         bottom: '20px',
@@ -60,7 +60,7 @@ const OfflineNotice: React.FC = () => {
         boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
         zIndex: 9999,
         textAlign: 'center',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
       }}
     >
       You are currently offline. Game progress will be saved locally.
@@ -68,4 +68,4 @@ const OfflineNotice: React.FC = () => {
   );
 };
 
-export default OfflineNotice; 
+export default OfflineNotice;

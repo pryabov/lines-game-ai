@@ -9,7 +9,7 @@ interface HelpDialogProps {
 
 const HelpDialog: React.FC<HelpDialogProps> = ({ isOpen, onClose }) => {
   const { translations } = useLanguage();
-  
+
   if (!isOpen) return null;
 
   return (
@@ -25,14 +25,14 @@ const HelpDialog: React.FC<HelpDialogProps> = ({ isOpen, onClose }) => {
               <li key={`rule-${index}`}>{item}</li>
             ))}
           </ul>
-          
+
           <h3>{translations.helpDialog.scoring}</h3>
           <ul>
             {translations.helpDialog.scoringItems.map((item, index) => (
               <li key={`scoring-${index}`}>{item}</li>
             ))}
           </ul>
-          
+
           <h3>{translations.helpDialog.tips}</h3>
           <ul>
             {translations.helpDialog.tipsItems.map((item, index) => (
@@ -50,4 +50,4 @@ const HelpDialog: React.FC<HelpDialogProps> = ({ isOpen, onClose }) => {
   );
 };
 
-export default HelpDialog; 
+export default HelpDialog;

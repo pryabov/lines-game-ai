@@ -9,50 +9,50 @@
   min-height: 400px;
   max-height: 85vh;
   overflow-y: auto;
-  
+
   .dialog-content {
     padding: 20px;
-    
+
     .settings-section {
       margin-bottom: 25px;
-      
+
       &:last-child {
         margin-bottom: 0;
       }
-      
+
       h3 {
         margin: 0 0 15px 0;
         color: var(--accent-color, $primary-blue);
         font-size: 1.1rem;
         font-weight: 600;
       }
-      
+
       .setting-item {
         @include flex;
         align-items: center;
         justify-content: space-between;
         padding: 12px 0;
         border-bottom: 1px solid var(--border-color, $border-light);
-        
+
         &:last-child {
           border-bottom: none;
         }
-        
+
         .setting-label {
           font-size: 14px;
           font-weight: 500;
           color: var(--text-color, $text-dark);
         }
-        
+
         // Adjust theme toggle and language selector for settings context
         .theme-toggle {
           margin-left: 0;
-          
+
           .theme-label {
             display: none; // Hide the label since we have our own
           }
         }
-        
+
         .language-selector {
           .language-button {
             min-width: 140px;
@@ -66,12 +66,12 @@
 .settings-dialog-header {
   @include dialog-header($primary-blue);
   position: relative;
-  
+
   h2 {
     margin: 0;
     font-size: 1.5rem;
   }
-  
+
   .close-button {
     position: absolute;
     top: 50%;
@@ -87,11 +87,11 @@
     @include flex-center;
     @include border-radius('small');
     @include transition;
-    
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
-    
+
     &:active {
       transform: translateY(-50%) scale(0.95);
     }
@@ -109,53 +109,51 @@
   padding: 8px 30px;
 }
 
-
 /* Dark theme adjustments */
 .dark-theme {
   .settings-dialog {
     background-color: $black-dialog;
   }
-  
+
   .settings-dialog-header {
     background-color: $primary-blue-dark;
-    
+
     .close-button {
       color: white;
-      
+
       &:hover {
         background-color: rgba(255, 255, 255, 0.15);
       }
     }
   }
-  
+
   .dialog-content {
     color: $text-dark-theme;
-    
+
     .settings-section {
       h3 {
         color: $accent-blue-link;
       }
-      
+
       .setting-item {
         border-bottom-color: $border-dark;
-        
+
         .setting-label {
           color: $text-dark-theme;
         }
       }
     }
   }
-  
+
   .dialog-actions {
     border-top-color: $border-dark;
   }
-  
+
   .primary-button {
     background-color: $primary-blue-dark;
-    
+
     &:hover {
       background-color: $primary-blue-darker;
     }
   }
-  
 }

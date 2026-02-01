@@ -4,7 +4,7 @@
   @include overlay-dark;
   z-index: 1001; /* Higher than other components */
   @include animate(fadeIn, 0.3s);
-  
+
   &.closing {
     @include animate(fadeOut, 0.3s, ease-in);
   }
@@ -14,7 +14,7 @@
   background-color: $white;
   @include dialog-container(480px);
   @include animate(slideIn, 0.4s);
-  
+
   &.closing {
     @include animate(slideOut, 0.3s, ease-in);
   }
@@ -23,7 +23,7 @@
 .consent-header {
   padding: 16px 20px;
   @include dialog-header($primary-blue);
-  
+
   h3 {
     margin: 0;
     font-size: 20px;
@@ -35,10 +35,10 @@
   font-size: 15px;
   line-height: 1.5;
   color: $gray-almost-black;
-  
+
   p {
     margin: 0 0 15px 0;
-    
+
     &:last-child {
       margin-bottom: 0;
     }
@@ -55,13 +55,13 @@
 .consent-button {
   @include button-base;
   padding: 10px 16px; // Override base padding
-  font-weight: 500;  // Use medium weight instead of bold
+  font-weight: 500; // Use medium weight instead of bold
 }
 
 .decline-button {
   background-color: $gray-lighter;
   color: $gray-very-dark;
-  
+
   &:hover {
     background-color: $gray-medium;
   }
@@ -70,10 +70,10 @@
 .accept-button {
   background-color: $primary-blue;
   color: $text-light;
-  
+
   &:hover {
     background-color: $primary-blue-dark;
   }
 }
 
-/* Dark theme support moved to DarkTheme.scss */ 
+/* Dark theme support moved to DarkTheme.scss */

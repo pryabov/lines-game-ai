@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { 
-  gridAtom, 
-  scoreAtom, 
-  nextBallsAtom, 
-  selectedCellAtom, 
-  gameOverAtom, 
-  gameStateAtom, 
-  movesMadeAtom 
+import {
+  gridAtom,
+  scoreAtom,
+  nextBallsAtom,
+  selectedCellAtom,
+  gameOverAtom,
+  gameStateAtom,
+  movesMadeAtom,
 } from '../atoms/gameAtoms';
 import { GameState } from '../types';
 
@@ -37,18 +37,18 @@ export const useGameStatePersistence = () => {
   const loadGameState = useCallback((): boolean => {
     try {
       const savedState = localStorage.getItem(STORAGE_KEY);
-      
+
       if (!savedState) {
         return false;
       }
-      
+
       const parsedState = JSON.parse(savedState) as GameState;
-      
+
       // Validate the parsed state
       if (!parsedState || !parsedState.grid || !parsedState.nextBalls) {
         return false;
       }
-      
+
       // Set all game state atoms
       setGrid(parsedState.grid);
       setScore(parsedState.score);
@@ -56,7 +56,7 @@ export const useGameStatePersistence = () => {
       setSelectedCell(parsedState.selectedCell);
       setGameOver(parsedState.gameOver);
       setMovesMade(parsedState.movesMade || 0);
-      
+
       return true;
     } catch (error) {
       console.error('Failed to load game state:', error);
@@ -87,20 +87,20 @@ export const useGameStatePersistence = () => {
     const handleBeforeUnload = () => {
       saveGameState();
     };
-    
+
     window.addEventListener('beforeunload', handleBeforeUnload);
-    
+
     // Also listen for visibility change to save state when app goes to background
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') {
         saveGameState();
       }
     });
-    
+
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [saveGameState]);
 
   return { saveGameState, loadGameState, clearGameState };
-}; 
+};

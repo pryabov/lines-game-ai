@@ -13,17 +13,18 @@ interface CellProps {
   linePosition?: number;
 }
 
-const Cell: React.FC<CellProps> = React.memo(({
-  type,
-  onClick,
-  isSelected,
-  position,
-  isPath = false,
-  pathStep = 0,
-  isLineComplete = false,
-  linePosition = 0
-}) => {
-  const cellClass = `cell 
+const Cell: React.FC<CellProps> = React.memo(
+  ({
+    type,
+    onClick,
+    isSelected,
+    position,
+    isPath = false,
+    pathStep = 0,
+    isLineComplete = false,
+    linePosition = 0,
+  }) => {
+    const cellClass = `cell 
     ${isSelected ? 'selected' : ''} 
     ${type.ball ? `ball ball-${type.ball.color}` : ''} 
     ${isPath ? 'path' : ''}
@@ -32,19 +33,15 @@ const Cell: React.FC<CellProps> = React.memo(({
     ${isLineComplete && linePosition > 0 ? `line-pos-${linePosition}` : ''}
   `;
 
-  return (
-    <div 
-      className={cellClass} 
-      onClick={onClick}
-      data-row={position.row}
-      data-col={position.col}
-    >
-      {type.ball && <div className="ball-inner"></div>}
-      {isPath && !type.ball && <div className="path-dot"></div>}
-    </div>
-  );
-});
+    return (
+      <div className={cellClass} onClick={onClick} data-row={position.row} data-col={position.col}>
+        {type.ball && <div className="ball-inner"></div>}
+        {isPath && !type.ball && <div className="path-dot"></div>}
+      </div>
+    );
+  }
+);
 
 Cell.displayName = 'Cell';
 
-export default Cell; 
+export default Cell;

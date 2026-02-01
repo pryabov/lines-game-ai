@@ -32,7 +32,7 @@ class StorageService {
 
   private safeGetItem(key: string): string | null {
     if (!this.isAvailable()) return null;
-    
+
     try {
       return localStorage.getItem(key);
     } catch (error) {
@@ -43,7 +43,7 @@ class StorageService {
 
   private safeSetItem(key: string, value: string): boolean {
     if (!this.isAvailable()) return false;
-    
+
     try {
       localStorage.setItem(key, value);
       return true;
@@ -55,7 +55,7 @@ class StorageService {
 
   private safeRemoveItem(key: string): boolean {
     if (!this.isAvailable()) return false;
-    
+
     try {
       localStorage.removeItem(key);
       return true;
@@ -68,14 +68,14 @@ class StorageService {
   // Get all settings
   getSettings(): UserSettings {
     const stored = this.safeGetItem(STORAGE_KEY);
-    
+
     if (!stored) {
       return { ...DEFAULT_SETTINGS };
     }
 
     try {
       const parsed = JSON.parse(stored) as Partial<UserSettings>;
-      
+
       // Merge with defaults to ensure all properties exist
       return {
         ...DEFAULT_SETTINGS,
@@ -91,7 +91,7 @@ class StorageService {
   updateSettings(updates: Partial<UserSettings>): boolean {
     const currentSettings = this.getSettings();
     const newSettings = { ...currentSettings, ...updates };
-    
+
     return this.safeSetItem(STORAGE_KEY, JSON.stringify(newSettings));
   }
 
@@ -151,7 +151,7 @@ class StorageService {
     // Save migrated settings and clean up old keys
     if (hasChanges) {
       this.updateSettings(currentSettings);
-      
+
       // Clean up old storage keys
       this.safeRemoveItem('theme');
       this.safeRemoveItem('lines-game-ball-movement-animation');
@@ -164,7 +164,7 @@ class StorageService {
     if (storedTheme !== DEFAULT_SETTINGS.theme) {
       return storedTheme;
     }
-    
+
     // Use system preference as fallback
     try {
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -178,12 +178,12 @@ class StorageService {
     if (storedLanguage !== DEFAULT_SETTINGS.language) {
       return storedLanguage;
     }
-    
+
     // Use browser language as fallback
     try {
       const browserLang = navigator.language.split('-')[0] as Language;
       const supportedLanguages: Language[] = ['en', 'ru', 'es', 'de', 'pl', 'zh', 'ja'];
-      
+
       return supportedLanguages.includes(browserLang) ? browserLang : 'en';
     } catch {
       return 'en';

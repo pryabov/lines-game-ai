@@ -39,7 +39,9 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   }, [language, isInitialized]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage: updateLanguage, translations: currentTranslations }}>
+    <LanguageContext.Provider
+      value={{ language, setLanguage: updateLanguage, translations: currentTranslations }}
+    >
       {children}
     </LanguageContext.Provider>
   );
@@ -51,4 +53,4 @@ export const useLanguage = (): LanguageContextType => {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;
-}; 
+};

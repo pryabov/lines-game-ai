@@ -14,33 +14,41 @@
 
 // Basic fade animations
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 // Vertical movement animations
 @keyframes slideIn {
-  from { 
+  from {
     transform: translateY(-20px);
     opacity: 0;
   }
-  to { 
+  to {
     transform: translateY(0);
     opacity: 1;
   }
 }
 
 @keyframes slideOut {
-  from { 
+  from {
     transform: translateY(0);
     opacity: 1;
   }
-  to { 
+  to {
     transform: translateY(20px);
     opacity: 0;
   }
@@ -114,7 +122,8 @@
 }
 
 @keyframes selectedBallJump {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) scale(1);
   }
   50% {
@@ -186,4 +195,4 @@
   100% {
     transform: scale(1);
   }
-} 
+}

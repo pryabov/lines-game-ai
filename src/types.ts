@@ -24,4 +24,4 @@ export interface GameState {
   selectedCell: Position | null;
   gameOver: boolean;
   movesMade: number;
-} 
+}

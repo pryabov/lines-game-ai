@@ -12,7 +12,7 @@ interface SettingsDialogProps {
 
 const SettingsDialog: React.FC<SettingsDialogProps> = ({ isOpen, onClose }) => {
   const { translations } = useLanguage();
-  
+
   if (!isOpen) return null;
 
   return (

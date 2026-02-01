@@ -8,11 +8,7 @@ interface GameOverDialogProps {
   onPlayAgain: () => void;
 }
 
-const GameOverDialog: React.FC<GameOverDialogProps> = ({
-  isOpen,
-  score,
-  onPlayAgain
-}) => {
+const GameOverDialog: React.FC<GameOverDialogProps> = ({ isOpen, score, onPlayAgain }) => {
   const { translations } = useLanguage();
 
   // Add exit animation
@@ -47,16 +43,10 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
             <span className="score-label">{translations.gameOver.yourScore}</span>
             <span className="score-value">{score}</span>
           </div>
-          <div className="score-message">
-            {getScoreMessage(score)}
-          </div>
+          <div className="score-message">{getScoreMessage(score)}</div>
         </div>
         <div className="game-over-actions">
-          <button 
-            id="play-again-button"
-            className="play-again-button" 
-            onClick={onPlayAgain}
-          >
+          <button id="play-again-button" className="play-again-button" onClick={onPlayAgain}>
             {translations.gameOver.playAgain}
           </button>
         </div>
@@ -65,4 +55,4 @@ const GameOverDialog: React.FC<GameOverDialogProps> = ({
   );
 };
 
-export default GameOverDialog; 
+export default GameOverDialog;

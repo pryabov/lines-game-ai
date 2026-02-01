@@ -12,10 +12,7 @@ const NextBallsPanel: React.FC<NextBallsPanelProps> = ({ balls }) => {
       <div className="next-balls-title">Next Balls:</div>
       <div className="next-balls-container">
         {balls.map((ball) => (
-          <div 
-            key={ball.id} 
-            className={`next-ball ball-${ball.color}`}
-          >
+          <div key={ball.id} className={`next-ball ball-${ball.color}`}>
             <div className="ball-inner"></div>
           </div>
         ))}
@@ -24,4 +21,4 @@ const NextBallsPanel: React.FC<NextBallsPanelProps> = ({ balls }) => {
   );
 };
 
-export default NextBallsPanel; 
+export default NextBallsPanel;

@@ -16,7 +16,7 @@ export const translations: Record<Language, Translation> = {
   de,
   pl,
   zh,
-  ja
+  ja,
 };
 
 // Language names for the dropdown
@@ -27,7 +27,7 @@ export const languageNames: Record<Language, string> = {
   de: 'Deutsch',
   pl: 'Polski',
   zh: '中文',
-  ja: '日本語'
+  ja: '日本語',
 };
 
 // Map languages to country ISO codes for flags
@@ -38,7 +38,7 @@ export const languageCountryCodes: Record<Language, string> = {
   de: 'de', // Germany
   pl: 'pl', // Poland
   zh: 'cn', // China
-  ja: 'jp'  // Japan
+  ja: 'jp', // Japan
 };
 
 // Get browser language or default to 'en'
@@ -60,4 +60,4 @@ export const LANGUAGE_STORAGE_KEY = 'lines-game-language';
 export const getInitialLanguage = (): Language => {
   const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY) as Language;
   return savedLanguage || getBrowserLanguage();
-}; 
+};

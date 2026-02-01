@@ -18,7 +18,7 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   onConfirm,
   onCancel,
   confirmText = 'Confirm',
-  cancelText = 'Cancel'
+  cancelText = 'Cancel',
 }) => {
   if (!isOpen) return null;
 
@@ -32,16 +32,10 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
           <p>{message}</p>
         </div>
         <div className="dialog-actions">
-          <button 
-            className="dialog-button cancel-button" 
-            onClick={onCancel}
-          >
+          <button className="dialog-button cancel-button" onClick={onCancel}>
             {cancelText}
           </button>
-          <button 
-            className="dialog-button confirm-button" 
-            onClick={onConfirm}
-          >
+          <button className="dialog-button confirm-button" onClick={onConfirm}>
             {confirmText}
           </button>
         </div>
@@ -50,4 +44,4 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   );
 };
 
-export default ConfirmDialog; 
+export default ConfirmDialog;

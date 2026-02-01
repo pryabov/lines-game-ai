@@ -2,20 +2,21 @@ export const de = {
   header: {
     title: 'Linien-Spiel',
     language: 'Sprache',
-    theme: 'Thema'
+    theme: 'Thema',
   },
   game: {
     score: 'Punkte',
     max: 'Max',
     nextBalls: 'Nächste Kugeln',
     resetGame: 'Spiel zurücksetzen',
-    help: 'Hilfe'
+    help: 'Hilfe',
   },
   resetConfirm: {
     title: 'Spiel zurücksetzen',
-    message: 'Bist du sicher, dass du das Spiel zurücksetzen möchtest? Dein Fortschritt geht verloren.',
+    message:
+      'Bist du sicher, dass du das Spiel zurücksetzen möchtest? Dein Fortschritt geht verloren.',
     confirm: 'Zurücksetzen',
-    cancel: 'Abbrechen'
+    cancel: 'Abbrechen',
   },
   gameOver: {
     title: 'Spiel vorbei',
@@ -24,7 +25,7 @@ export const de = {
     lowScore: 'Guter Versuch! Versuche es noch einmal, um deine Punktzahl zu verbessern.',
     mediumScore: 'Gute Arbeit! Du wirst besser!',
     highScore: 'Tolle Punktzahl! Du bist wirklich gut darin!',
-    excellentScore: 'Unglaublich! Du bist ein Meister des Linien-Spiels!'
+    excellentScore: 'Unglaublich! Du bist ein Meister des Linien-Spiels!',
   },
   helpDialog: {
     title: 'Spielanleitung',
@@ -39,20 +40,20 @@ export const de = {
       'Kugeln können nur bewegt werden, wenn ein freier Weg vorhanden ist (keine anderen Kugeln im Weg).',
       'Bilde Linien aus 5 oder mehr Kugeln derselben Farbe (horizontal, vertikal oder diagonal).',
       'Wenn Linien gebildet werden, verschwinden die Kugeln und du erhältst Punkte.',
-      'Das Spiel endet, wenn das Spielfeld mit Kugeln gefüllt ist und keine weiteren Züge möglich sind.'
+      'Das Spiel endet, wenn das Spielfeld mit Kugeln gefüllt ist und keine weiteren Züge möglich sind.',
     ],
     scoringItems: [
       '5 Kugeln in einer Linie: 10 Punkte',
       '6 Kugeln in einer Linie: 12 Punkte',
       '7 Kugeln in einer Linie: 18 Punkte',
       '8 Kugeln in einer Linie: 28 Punkte',
-      '9 Kugeln in einer Linie: 42 Punkte'
+      '9 Kugeln in einer Linie: 42 Punkte',
     ],
     tipsItems: [
       'Plane deine Züge sorgfältig, um zu vermeiden, das Spielfeld zu schnell zu füllen.',
       'Versuche, mehrere Linien gleichzeitig zu bilden, um höhere Punktzahlen zu erzielen.',
-      'Behalte die nächsten 3 Kugeln im Auge, die erscheinen werden.'
-    ]
+      'Behalte die nächsten 3 Kugeln im Auge, die erscheinen werden.',
+    ],
   },
   settingsDialog: {
     title: 'Einstellungen',
@@ -62,19 +63,22 @@ export const de = {
     ballAnimationStepByStep: 'Schritt für Schritt',
     ballAnimationShowPath: 'Pfad zeigen, dann bewegen',
     ballAnimationInstant: 'Sofortige Bewegung',
-    close: 'Schließen'
+    close: 'Schließen',
   },
   consentDialog: {
     title: 'Analytics-Einverständnis',
-    description1: 'Wir verwenden Google Analytics, um Ihr Spielerlebnis zu verbessern und zu verstehen, wie unser Spiel genutzt wird. Dies hilft uns, bessere Entscheidungen über Features und Verbesserungen zu treffen.',
-    description2: 'Wir sammeln anonyme Daten über die Spielnutzung, wie Punkte, Theme-Einstellungen und Spiel-Events. Alle Daten sind anonymisiert und wir sammeln keine persönlich identifizierbaren Informationen.',
-    description3: 'Sie können die Analytics-Erfassung ablehnen, und Ihre Wahl wird gespeichert. Das Spiel funktioniert in jedem Fall perfekt.',
+    description1:
+      'Wir verwenden Google Analytics, um Ihr Spielerlebnis zu verbessern und zu verstehen, wie unser Spiel genutzt wird. Dies hilft uns, bessere Entscheidungen über Features und Verbesserungen zu treffen.',
+    description2:
+      'Wir sammeln anonyme Daten über die Spielnutzung, wie Punkte, Theme-Einstellungen und Spiel-Events. Alle Daten sind anonymisiert und wir sammeln keine persönlich identifizierbaren Informationen.',
+    description3:
+      'Sie können die Analytics-Erfassung ablehnen, und Ihre Wahl wird gespeichert. Das Spiel funktioniert in jedem Fall perfekt.',
     accept: 'Akzeptieren',
-    decline: 'Ablehnen'
+    decline: 'Ablehnen',
   },
   footer: {
     description: 'Lines Spiel - Ordne 5 oder mehr Kugeln derselben Farbe in einer Linie an',
     email: 'support@lines98.fun',
-    contactUs: 'Kontaktiere uns'
-  }
-}; 
+    contactUs: 'Kontaktiere uns',
+  },
+};

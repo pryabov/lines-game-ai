@@ -16,16 +16,16 @@ const Board: React.FC<BoardProps> = ({
   onCellClick,
   selectedCell,
   pathCells = [],
-  lineAnimationCells = []
+  lineAnimationCells = [],
 }) => {
   // Create O(1) lookup maps for path and line animation cells
-  const pathCellMap = useMemo(() =>
-    new Map(pathCells.map((pos, i) => [`${pos.row}-${pos.col}`, i])),
+  const pathCellMap = useMemo(
+    () => new Map(pathCells.map((pos, i) => [`${pos.row}-${pos.col}`, i])),
     [pathCells]
   );
 
-  const lineCellMap = useMemo(() =>
-    new Map(lineAnimationCells.map((pos, i) => [`${pos.row}-${pos.col}`, i])),
+  const lineCellMap = useMemo(
+    () => new Map(lineAnimationCells.map((pos, i) => [`${pos.row}-${pos.col}`, i])),
     [lineAnimationCells]
   );
 
@@ -43,7 +43,7 @@ const Board: React.FC<BoardProps> = ({
             // O(1) lookup for line animation cells
             const lineIndex = lineCellMap.get(cellKey);
             const isLineComplete = lineIndex !== undefined;
-            
+
             return (
               <Cell
                 key={`${rowIndex}-${colIndex}`}
@@ -68,4 +68,4 @@ const Board: React.FC<BoardProps> = ({
   );
 };
 
-export default Board; 
+export default Board;

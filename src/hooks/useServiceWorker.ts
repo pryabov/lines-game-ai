@@ -60,7 +60,7 @@ export function useServiceWorker(): ServiceWorkerState {
         };
 
         // Use try-catch inside event handlers
-        wb.addEventListener('installing', (event) => {
+        wb.addEventListener('installing', () => {
           try {
             console.log('Service worker installing');
           } catch (error) {
@@ -94,4 +94,4 @@ export function useServiceWorker(): ServiceWorkerState {
     errorMessage,
     updateServiceWorker,
   };
-} 
+}

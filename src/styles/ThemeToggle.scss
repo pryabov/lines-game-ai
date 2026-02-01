@@ -24,12 +24,12 @@
   @include flex-center;
   background-color: $white-overlay-light;
   @include box-shadow('normal');
-  
+
   &:hover {
     background-color: $white-overlay-medium;
     transform: translateY(-1px);
   }
-  
+
   &:active {
     transform: translateY(1px);
   }
@@ -40,13 +40,13 @@
   .theme-label {
     color: $text-dark-theme;
   }
-  
+
   .theme-toggle-btn {
     border-color: $gray-almost-black;
     background-color: $shadow-dark;
-    
+
     &:hover {
       background-color: $white-overlay-light;
     }
   }
-} 
+}

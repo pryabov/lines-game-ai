@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
 import '../styles/ConsentDialog.scss';
 
@@ -15,7 +15,7 @@ const ConsentDialog: React.FC<ConsentDialogProps> = ({ onAccept, onDecline }) =>
   // Add animation when closing
   const handleClose = (accepted: boolean) => {
     setIsClosing(true);
-    
+
     // Wait for animation to complete
     setTimeout(() => {
       setIsVisible(false);
@@ -38,27 +38,15 @@ const ConsentDialog: React.FC<ConsentDialogProps> = ({ onAccept, onDecline }) =>
           <h3>{translations.consentDialog.title}</h3>
         </div>
         <div className="consent-content">
-          <p>
-            {translations.consentDialog.description1}
-          </p>
-          <p>
-            {translations.consentDialog.description2}
-          </p>
-          <p>
-            {translations.consentDialog.description3}
-          </p>
+          <p>{translations.consentDialog.description1}</p>
+          <p>{translations.consentDialog.description2}</p>
+          <p>{translations.consentDialog.description3}</p>
         </div>
         <div className="consent-actions">
-          <button 
-            className="consent-button decline-button" 
-            onClick={() => handleClose(false)}
-          >
+          <button className="consent-button decline-button" onClick={() => handleClose(false)}>
             {translations.consentDialog.decline}
           </button>
-          <button 
-            className="consent-button accept-button" 
-            onClick={() => handleClose(true)}
-          >
+          <button className="consent-button accept-button" onClick={() => handleClose(true)}>
             {translations.consentDialog.accept}
           </button>
         </div>
@@ -67,4 +55,4 @@ const ConsentDialog: React.FC<ConsentDialogProps> = ({ onAccept, onDecline }) =>
   );
 };
 
-export default ConsentDialog; 
+export default ConsentDialog;

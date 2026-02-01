@@ -15,7 +15,7 @@ const BallAnimationSelector: React.FC = () => {
     { value: 'instant-move', label: translations.settingsDialog.ballAnimationInstant },
   ];
 
-  const selectedOption = animationOptions.find(option => option.value === ballMovementAnimation);
+  const selectedOption = animationOptions.find((option) => option.value === ballMovementAnimation);
 
   const handleSelect = (animation: BallMovementAnimation) => {
     setBallAnimation(animation);
@@ -32,7 +32,7 @@ const BallAnimationSelector: React.FC = () => {
         <span className="animation-label">{selectedOption?.label}</span>
         <i className={`fas fa-chevron-${isOpen ? 'up' : 'down'} animation-arrow`}></i>
       </button>
-      
+
       {isOpen && (
         <div className="animation-dropdown">
           {animationOptions.map((option) => (

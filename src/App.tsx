@@ -21,10 +21,10 @@ import '@fortawesome/fontawesome-free/css/all.css';
 // Wrap the app content in the LanguageContext
 const AppContent: React.FC = () => {
   const { translations } = useLanguage();
-  
+
   // Initialize settings (migration, etc.)
   useSettingsInitialization();
-  
+
   // Initialize individual settings hooks
   useTheme();
   useBallMovementAnimation();

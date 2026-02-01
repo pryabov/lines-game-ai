@@ -31,4 +31,4 @@ const ThemeToggle: React.FC = () => {
   );
 };
 
-export default ThemeToggle; 
+export default ThemeToggle;

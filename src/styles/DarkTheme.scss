@@ -14,15 +14,15 @@ body.dark-theme,
   --danger-color-dark: #{$danger-color-dark};
   --disabled-color: #{$disabled-bg-dark};
   --disabled-text: #{$disabled-text-dark};
-  
+
   // General body/app overrides
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  
+
   /* App container */
   .App {
     background-color: var(--bg-primary);
-    
+
     /* App header and footer */
     &-header,
     &-footer {
@@ -30,18 +30,22 @@ body.dark-theme,
       color: var(--text-primary);
     }
   }
-  
+
   /* Make sure main section has dark background */
   main {
     background-color: var(--bg-primary);
-    background-image: radial-gradient(circle at center, rgba($black-dialog, 0.8) 0%, rgba($black-body-dark, 0.3) 100%);
+    background-image: radial-gradient(
+      circle at center,
+      rgba($black-dialog, 0.8) 0%,
+      rgba($black-body-dark, 0.3) 100%
+    );
   }
-  
+
   /* Game container */
   .game {
     background-color: var(--bg-secondary);
     @include box-shadow('heavy');
-    
+
     /* Game info section */
     &-info {
       background-color: var(--bg-secondary);
@@ -49,48 +53,55 @@ body.dark-theme,
       @include box-shadow;
     }
   }
-  
+
   /* Board styling */
   .board {
     background-color: $bg-dark-secondary;
     border-color: var(--border-color);
     @include box-shadow('heavy');
-    
+
     &-row {
       background-color: $bg-dark-secondary;
     }
   }
-  
+
   /* Cell styling */
   .cell {
     background-color: $bg-dark-cell;
     border-color: var(--border-color);
-    
+
     &:hover {
       background-color: $bg-dark-hover;
     }
-    
+
     &.selected {
       background-color: $bg-dark-selected;
     }
-    
+
     &.path {
       background-color: $accent-blue-path;
     }
-    
+
     /* Path animation specifically for dark theme */
-    &.path-step-1, &.path-step-2, &.path-step-3,
-    &.path-step-4, &.path-step-5, &.path-step-6,
-    &.path-step-7, &.path-step-8, &.path-step-9, &.path-step-10 {
+    &.path-step-1,
+    &.path-step-2,
+    &.path-step-3,
+    &.path-step-4,
+    &.path-step-5,
+    &.path-step-6,
+    &.path-step-7,
+    &.path-step-8,
+    &.path-step-9,
+    &.path-step-10 {
       animation-name: darkPathAppear; /* Use dark-specific animation */
     }
   }
-  
+
   /* Path dots */
   .path-dot {
     background-color: $accent-blue-path-dot;
   }
-  
+
   /* Dark theme specific animation */
   @keyframes darkPathAppear {
     0% {
@@ -100,44 +111,44 @@ body.dark-theme,
       background-color: $accent-blue-path;
     }
   }
-  
+
   /* NextBalls panel */
   .next-balls-panel {
     background-color: $white-overlay-light;
     border-color: transparent;
     @include box-shadow('none');
   }
-  
+
   .next-balls-title {
     color: var(--text-primary);
   }
-  
+
   /* Game over screen */
   .game-over-container {
     background-color: $black-dialog;
   }
-  
+
   .game-over-header {
     background-color: $danger-color-dark;
   }
-  
+
   .score-label {
     color: $gray-dark;
   }
-  
+
   .score-value {
     color: $text-dark-theme;
   }
-  
+
   .score-message {
     color: $text-dark-theme-lighter;
   }
-  
+
   /* Moving balls */
   .moving-ball {
     filter: brightness(0.95);
   }
-  
+
   /* ConsentDialog styling */
   .consent-container {
     background-color: $gray-near-black;
@@ -158,7 +169,7 @@ body.dark-theme,
   .decline-button {
     background-color: $border-dark;
     color: $text-dark-theme-lighter;
-    
+
     &:hover {
       background-color: $gray-almost-black;
     }
@@ -166,99 +177,99 @@ body.dark-theme,
 
   .accept-button {
     background-color: $primary-blue-dark;
-    
+
     &:hover {
       background-color: $primary-blue-darker;
     }
   }
-  
+
   /* ConfirmDialog styling */
   .dialog-container {
     background-color: $black-dialog;
   }
-  
+
   .dialog-header {
     background-color: $primary-green-darker;
   }
-  
+
   .dialog-content p {
     color: $text-dark-theme;
   }
-  
+
   .cancel-button {
     background-color: $gray-near-black;
     color: $text-dark-theme;
-    
+
     &:hover {
       background-color: $border-dark;
     }
   }
-  
+
   /* Settings button styling */
   .settings-button {
     border-color: $gray-almost-black;
     background-color: $shadow-dark;
-    
+
     &:hover {
       background-color: $white-overlay-light;
     }
-    
+
     .settings-icon {
       color: $text-dark-theme;
     }
   }
-  
+
   /* Language selector styling - general dark theme */
   .language-button {
     background-color: rgba(255, 255, 255, 0.05);
     border-color: $gray-almost-black;
     color: $text-dark-theme;
-    
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
   }
-  
+
   .language-dropdown {
     background-color: $black-dialog;
     border: 1px solid $border-dark;
   }
-  
+
   .language-option {
     color: $text-dark-theme;
-    
+
     &:hover {
       background-color: $gray-darkest;
     }
-    
+
     &.active {
       background-color: $gray-almost-black;
     }
   }
-  
+
   /* Ball Animation Selector - general dark theme */
   .animation-button {
     background-color: rgba(255, 255, 255, 0.05);
     border-color: $gray-almost-black;
     color: $text-dark-theme;
-    
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
   }
-  
+
   .animation-dropdown {
     background-color: $black-dialog;
     border: 1px solid $border-dark;
   }
-  
+
   .animation-option {
     color: $text-dark-theme;
-    
+
     &:hover {
       background-color: $gray-darkest;
     }
-    
+
     &.active {
       background-color: $gray-almost-black;
     }
@@ -271,59 +282,59 @@ body.dark-theme,
         background-color: rgba(255, 255, 255, 0.08);
         border-color: $border-dark;
         color: $text-dark-theme;
-        
+
         &:hover {
           background-color: rgba(255, 255, 255, 0.15);
           border-color: $gray-almost-black;
         }
       }
-      
+
       .language-dropdown {
         background-color: $black-dialog;
         border: 1px solid $border-dark;
       }
-      
+
       .language-option {
         color: $text-dark-theme;
-        
+
         &:hover {
           background-color: $gray-darkest;
         }
-        
+
         &.active {
           background-color: $gray-almost-black;
         }
       }
     }
-    
+
     .ball-animation-selector {
       .animation-button {
         background-color: rgba(255, 255, 255, 0.08);
         border-color: $border-dark;
         color: $text-dark-theme;
-        
+
         &:hover {
           background-color: rgba(255, 255, 255, 0.15);
           border-color: $gray-almost-black;
         }
       }
-      
+
       .animation-dropdown {
         background-color: $black-dialog;
         border: 1px solid $border-dark;
       }
-      
+
       .animation-option {
         color: $text-dark-theme;
-        
+
         &:hover {
           background-color: $gray-darkest;
         }
-        
+
         &.active {
           background-color: $gray-almost-black;
         }
       }
     }
   }
-} 
+}

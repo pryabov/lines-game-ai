@@ -17,7 +17,7 @@ const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }) => {
       // If user has already consented, make sure we initialize analytics
       // This helps when the page is refreshed or revisited
       analytics.saveUserConsent(true);
-      
+
       // Track page view on initial load
       analytics.trackPageView(window.location.pathname);
     }
@@ -38,7 +38,7 @@ const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }) => {
 
     // Listen for hash changes (for hash-based routing)
     window.addEventListener('hashchange', handleRouteChange);
-    
+
     // Clean up
     return () => {
       window.removeEventListener('hashchange', handleRouteChange);
@@ -48,7 +48,7 @@ const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }) => {
   const handleAccept = () => {
     analytics.trackConsentChoice(true);
     setShowConsentDialog(false);
-    
+
     // Track initial page view after consent
     analytics.trackPageView(window.location.pathname);
   };
@@ -61,14 +61,9 @@ const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }) => {
   return (
     <>
       {children}
-      {showConsentDialog && (
-        <ConsentDialog 
-          onAccept={handleAccept} 
-          onDecline={handleDecline} 
-        />
-      )}
+      {showConsentDialog && <ConsentDialog onAccept={handleAccept} onDecline={handleDecline} />}
     </>
   );
 };
 
-export default AnalyticsProvider; 
+export default AnalyticsProvider;

@@ -26,7 +26,7 @@ const UpdateNotification: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: '10px'
+        gap: '10px',
       }}
     >
       <div style={{ marginBottom: '8px', textAlign: 'center' }}>
@@ -41,7 +41,7 @@ const UpdateNotification: React.FC = () => {
           padding: '8px 16px',
           borderRadius: '4px',
           fontWeight: 'bold',
-          cursor: 'pointer'
+          cursor: 'pointer',
         }}
       >
         Update Now
@@ -50,4 +50,4 @@ const UpdateNotification: React.FC = () => {
   );
 };
 
-export default UpdateNotification; 
+export default UpdateNotification;
