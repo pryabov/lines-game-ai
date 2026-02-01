@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="theme-color" content="#4CAF50" />
-    <meta
-      name="description"
-      content="Lines Game - A free online color matching puzzle game. Connect colorful balls to score points and challenge your strategic thinking."
-    />
-    <meta name="keywords" content="lines game, color matching game, puzzle game, online game, free game, strategy game, ball game" />
+    <meta name="description"
+      content="Lines Game - A free online color matching puzzle game. Connect colorful balls to score points and challenge your strategic thinking." />
+    <meta name="keywords"
+      content="lines game, color matching game, puzzle game, online game, free game, strategy game, ball game" />
     <meta name="author" content="Lines Game" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="Lines Game - Color Matching Puzzle" />
-    <meta property="og:description" content="Play Lines Game - A free online color matching puzzle game. Connect colorful balls to score points and challenge your strategic thinking." />
+    <meta property="og:description"
+      content="Play Lines Game - A free online color matching puzzle game. Connect colorful balls to score points and challenge your strategic thinking." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://lines98.fun" />
     <meta property="og:image" content="logo512.png" />
     <meta property="og:site_name" content="Lines Game" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Lines Game - Color Matching Puzzle" />
-    <meta name="twitter:description" content="Play Lines Game - A free online color matching puzzle game. Connect colorful balls and challenge your strategic thinking." />
+    <meta name="twitter:description"
+      content="Play Lines Game - A free online color matching puzzle game. Connect colorful balls and challenge your strategic thinking." />
     <meta name="twitter:image" content="logo512.png" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -44,7 +46,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Lines Game - Free Online Color Matching Puzzle Game</title>
-    
+
     <!-- Structured data for rich results -->
     <script type="application/ld+json">
     {
@@ -67,11 +69,13 @@
       }
     }
     </script>
-    
+
     <!-- Google Analytics -->
     <!-- GA is now loaded dynamically via JavaScript after user consent -->
-     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493809842772623" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3493809842772623"
+      crossorigin="anonymous"></script>
   </head>
+
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
@@ -82,12 +86,12 @@
           navigator.serviceWorker.register('service-worker.js')
             .then(registration => {
               console.log('Service Worker registered: ', registration);
-              
+
               // Check for updates on page refresh
               registration.addEventListener('updatefound', () => {
                 const newWorker = registration.installing;
                 console.log('Service Worker update found!');
-                
+
                 newWorker.addEventListener('statechange', () => {
                   if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
                     // New content is available, show notification to user
@@ -101,13 +105,13 @@
             .catch(error => {
               console.error('Service Worker registration failed:', error);
             });
-            
+
           // Handle the case when the user returns to the app after being offline
           window.addEventListener('online', () => {
             console.log('Application is online again');
             document.dispatchEvent(new CustomEvent('app-online'));
           });
-          
+
           window.addEventListener('offline', () => {
             console.log('Application is offline');
             document.dispatchEvent(new CustomEvent('app-offline'));
@@ -126,4 +130,5 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+
 </html>

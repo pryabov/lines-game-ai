@@ -45,4 +45,6 @@ const Cell: React.FC<CellProps> = React.memo(({
   );
 });
 
+Cell.displayName = 'Cell';
+
 export default Cell; 

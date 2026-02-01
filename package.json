@@ -29,7 +29,9 @@
     "test:coverage": "jest --coverage",
     "type-check": "tsc --noEmit",
     "lint": "eslint src --ext .ts,.tsx",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix"
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,scss,css,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,scss,css,json}\""
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -49,10 +51,14 @@
       "eslint:recommended",
       "plugin:react/recommended",
       "plugin:react-hooks/recommended",
-      "plugin:@typescript-eslint/recommended"
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
     ],
     "rules": {
-      "react/react-in-jsx-scope": "off"
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+      "@typescript-eslint/no-explicit-any": "warn"
     },
     "settings": {
       "react": {
@@ -86,6 +92,7 @@
     "css-loader": "^7.1.2",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.3",
@@ -97,6 +104,7 @@
     "sass-loader": "^16.0.5",
     "source-map-loader": "^5.0.0",
     "style-loader": "^4.0.0",
+    "prettier": "^3.2.0",
     "ts-jest": "^29.1.0",
     "ts-loader": "^9.5.2",
     "typescript": "^5.8.3",
