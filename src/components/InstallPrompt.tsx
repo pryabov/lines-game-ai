@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import analytics from '../services/analytics';
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
 const InstallPrompt: React.FC = () => {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showPrompt, setShowPrompt] = useState(false);
 
   useEffect(() => {
@@ -23,7 +28,7 @@ const InstallPrompt: React.FC = () => {
       // Prevent the default browser install prompt
       e.preventDefault();
       // Store the event for later use
-      setDeferredPrompt(e);
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
       // Show our custom install prompt
       setShowPrompt(true);
 

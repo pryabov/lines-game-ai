@@ -67,10 +67,10 @@ export function useServiceWorker(): ServiceWorkerState {
             handleError(error as Error);
           }
         });
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Service worker setup failed:', error);
         setHasError(true);
-        setErrorMessage(error.message);
+        setErrorMessage(error instanceof Error ? error.message : 'Unknown error');
       }
     }
   }, []);

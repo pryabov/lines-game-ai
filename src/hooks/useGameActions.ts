@@ -490,10 +490,14 @@ export const useGameActions = () => {
       checkForLines,
       nextBalls,
       setNextBalls,
-      setGameOver,
       setMovesMade,
       checkGameOver,
       ballMovementAnimation,
+      animateInstantMove,
+      animateShowPathThenMove,
+      animateStepByStep,
+      createMovingBall,
+      positionBallAtCell,
     ]
   );
 

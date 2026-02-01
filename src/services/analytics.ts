@@ -3,9 +3,19 @@
  * This provides a wrapper around Google Analytics with optional Cloudflare Analytics support
  */
 
+// Extend window interface for Google Analytics
+declare global {
+  interface Window {
+    dataLayer: unknown[];
+    gtag: (...args: unknown[]) => void;
+  }
+}
+
+type AnalyticsEventData = Record<string, string | number | boolean | undefined>;
+
 interface GameEvent {
   eventName: string;
-  data?: Record<string, any>;
+  data?: AnalyticsEventData;
 }
 
 // Local storage keys
@@ -65,7 +75,7 @@ export const saveUserConsent = (accepted: boolean): void => {
     // If user declined, disable tracking and clear any existing cookies
     if (typeof window !== 'undefined') {
       // Disable GA tracking - the 'ga-disable-{GA_ID}' is a standard GA feature
-      (window as any)['ga-disable-' + GA_MEASUREMENT_ID] = true;
+      (window as unknown as Record<string, boolean>)['ga-disable-' + GA_MEASUREMENT_ID] = true;
     }
   }
 };
@@ -77,7 +87,7 @@ export const hasAnsweredConsent = (): boolean => {
 
 // Check if Google Analytics is available
 const isGoogleAnalyticsAvailable = (): boolean => {
-  return typeof window !== 'undefined' && typeof (window as any).gtag === 'function';
+  return typeof window !== 'undefined' && typeof window.gtag === 'function';
 };
 
 // Track a game event
@@ -110,7 +120,7 @@ export const trackEvent = (event: GameEvent): void => {
           letter.toUpperCase()
         );
 
-        (window as any).gtag('event', gtagEventName, {
+        window.gtag('event', gtagEventName, {
           ...event.data,
           event_category: 'game',
           non_interaction: event.eventName.startsWith('view_'),
