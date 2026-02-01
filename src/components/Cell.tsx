@@ -13,10 +13,10 @@ interface CellProps {
   linePosition?: number;
 }
 
-const Cell: React.FC<CellProps> = ({ 
-  type, 
-  onClick, 
-  isSelected, 
+const Cell: React.FC<CellProps> = React.memo(({
+  type,
+  onClick,
+  isSelected,
   position,
   isPath = false,
   pathStep = 0,
@@ -43,6 +43,6 @@ const Cell: React.FC<CellProps> = ({
       {isPath && !type.ball && <div className="path-dot"></div>}
     </div>
   );
-};
+});
 
 export default Cell; 

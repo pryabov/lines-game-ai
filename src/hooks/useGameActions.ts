@@ -12,8 +12,17 @@ import {
   lineAnimationsAtom,
   movesMadeAtom,
   ballMovementAnimationAtom,
-  STEP_DURATION,
   JUMP_ANIMATION_DURATION,
+  PATH_STEP_DELAY,
+  INITIAL_MOVE_DELAY,
+  FAST_STEP_DURATION,
+  PATH_SHOW_DURATION,
+  INSTANT_MOVE_DELAY,
+  LINE_ANIMATION_DURATION,
+  BALL_SIZE_RATIO,
+  STEP_TRANSITION_DURATION,
+  SCORE_TABLE,
+  DEFAULT_SCORE_MULTIPLIER,
   createEmptyGrid,
   generateRandomBalls,
   BALLS_PER_TURN
@@ -49,7 +58,7 @@ export const useGameActions = () => {
   const createMovingBall = useCallback((selectedBall: Ball, boardRect: DOMRect) => {
     const cellWidth = boardRect.width / 9;
     const cellHeight = boardRect.height / 9;
-    const actualBallSize = Math.min(cellWidth, cellHeight) * 0.75;
+    const actualBallSize = Math.min(cellWidth, cellHeight) * BALL_SIZE_RATIO;
 
     const movingBall = document.createElement('div');
     movingBall.className = 'moving-ball';
@@ -113,9 +122,9 @@ export const useGameActions = () => {
   const animateStepByStep = useCallback((movingBall: HTMLElement, path: Position[], actualBallSize: number, boardRect: DOMRect, onComplete: () => void) => {
     let currentStep = 0;
     const steps = path.length;
-    
+
     // Set up proper transitions for step-by-step movement
-    movingBall.style.transition = 'left 0.25s ease-in-out, top 0.25s ease-in-out';
+    movingBall.style.transition = `left ${STEP_TRANSITION_DURATION} ease-in-out, top ${STEP_TRANSITION_DURATION} ease-in-out`;
     
     const moveToNextPosition = () => {
       if (currentStep < steps) {
@@ -149,15 +158,15 @@ export const useGameActions = () => {
           
           currentStep++;
           if (currentStep < steps) {
-            setTimeout(moveToNextPosition, 80);
+            setTimeout(moveToNextPosition, PATH_STEP_DELAY);
           } else {
             onComplete();
           }
         }, JUMP_ANIMATION_DURATION);
       }
     };
-    
-    setTimeout(moveToNextPosition, 100);
+
+    setTimeout(moveToNextPosition, INITIAL_MOVE_DELAY);
   }, [positionBallAtCell]);
 
   const animateShowPathThenMove = useCallback((movingBall: HTMLElement, path: Position[], actualBallSize: number, boardRect: DOMRect, onComplete: () => void) => {
@@ -165,36 +174,35 @@ export const useGameActions = () => {
     setTimeout(() => {
       let currentStep = 0;
       const steps = path.length;
-      const stepDuration = 60; // Faster movement - reduced from 120ms to 60ms per step
-      
+
       // Set up smooth transition for each step
-      movingBall.style.transition = `left ${stepDuration}ms linear, top ${stepDuration}ms linear`;
-      
+      movingBall.style.transition = `left ${FAST_STEP_DURATION}ms linear, top ${FAST_STEP_DURATION}ms linear`;
+
       const moveToNextPosition = () => {
         if (currentStep < steps) {
           const { row: pathRow, col: pathCol } = path[currentStep];
-          
+
           // Move smoothly to next position in path
           positionBallAtCell(movingBall, pathRow, pathCol, actualBallSize, boardRect);
-          
+
           currentStep++;
-          
+
           if (currentStep < steps) {
             // Continue to next position
-            setTimeout(moveToNextPosition, stepDuration);
+            setTimeout(moveToNextPosition, FAST_STEP_DURATION);
           } else {
             // Animation complete - wait for final transition to finish
             setTimeout(() => {
               onComplete();
-            }, stepDuration + 50); // Wait for final transition plus buffer
+            }, FAST_STEP_DURATION + INSTANT_MOVE_DELAY);
           }
         }
       };
-      
+
       // Start the path movement
       moveToNextPosition();
-      
-    }, 500); // Show path for 0.5 seconds
+
+    }, PATH_SHOW_DURATION);
   }, [positionBallAtCell]);
 
   const animateInstantMove = useCallback((movingBall: HTMLElement, path: Position[], actualBallSize: number, boardRect: DOMRect, onComplete: () => void) => {
@@ -202,29 +210,21 @@ export const useGameActions = () => {
     const finalPos = path[path.length - 1];
     movingBall.style.transition = 'none';
     positionBallAtCell(movingBall, finalPos.row, finalPos.col, actualBallSize, boardRect);
-    
+
     setTimeout(() => {
       onComplete();
-    }, 50); // Very short delay just for visual feedback
+    }, INSTANT_MOVE_DELAY);
   }, [positionBallAtCell]);
 
   // Calculate score based on the number of balls in a line
   const calculateScore = useCallback((lineLength: number) => {
-    switch (lineLength) {
-      case 5: return 10;
-      case 6: return 12;
-      case 7: return 18;
-      case 8: return 28;
-      case 9: return 42;
-      default: return lineLength * 2; // Fallback for any other lengths
-    }
+    return SCORE_TABLE[lineLength] ?? lineLength * DEFAULT_SCORE_MULTIPLIER;
   }, []);
 
   // Check if the game is over (not enough empty cells for next balls)
   const checkGameOver = useCallback(() => {
     const emptyCells = findEmptyCells(grid);
     if (emptyCells.length < BALLS_PER_TURN) {
-      console.log('Game over: Not enough empty cells for next balls');
       setGameOver(true);
       return true;
     }
@@ -260,7 +260,7 @@ export const useGameActions = () => {
           positions: [],
           isAnimating: false
         });
-      }, 2000); // Wait for animation to complete
+      }, LINE_ANIMATION_DURATION);
       
       return true;
     }

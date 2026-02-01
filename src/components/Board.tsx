@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { useMemo } from 'react';
 import Cell from './Cell';
 import { CellType, Position } from '../types';
 import '../styles/Board.scss';
@@ -11,29 +11,38 @@ interface BoardProps {
   lineAnimationCells?: Position[];
 }
 
-const Board: React.FC<BoardProps> = ({ 
-  grid, 
-  onCellClick, 
+const Board: React.FC<BoardProps> = ({
+  grid,
+  onCellClick,
   selectedCell,
   pathCells = [],
   lineAnimationCells = []
 }) => {
+  // Create O(1) lookup maps for path and line animation cells
+  const pathCellMap = useMemo(() =>
+    new Map(pathCells.map((pos, i) => [`${pos.row}-${pos.col}`, i])),
+    [pathCells]
+  );
+
+  const lineCellMap = useMemo(() =>
+    new Map(lineAnimationCells.map((pos, i) => [`${pos.row}-${pos.col}`, i])),
+    [lineAnimationCells]
+  );
+
   return (
     <div className="board">
       {grid.map((row, rowIndex) => (
         <div key={rowIndex} className="board-row">
           {row.map((cell, colIndex) => {
-            // Check if this cell is part of the path
-            const pathIndex = pathCells.findIndex(
-              pos => pos.row === rowIndex && pos.col === colIndex
-            );
-            const isPath = pathIndex !== -1;
-            
-            // Check if this cell is part of a completed line
-            const lineIndex = lineAnimationCells.findIndex(
-              pos => pos.row === rowIndex && pos.col === colIndex
-            );
-            const isLineComplete = lineIndex !== -1;
+            const cellKey = `${rowIndex}-${colIndex}`;
+
+            // O(1) lookup for path cells
+            const pathIndex = pathCellMap.get(cellKey);
+            const isPath = pathIndex !== undefined;
+
+            // O(1) lookup for line animation cells
+            const lineIndex = lineCellMap.get(cellKey);
+            const isLineComplete = lineIndex !== undefined;
             
             return (
               <Cell
@@ -47,9 +56,9 @@ const Board: React.FC<BoardProps> = ({
                 }
                 position={{ row: rowIndex, col: colIndex }}
                 isPath={isPath}
-                pathStep={isPath ? pathIndex + 1 : 0}
+                pathStep={isPath ? pathIndex! + 1 : 0}
                 isLineComplete={isLineComplete}
-                linePosition={isLineComplete ? lineIndex + 1 : 0}
+                linePosition={isLineComplete ? lineIndex! + 1 : 0}
               />
             );
           })}

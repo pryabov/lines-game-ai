@@ -1,14 +1,37 @@
 import { atom } from 'jotai';
 import { Ball, BallColor, CellType, Position, GameState, BallMovementAnimation } from '../types';
 
-// Constants
+// Game Constants
 export const GRID_SIZE = 9;
 export const COLORS: BallColor[] = ['red', 'blue', 'green', 'yellow', 'purple', 'cyan', 'orange'];
 export const BALLS_PER_TURN = 3;
 export const MIN_LINE_LENGTH = 5;
-export const ANIMATION_DURATION = 800; // Animation duration in ms
-export const STEP_DURATION = 400; // Duration of each step in the path animation
-export const JUMP_ANIMATION_DURATION = 350; // Duration of the jump animation
+
+// Animation Constants (in milliseconds)
+export const ANIMATION_DURATION = 800;
+export const STEP_DURATION = 400;
+export const JUMP_ANIMATION_DURATION = 350;
+export const PATH_STEP_DELAY = 80;
+export const INITIAL_MOVE_DELAY = 100;
+export const FAST_STEP_DURATION = 60;
+export const PATH_SHOW_DURATION = 500;
+export const INSTANT_MOVE_DELAY = 50;
+export const LINE_ANIMATION_DURATION = 2000;
+export const GAME_INIT_DELAY = 100;
+
+// Styling Constants
+export const BALL_SIZE_RATIO = 0.75;
+export const STEP_TRANSITION_DURATION = '0.25s';
+
+// Scoring Constants
+export const SCORE_TABLE: Record<number, number> = {
+  5: 10,
+  6: 12,
+  7: 18,
+  8: 28,
+  9: 42,
+};
+export const DEFAULT_SCORE_MULTIPLIER = 2;
 
 // Helper function to generate an initial empty grid
 export const createEmptyGrid = (): CellType[][] => 
