@@ -52,12 +52,3 @@ export const getBrowserLanguage = (): Language => {
   if (browserLang === 'ja') return 'ja';
   return 'en';
 };
-
-// Local storage key for language
-export const LANGUAGE_STORAGE_KEY = 'lines-game-language';
-
-// Get language from localStorage or browser settings
-export const getInitialLanguage = (): Language => {
-  const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY) as Language;
-  return savedLanguage || getBrowserLanguage();
-};

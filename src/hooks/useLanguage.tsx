@@ -56,6 +56,9 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     // If language came from URL, save it to storage
     if (urlLanguage) {
       storageService.setSetting('language', urlLanguage);
+    } else if (initialLanguage !== 'en') {
+      // If language came from localStorage (not URL), update URL to reflect it
+      updateUrlLanguage(initialLanguage);
     }
 
     setIsInitialized(true);
