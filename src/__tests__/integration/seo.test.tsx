@@ -129,9 +129,9 @@ describe('SEO: Dynamic meta tags and hreflang', () => {
     expect(document.querySelector('meta[property="og:title"]')?.getAttribute('content')).toBe(
       en.seo.ogTitle
     );
-    expect(
-      document.querySelector('meta[property="og:description"]')?.getAttribute('content')
-    ).toBe(en.seo.description);
+    expect(document.querySelector('meta[property="og:description"]')?.getAttribute('content')).toBe(
+      en.seo.description
+    );
   });
 
   it('updates canonical URL for English to bare path with trailing slash', () => {
@@ -260,8 +260,8 @@ describe('SEO: Non-English language via ?lang= URL', () => {
     expect(document.querySelector('meta[property="og:title"]')?.getAttribute('content')).toBe(
       ru.seo.ogTitle
     );
-    expect(
-      document.querySelector('meta[property="og:description"]')?.getAttribute('content')
-    ).toBe(ru.seo.description);
+    expect(document.querySelector('meta[property="og:description"]')?.getAttribute('content')).toBe(
+      ru.seo.description
+    );
   });
 });
