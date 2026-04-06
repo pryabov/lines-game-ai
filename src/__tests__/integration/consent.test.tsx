@@ -81,9 +81,7 @@ describe('UJ-12: Analytics Consent', () => {
     const mockAccept = jest.fn();
     const mockDecline = jest.fn();
 
-    renderWithProviders(
-      <ConsentDialog onAccept={mockAccept} onDecline={mockDecline} />
-    );
+    renderWithProviders(<ConsentDialog onAccept={mockAccept} onDecline={mockDecline} />);
 
     expect(screen.getByText(en.consentDialog.title)).toBeInTheDocument();
     expect(screen.getByText(en.consentDialog.description1)).toBeInTheDocument();

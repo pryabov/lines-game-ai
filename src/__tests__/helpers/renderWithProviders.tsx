@@ -25,10 +25,8 @@ const FullProviders: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   </Provider>
 );
 
-export const renderWithProviders = (
-  ui: ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'>
-) => render(ui, { wrapper: MinimalProviders, ...options });
+export const renderWithProviders = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
+  render(ui, { wrapper: MinimalProviders, ...options });
 
 export const renderWithFullProviders = (
   ui: ReactElement,

@@ -148,7 +148,9 @@ describe('UJ-9: Ball Animation Mode', () => {
     });
 
     // "Step by step" appears twice: once in the button label and once in the dropdown option
-    expect(screen.getAllByText(en.settingsDialog.ballAnimationStepByStep).length).toBeGreaterThanOrEqual(1);
+    expect(
+      screen.getAllByText(en.settingsDialog.ballAnimationStepByStep).length
+    ).toBeGreaterThanOrEqual(1);
     expect(screen.getByText(en.settingsDialog.ballAnimationShowPath)).toBeInTheDocument();
     expect(screen.getByText(en.settingsDialog.ballAnimationInstant)).toBeInTheDocument();
   });
