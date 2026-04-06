@@ -87,7 +87,9 @@ export const placeBallsRandomly = (grid: CellType[][], balls: Ball[]): CellType[
     const { row, col } = emptyCells[randomIndex];
 
     newGrid[row][col] = { ball };
-    emptyCells.splice(randomIndex, 1);
+    // O(1) removal: swap with last element and pop
+    emptyCells[randomIndex] = emptyCells[emptyCells.length - 1];
+    emptyCells.pop();
   }
 
   return newGrid;

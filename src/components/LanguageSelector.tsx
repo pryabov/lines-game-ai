@@ -1,7 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
 import { Language, languageNames, languageCountryCodes } from '../translations';
 import '../styles/LanguageSelector.scss';
+
+// Pre-sorted languages - computed once since languageNames is static
+const SORTED_LANGUAGES = Object.entries(languageNames)
+  .sort((a, b) => a[1].localeCompare(b[1]))
+  .map(([code]) => code as Language);
 
 const LanguageSelector: React.FC = () => {
   const { language, setLanguage } = useLanguage();

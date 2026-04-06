@@ -4,9 +4,10 @@ import '../styles/Cell.scss';
 
 interface CellProps {
   type: CellType;
-  onClick: () => void;
+  onCellClick: (row: number, col: number) => void;
   isSelected: boolean;
-  position: { row: number; col: number };
+  row: number;
+  col: number;
   isPath?: boolean;
   pathStep?: number;
   isLineComplete?: boolean;
@@ -16,17 +17,20 @@ interface CellProps {
 const Cell: React.FC<CellProps> = React.memo(
   ({
     type,
-    onClick,
+    onCellClick,
     isSelected,
-    position,
+    row,
+    col,
     isPath = false,
     pathStep = 0,
     isLineComplete = false,
     linePosition = 0,
   }) => {
-    const cellClass = `cell 
-    ${isSelected ? 'selected' : ''} 
-    ${type.ball ? `ball ball-${type.ball.color}` : ''} 
+    const handleClick = () => onCellClick(row, col);
+
+    const cellClass = `cell
+    ${isSelected ? 'selected' : ''}
+    ${type.ball ? `ball ball-${type.ball.color}` : ''}
     ${isPath ? 'path' : ''}
     ${isPath ? `path-step-${pathStep}` : ''}
     ${isLineComplete ? 'line-complete' : ''}
@@ -34,7 +38,7 @@ const Cell: React.FC<CellProps> = React.memo(
   `;
 
     return (
-      <div className={cellClass} onClick={onClick} data-row={position.row} data-col={position.col}>
+      <div className={cellClass} onClick={handleClick} data-row={row} data-col={col}>
         {type.ball && <div className="ball-inner"></div>}
         {isPath && !type.ball && <div className="path-dot"></div>}
       </div>

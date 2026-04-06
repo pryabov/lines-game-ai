@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Board from './Board';
 import { useGameActions } from '../hooks/useGameActions';
 import { useGameStatePersistence } from '../hooks/useGameStatePersistence';
+import { useHighScore } from '../hooks/useHighScore';
+import { useGameAnalytics } from '../hooks/useGameAnalytics';
 import { GAME_INIT_DELAY } from '../atoms/gameAtoms';
 import ConfirmDialog from './ConfirmDialog';
 import GameOverDialog from './GameOverDialog';
@@ -45,46 +47,14 @@ const Game: React.FC = () => {
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   // State for help dialog
   const [showHelpDialog, setShowHelpDialog] = useState(false);
-  const previousScore = useRef(0);
-  const wasGameOver = useRef(false);
-  const [highScore, setHighScore] = useState(() => {
-    const saved = localStorage.getItem('highScore');
-    return saved ? parseInt(saved, 10) : 0;
-  });
+
+  // Use extracted hooks for cleaner code
+  const highScore = useHighScore(score);
+  const { resetTracking } = useGameAnalytics({ score, gameOver });
 
   // Use the game state persistence hook
   const { loadGameState, clearGameState } = useGameStatePersistence();
   const gameInitialized = useRef(false);
-
-  // Track game start
-  useEffect(() => {
-    analytics.trackGameStart();
-  }, []);
-
-  // Track score changes
-  useEffect(() => {
-    if (score > 0 && score !== previousScore.current) {
-      analytics.trackScoreChanged(score);
-
-      // If score increased by 5 or more, a line was completed
-      const scoreDiff = score - previousScore.current;
-      if (scoreDiff >= 5) {
-        analytics.trackLineCompleted(scoreDiff);
-      }
-
-      previousScore.current = score;
-    }
-  }, [score]);
-
-  // Track game over
-  useEffect(() => {
-    if (gameOver && !wasGameOver.current) {
-      analytics.trackGameOver(score);
-      wasGameOver.current = true;
-    } else if (!gameOver && wasGameOver.current) {
-      wasGameOver.current = false;
-    }
-  }, [gameOver, score]);
 
   // Place initial balls when the game starts
   useEffect(() => {
@@ -103,31 +73,29 @@ const Game: React.FC = () => {
     }
   }, [loadGameState, placeRandomBalls]);
 
-  // Update high score when needed
-  useEffect(() => {
-    if (score > highScore) {
-      setHighScore(score);
-      localStorage.setItem('highScore', score.toString());
-    }
-  }, [score, highScore]);
+  // Render the next balls - memoized to prevent recreation on every render
+  const nextBallsDisplay = useMemo(
+    () =>
+      nextBalls.map((ball) => (
+        <div key={ball.id} className={`next-ball ball-${ball.color}`}>
+          <div className="ball-inner"></div>
+        </div>
+      )),
+    [nextBalls]
+  );
 
-  // Render the next balls
-  const nextBallsDisplay = nextBalls.map((ball) => (
-    <div key={ball.id} className={`next-ball ball-${ball.color}`}>
-      <div className="ball-inner"></div>
-    </div>
-  ));
+  // Memoize ball count to avoid O(81) scan on every render
+  const ballCount = useMemo(
+    () => grid.reduce((count, row) => count + row.filter((cell) => cell.ball !== null).length, 0),
+    [grid]
+  );
 
   // If we have next balls but no balls on the grid, force place random balls
   useEffect(() => {
-    const ballCount = grid.reduce((count, row) => {
-      return count + row.filter((cell) => cell.ball !== null).length;
-    }, 0);
-
     if (nextBalls.length > 0 && ballCount === 0 && gameInitialized.current) {
       placeRandomBalls();
     }
-  }, [grid, nextBalls, placeRandomBalls]);
+  }, [ballCount, nextBalls, placeRandomBalls]);
 
   // Handle reset button click
   const handleResetClick = () => {
@@ -138,21 +106,24 @@ const Game: React.FC = () => {
     }
   };
 
-  // Enhanced cell click that tracks ball movements
-  const handleCellClickWithTracking = (row: number, col: number) => {
-    const cellHadBall = grid[row][col].ball !== null;
-    const hadSelectedCell = selectedCell !== null;
+  // Enhanced cell click that tracks ball movements - memoized for stable reference
+  const handleCellClickWithTracking = useCallback(
+    (row: number, col: number) => {
+      const cellHadBall = grid[row][col].ball !== null;
+      const hadSelectedCell = selectedCell !== null;
 
-    // If we have a selected cell and clicked on an empty cell, track the potential move
-    if (hadSelectedCell && !cellHadBall && selectedCell) {
-      const fromCoord = `${selectedCell.row},${selectedCell.col}`;
-      const toCoord = `${row},${col}`;
-      analytics.trackBallMoved(fromCoord, toCoord);
-    }
+      // If we have a selected cell and clicked on an empty cell, track the potential move
+      if (hadSelectedCell && !cellHadBall && selectedCell) {
+        const fromCoord = `${selectedCell.row},${selectedCell.col}`;
+        const toCoord = `${row},${col}`;
+        analytics.trackBallMoved(fromCoord, toCoord);
+      }
 
-    // Call the original handler
-    handleCellClick(row, col);
-  };
+      // Call the original handler
+      handleCellClick(row, col);
+    },
+    [grid, selectedCell, handleCellClick]
+  );
 
   // Perform a complete game reset including clearing saved state
   const performFullReset = () => {
@@ -171,9 +142,8 @@ const Game: React.FC = () => {
     // Reset initialization flag to force a fresh start
     gameInitialized.current = true;
 
-    // Reset tracking references
-    previousScore.current = 0;
-    wasGameOver.current = false;
+    // Reset analytics tracking
+    resetTracking();
   };
 
   return (
