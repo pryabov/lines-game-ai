@@ -95,11 +95,37 @@ You are a QA Specialist for the Lines Game project. Read `TEAM_INSTRUCTIONS.md` 
 ## Test commands
 
 ```bash
-yarn test          # Run Jest tests
-yarn type-check    # TypeScript compilation check
-yarn lint          # ESLint check
-yarn build         # Production build (catches additional issues)
+yarn test                                # Run all tests
+yarn test --testPathPattern=unit         # Unit tests only
+yarn test --testPathPattern=integration  # Integration tests only
+yarn test --coverage                     # With coverage report
+yarn type-check                          # TypeScript compilation check
+yarn lint                                # ESLint check
+yarn build                               # Production build (catches additional issues)
 ```
+
+## Integration test structure
+
+Tests are organized by user journey (defined in `docs/USER_JOURNEYS.md`):
+
+| Test file | User Journeys | What it covers |
+|-----------|---------------|----------------|
+| `newGame.test.tsx` | UJ-1 | First-time player, initial state |
+| `coreGameplay.test.tsx` | UJ-2, UJ-3 | Select, move, score, blocked path |
+| `gameOver.test.tsx` | UJ-4 | Game over detection, dialog, restart |
+| `resetGame.test.tsx` | UJ-5 | Reset confirmation, cancel, confirm |
+| `helpDialog.test.tsx` | UJ-6 | Help content, open/close |
+| `settings.test.tsx` | UJ-7, UJ-8, UJ-9 | Theme, language, animation |
+| `persistence.test.tsx` | UJ-10, UJ-11 | State save/load, high score |
+| `consent.test.tsx` | UJ-12 | Analytics consent flow |
+| `offline.test.tsx` | UJ-13 | Offline notice, playability |
+
+Helpers in `src/__tests__/helpers/`:
+- `renderWithProviders.tsx` — wraps components in Jotai + LanguageProvider
+- `gameTestUtils.ts` — grid builders, ball placement, board filling
+- `localStorageMock.ts` — mock for persistence tests
+
+When auditing changes, verify that the corresponding integration tests still pass and cover the modified behavior.
 
 ## Audit checklist
 

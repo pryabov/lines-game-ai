@@ -91,6 +91,12 @@ export const xx = {
 - [ ] Natural phrasing — not word-for-word translation
 - [ ] Numbers formatted per locale conventions where applicable
 
+## Integration tests
+
+- Integration tests verify that translated text appears in the UI (see `src/__tests__/integration/settings.test.tsx` — UJ-8: Language Switch)
+- After adding new translation keys, run `yarn test` to confirm no integration tests break
+- Tests check that all visible text comes from translations — hardcoded English will cause test failures
+
 ## Logging (MANDATORY)
 
 Append to `CHANGE_LOG.md` in the project root:

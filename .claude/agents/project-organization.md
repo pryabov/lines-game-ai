@@ -198,6 +198,38 @@ interface GameState { grid, score, nextBalls, selectedCell, gameOver, movesMade 
 
 ## Key Patterns
 
+## Testing
+
+### Structure
+```
+src/__tests__/
+├── helpers/
+│   ├── renderWithProviders.tsx   # Render with Jotai + LanguageProvider
+│   ├── gameTestUtils.ts          # Grid builders, ball helpers
+│   └── localStorageMock.ts       # localStorage mock
+├── integration/                  # User journey tests (UJ-1 through UJ-13)
+│   ├── newGame.test.tsx          # UJ-1: First-time player
+│   ├── coreGameplay.test.tsx     # UJ-2, UJ-3: Gameplay + blocked path
+│   ├── gameOver.test.tsx         # UJ-4: Game over
+│   ├── resetGame.test.tsx        # UJ-5: Reset mid-play
+│   ├── helpDialog.test.tsx       # UJ-6: Help dialog
+│   ├── settings.test.tsx         # UJ-7–9: Theme, language, animation
+│   ├── persistence.test.tsx      # UJ-10, UJ-11: State + high score
+│   ├── consent.test.tsx          # UJ-12: Analytics consent
+│   └── offline.test.tsx          # UJ-13: Offline play
+└── unit/
+    ├── gameLogic.test.ts         # Pure game logic functions
+    └── pathfinding.test.ts       # BFS pathfinding
+```
+
+### Key references
+- User journeys: `docs/USER_JOURNEYS.md`
+- Test implementation plan: `docs/work_plans/INTEGRATION_TESTS.md`
+
+---
+
+## Key Patterns
+
 ### Adding a new game feature
 1. Define any new types in `types.ts`
 2. Add state atoms in `gameAtoms.ts`
@@ -205,7 +237,8 @@ interface GameState { grid, score, nextBalls, selectedCell, gameOver, movesMade 
 4. Create/update hook in `hooks/` to expose actions
 5. Update component(s) to use the hook
 6. Add translation keys to all 7 language files
-7. Add tests
+7. Add/update integration tests in `src/__tests__/integration/`
+8. Run `yarn test` — all tests must pass
 
 ### Adding a new translation key
 1. Add key to `src/translations/en.ts` first (source of truth)

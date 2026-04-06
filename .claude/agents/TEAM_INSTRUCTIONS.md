@@ -145,6 +145,54 @@ Log after each phase: implementation, cross-check, fixes.
 
 ---
 
+## Integration Tests
+
+The project has integration tests covering all user journeys defined in `docs/USER_JOURNEYS.md`.
+
+### Running tests
+```bash
+yarn test                                # All tests
+yarn test --testPathPattern=unit         # Unit tests only
+yarn test --testPathPattern=integration  # Integration tests only
+yarn test --coverage                     # With coverage report
+```
+
+### Test structure
+```
+src/__tests__/
+├── helpers/
+│   ├── renderWithProviders.tsx   # Render with Jotai + LanguageProvider
+│   ├── gameTestUtils.ts          # Grid builders, ball placement helpers
+│   └── localStorageMock.ts       # localStorage mock for persistence tests
+├── integration/                  # User journey tests (UJ-1 through UJ-13)
+│   ├── newGame.test.tsx          # UJ-1: First-time player
+│   ├── coreGameplay.test.tsx     # UJ-2, UJ-3: Select, move, score, blocked path
+│   ├── gameOver.test.tsx         # UJ-4: Game over
+│   ├── resetGame.test.tsx        # UJ-5: Reset mid-play
+│   ├── helpDialog.test.tsx       # UJ-6: Help dialog
+│   ├── settings.test.tsx         # UJ-7, UJ-8, UJ-9: Theme, language, animation
+│   ├── persistence.test.tsx      # UJ-10, UJ-11: State persistence, high score
+│   ├── consent.test.tsx          # UJ-12: Analytics consent
+│   └── offline.test.tsx          # UJ-13: Offline play
+└── unit/
+    ├── gameLogic.test.ts         # Pure game logic functions
+    └── pathfinding.test.ts       # BFS pathfinding
+```
+
+### Rules
+- Always use `renderWithProviders()` — never bare `render()`
+- Mock `Math.random` for deterministic ball placement in tests
+- Use `jest.useFakeTimers()` for animation tests
+- When adding a new feature, add or update the corresponding integration test
+- When fixing a bug, add a regression test that would have caught it
+- Run `yarn test` after every change — all tests must pass
+
+### Reference
+- User journeys: `docs/USER_JOURNEYS.md`
+- Test implementation plan: `docs/work_plans/INTEGRATION_TESTS.md`
+
+---
+
 ## Pitfalls
 
 1. Don't modify atoms directly from components — use hooks
@@ -159,3 +207,5 @@ Log after each phase: implementation, cross-check, fixes.
 10. Don't check for game over during animations — wait until `isAnimating` is false
 11. When adding new translation keys, add them to ALL 7 language files simultaneously
 12. Keep game logic functions pure — no side effects, no DOM manipulation
+13. When adding a new feature, add or update the corresponding integration test (`src/__tests__/integration/`)
+14. When fixing a bug, add a regression test that would have caught it

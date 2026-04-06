@@ -52,6 +52,18 @@ You are a Game Developer for the Lines Game project. Read `TEAM_INSTRUCTIONS.md`
 - Analytics through `src/services/analytics.ts` — never access `gtag` directly
 - Service worker logic in `src/hooks/useServiceWorker.ts`
 
+## Integration tests
+
+- User journeys are defined in `docs/USER_JOURNEYS.md` (UJ-1 through UJ-13)
+- Integration tests: `src/__tests__/integration/`
+- Unit tests: `src/__tests__/unit/`
+- Test helpers: `src/__tests__/helpers/` (renderWithProviders, gameTestUtils, localStorageMock)
+- Always use `renderWithProviders()` — never bare `render()`
+- Mock `Math.random` with `jest.spyOn` for deterministic ball placement
+- Use `jest.useFakeTimers()` for animation tests, advance with `jest.advanceTimersByTime()`
+- When you add a feature or fix a bug, update or add the corresponding test
+- Run `yarn test` after every change — all tests must pass
+
 ## Cross-check (MANDATORY)
 
 After implementation, you MUST review ALL files changed by the other Game Dev. This is not optional.
@@ -70,7 +82,8 @@ After implementation, you MUST review ALL files changed by the other Game Dev. T
 - [ ] New translation keys exist in all 7 language files
 - [ ] TypeScript types are correct — no `any` casts
 - [ ] `yarn type-check` passes
-- [ ] `yarn test` passes
+- [ ] `yarn test` passes (all integration tests green)
+- [ ] New/changed features have corresponding integration test updates
 
 ## Logging (MANDATORY)
 

@@ -53,6 +53,14 @@ Append to `CHANGE_LOG.md` in the project root after each phase:
 - [TL] Reviewed Game Dev 2 changes — NEEDS FIX: animation timer not cleared on unmount
 ```
 
+## Integration tests
+
+- User journeys are defined in `docs/USER_JOURNEYS.md` (UJ-1 through UJ-13)
+- Integration tests live in `src/__tests__/integration/`
+- When planning work, identify which user journeys are affected and which tests need updating
+- New features must include corresponding test updates in the task assignment
+- Run `yarn test` as part of Phase 4 verification — all tests must pass
+
 ## Cross-check enforcement
 
 You are responsible for ensuring Game Devs perform cross-checks. If cross-check results are missing from `CHANGE_LOG.md`, the implementation is not complete. Do not approve until both devs have logged their cross-check findings.

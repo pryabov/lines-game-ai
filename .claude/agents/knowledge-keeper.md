@@ -30,6 +30,8 @@ After every implementation sprint (after Phase 4 is complete and all changes are
 | PWA/persistence change | `project-organization.md` — relevant section; `qa.md` — persistence testing |
 | Architecture decision | `project-organization.md` — relevant section; `tl.md` — decisions list |
 | New utility/pattern | `project-organization.md` — key patterns; `game-dev.md` — implementation rules |
+| New/changed integration test | `project-organization.md` — test structure; `qa.md` — test file table |
+| New user journey | `docs/USER_JOURNEYS.md` — add journey; `qa.md` — update test mapping |
 
 ## Update process
 
