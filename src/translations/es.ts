@@ -80,4 +80,10 @@ export const es = {
     email: 'support@lines98.fun',
     contactUs: 'Contáctenos',
   },
+  seo: {
+    title: 'Líneas - Juego de puzzle de colores gratis en línea',
+    description:
+      'Juega a Líneas - un puzzle gratuito en línea. Mueve bolas de colores en una cuadrícula de 9x9 para formar líneas de 5 o más y ganar puntos.',
+    ogTitle: 'Líneas - Puzzle de colores',
+  },
 };

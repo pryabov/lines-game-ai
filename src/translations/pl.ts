@@ -80,4 +80,10 @@ export const pl = {
     email: 'support@lines98.fun',
     contactUs: 'Kontakt',
   },
+  seo: {
+    title: 'Kulki - Darmowa gra logiczna online z kolorowymi kulkami',
+    description:
+      'Zagraj w Kulki - darmowa gra logiczna online. Przesuwaj kolorowe kulki na planszy 9x9, twórz linie z 5 lub więcej kulek i zdobywaj punkty.',
+    ogTitle: 'Kulki - Gra logiczna z kolorowymi kulkami',
+  },
 };

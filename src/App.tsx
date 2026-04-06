@@ -13,6 +13,7 @@ import { useLanguage } from './hooks/useLanguage';
 import { useSettingsInitialization } from './hooks/useSettingsInitialization';
 import { useTheme } from './hooks/useTheme';
 import { useBallMovementAnimation } from './hooks/useBallMovementAnimation';
+import { useSEO } from './hooks/useSEO';
 import './App.scss';
 import './styles/DarkTheme.scss';
 import './components/settings/styles/SettingsDialog.scss';
@@ -28,6 +29,7 @@ const AppContent: React.FC = () => {
   // Initialize individual settings hooks
   useTheme();
   useBallMovementAnimation();
+  useSEO();
 
   return (
     <div className="App">

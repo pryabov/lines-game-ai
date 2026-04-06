@@ -79,4 +79,10 @@ export const zh = {
     email: 'support@lines98.fun',
     contactUs: '联系我们',
   },
+  seo: {
+    title: '彩球连线 - 免费在线益智消除游戏',
+    description:
+      '玩彩球连线 - 免费在线益智游戏。在9x9的棋盘上移动彩色球，组成5个或更多同色球的连线来得分。',
+    ogTitle: '彩球连线 - 益智消除游戏',
+  },
 };

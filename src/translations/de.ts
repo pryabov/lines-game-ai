@@ -81,4 +81,10 @@ export const de = {
     email: 'support@lines98.fun',
     contactUs: 'Kontaktiere uns',
   },
+  seo: {
+    title: 'Linien - Kostenloses Online-Farbpuzzlespiel',
+    description:
+      'Spielen Sie Linien - ein kostenloses Online-Puzzlespiel. Bewegen Sie bunte Kugeln auf einem 9x9-Raster, bilden Sie Linien aus 5 oder mehr und sammeln Sie Punkte.',
+    ogTitle: 'Linien - Farbpuzzlespiel',
+  },
 };

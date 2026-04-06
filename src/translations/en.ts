@@ -80,4 +80,10 @@ export const en = {
     email: 'support@lines98.fun',
     contactUs: 'Contact Us',
   },
+  seo: {
+    title: 'Lines Game - Free Online Color Matching Puzzle Game',
+    description:
+      'Play Lines Game - a free online color matching puzzle. Move colorful balls on a 9x9 grid to form lines of 5 or more and score points.',
+    ogTitle: 'Lines Game - Color Matching Puzzle',
+  },
 };
